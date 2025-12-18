@@ -193,6 +193,97 @@ export async function ujPoszt(req: Request, res: Response) {
     }
 }
 
+export async function getfelhasznaloPreferenciak(req: Request, res: Response) {
+    const connection = await mysql.createConnection(config.database);
+
+    try {
+        const felhasznaloId = Number(req.params.id);
+
+        //nemtudom Daninak kelleni fog-e a név meg az id is, egyelőre mindkettőt megkapja
+        const [eredmenysorok]: any = await connection.query(
+            `
+            SELECT 
+                p.preferencia_id,
+                p.preferencia_nev
+            FROM felhasznalo_preferenciak fp
+            JOIN preferenciak p 
+                ON fp.preferencia_id = p.preferencia_id
+            WHERE fp.felhasznalo_id = ?
+            `,
+            [felhasznaloId]
+        );
+
+        res.status(200).json(eredmenysorok);
+
+    } finally {
+        await connection.end();
+    }
+}
+
+export async function PreferenciaKezeles(req: Request, res: Response) {
+    const connection = await mysql.createConnection(config.database);
+
+    try {
+        const felhasznaloId = Number(req.params.id);
+        const { preferencia_nev } = req.body;
+
+        const [rows]: any = await connection.query(
+            "CALL preferencia_kezeles(?, ?)",
+            [felhasznaloId, preferencia_nev]
+        );
+
+        //valamiért megint kétdimenziós , visszatérés csekkolása
+        const eredmeny = rows[0][0].eredmeny;
+
+        // nincs ilyen preferencia
+        if (eredmeny === null) {
+            return res.status(404).json({message: "A megadott preferencia nem létezik"});
+        }
+
+        // sikeres toggle
+        return res.status(200).json({eredmeny});
+    } finally {
+        if (connection) {
+            await connection.end();
+        }
+    }
+}
+
+export async function SotetMod(req: Request, res: Response) {
+    const connection = await mysql.createConnection(config.database);
+    
+    try {
+        const felhasznaloId = Number(req.params.id);
+
+        //gecijo vagyok 1-0 = 1 , 1-1 = 0
+        await connection.query(
+            `
+            UPDATE felhasznalok
+            SET sotet_mod = 1 - sotet_mod
+            WHERE felhasznalo_id = ?
+            `,
+            [felhasznaloId]
+        );
+
+        // aktuális érték
+        const [eredmenysorok]: any = await connection.query(
+            `
+            SELECT sotet_mod
+            FROM felhasznalok
+            WHERE felhasznalo_id = ?
+            `,
+            [felhasznaloId]
+        );
+
+        return res.status(200).json({sotet_mod: eredmenysorok[0].sotet_mod});
+    } finally {
+        if (connection) {
+            await connection.end();
+        }
+    }
+}
+
+
 
 
 export async function getKomment(req: Request, res: Response) {

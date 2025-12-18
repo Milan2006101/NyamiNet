@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getSzurtPoszt, getReszletesPoszt , root, getKomment, addKomment, getFogas, getKonyha, getSzezon, likeolas,dislikeolas,ujPoszt, getPreferenciak} from "./posztcontroller";
+import { getSzurtPoszt, getReszletesPoszt , root, getKomment, addKomment, getFogas, getKonyha, getSzezon, likeolas,dislikeolas,ujPoszt, getfelhasznaloPreferenciak, PreferenciaKezeles, SotetMod} from "./posztcontroller";
 
 const router: Router = Router();
 
@@ -24,9 +24,11 @@ router.patch("/poszt/:id/dislike", dislikeolas);
 //poszt feltöltés
 router.post("/poszt", ujPoszt)
 
+router.get("/felhasznalo/:id/preferenciak", getfelhasznaloPreferenciak)
 
+router.post("/felhasznalo/:id/preferenciak", PreferenciaKezeles)
 
-
+router.patch("/felhasznalo/:id/sotetmod", SotetMod)
 
 
 
@@ -35,7 +37,7 @@ router.post("/poszt", ujPoszt)
 router.get("/konyha", getKonyha);
 router.get("/fogas", getFogas);
 router.get("/szezon", getSzezon);
-router.get("/preferenciak", getPreferenciak)
+router.get("/preferenciak", getfelhasznaloPreferenciak)
 
 
 
