@@ -10,7 +10,6 @@ export default function Login(){
     const [error, setError] = useState('');
 
     function handleLogin(){
-        // Bypass backend, just redirect to mainlogin
         localStorage.setItem('user', JSON.stringify({ email }));
         navigate('/mainlogin');
     }

@@ -41,17 +41,14 @@ export default function Sidebar({ originalReceptek = [], setReceptek }){
     const [difficulty, setDifficulty] = useState(null);
     const [season, setSeason] = useState("");
 
-    // derive unique values from originalReceptek (use name fields returned by SQL)
     const konyhaOptions = useMemo(() => [...new Set(originalReceptek.map(r => r.konyha_nev).filter(Boolean))], [originalReceptek]);
     const fogasOptions = useMemo(() => [...new Set(originalReceptek.map(r => r.fogas_nev).filter(Boolean))], [originalReceptek]);
     const arOptions = useMemo(() => [...new Set(originalReceptek.map(r => r.ar_kategoria).filter(Boolean))], [originalReceptek]);
 
-    // preference labels will be derived from data when possible
     const PREFERENCE_LABELS_FALLBACK = [
         'vegán','vegetáriánus','mogyoró mentes','laktóz mentes','glutén mentes','cukor mentes','hal','szója mentes','tojás mentes','búza mentes'
     ];
 
-    // Map numeric preference ids to labels (kept for safety)
     const PREF_MAP = {
         '1': ['vegán'],
         '2': ['vegetáriánus'],
@@ -75,7 +72,6 @@ export default function Sidebar({ originalReceptek = [], setReceptek }){
         }).filter(Boolean))];
     }, [originalReceptek]);
 
-    // derive preference labels from recipes (prefer array values)
     const preferenceOptions = useMemo(() => {
         const fromData = new Set();
         originalReceptek.forEach(r => {
