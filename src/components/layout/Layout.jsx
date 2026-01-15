@@ -11,7 +11,6 @@ export default function Layout({ children }){
     const pathname = location.pathname;
     const { currentPage, totalPages, setCurrentPage, setTotalPages } = usePagination();
     
-    // Reset pagination for pages that don't use it
     useEffect(() => {
         const paginatedPages = ['/', '/mainlogin'];
         if (!paginatedPages.includes(pathname)) {
@@ -20,7 +19,6 @@ export default function Layout({ children }){
         }
     }, [pathname, setTotalPages, setCurrentPage]);
     
-    // Determine user authentication status
     const user = (() => {
         try {
             return JSON.parse(localStorage.getItem('user'));
@@ -29,19 +27,15 @@ export default function Layout({ children }){
         }
     })();
 
-    // Determine which navbar to show
     const getNavbar = () => {
-        // Pages with back button
         if (['/login', '/register'].includes(pathname)) {
             return <NavbarBack />;
         }
         
-        // Pages that show recipe details
         if (pathname === '/recipe') {
             return user ? <NavbarLogin /> : <NavbarBack />;
         }
         
-        // Authenticated pages
         if (user && ['/mainlogin', '/saved', '/upload', '/profile', '/profile_admin'].includes(pathname)) {
             let selected = '';
             if (pathname === '/mainlogin') selected = 'fooldal';
@@ -52,7 +46,6 @@ export default function Layout({ children }){
             return <NavbarLogin selected={selected} />;
         }
         
-        // Default: no login navbar (home page)
         return <NavbarNoLogin />;
     };
 
