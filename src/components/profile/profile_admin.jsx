@@ -5,15 +5,19 @@ import FoodPreferences from "./FoodPreferences.jsx";
 
 export default function ProfileAdmin(){
     return(
-        <div className="wrap">
-            <div className="profileTitle">
-                <PasswordChange />
-                <DarkModeToggle />
-            </div>
-            <div className="inputfield right profileTitle">
-                <FoodPreferences />
+        <>
+            <div style={{flex: '1 1 auto', padding: '12px'}}>
+                <div className="wrap">
+                    <div className="profileTitle">
+                        <PasswordChange />
+                        <DarkModeToggle />
+                    </div>
+                    <div className="profileTitle">
+                        <FoodPreferences />
+                    </div>
+                </div>
             </div>
             <SidebarAdmin />
-        </div>
+        </>
     );
 }
