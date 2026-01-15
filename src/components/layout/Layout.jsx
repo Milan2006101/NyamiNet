@@ -12,7 +12,7 @@ export default function Layout({ children }){
     const { currentPage, totalPages, setCurrentPage, setTotalPages } = usePagination();
     
     useEffect(() => {
-        const paginatedPages = ['/', '/mainlogin'];
+        const paginatedPages = ['/', '/mainlogin', '/saved'];
         if (!paginatedPages.includes(pathname)) {
             setTotalPages(1);
             setCurrentPage(1);

@@ -38,11 +38,18 @@
 main{
     display: flex;
     margin: 0;
+    flex: 1;
 }
 
 body{
     margin: 0;
     background-color: #EAD196;
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .right{
