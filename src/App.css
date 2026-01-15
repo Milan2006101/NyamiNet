@@ -1,0 +1,397 @@
+.navbar{
+    background-color: #7D0A0A;
+    text-wrap: wrap;
+    display: flex;
+    height: 50px;
+    margin: 0;
+}
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+.feher{
+    color: #EEEEEE;
+}
+.btn{
+    color:#EEEEEE;
+    border: none;
+    background-color: transparent;
+    font-size: auto;
+    margin-left: 10px;
+    height: 50px;
+    margin-top:0;
+    padding-top: 0;
+}
+
+.btn:hover{
+    color: #BF3131;
+    background-color: #EEEEEE;
+}
+
+.btn-large{
+    font-size: larger;
+    margin-right: 20px;
+}
+
+main{
+    display: flex;
+    margin: 0;
+}
+
+body{
+    margin: 0;
+    background-color: #EAD196;
+}
+
+.right{
+    margin-right: 0;
+    margin-left: auto;
+    height: 50px;
+    margin-top: 0;
+    gap: 12px;
+}
+
+.recipe1{
+    margin-right: 0;
+    flex: 0 0 25%;
+    max-width: 25%;
+    box-sizing: border-box;
+    padding-right: 8px;
+}
+.recipe2{
+    flex: 1 1 auto;
+    margin: 0;
+    padding-left: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.search{
+    height: 40px;
+    margin-top: 5px;
+    font-size: medium;
+    border-radius: 30px;
+    width: 300px;
+}
+
+.left{
+    height: 50px;
+    margin-top:0;
+}
+
+.selected{
+    background-color: #BF3131;
+    
+}
+
+.sidebar{
+    background-color: #BF3131;
+    margin-right: 0;
+    margin-left: auto;  
+    padding: 10px;
+    color: #EEEEEE;
+    min-height:90vh;
+}
+
+.sidebar{
+    background-color: #BF3131;
+    margin-right: 0;
+    margin-left: auto;
+    padding: 10px;
+    color: #EEEEEE;
+    min-height:90vh;
+    width: 280px;
+}
+
+.recipe{
+    background-color: #ECE0C2;
+    margin-top: 10px;
+    text-wrap: wrap;
+    display: flex;
+    margin-right: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.recipesArea{
+    flex: 1 1 auto;
+    padding: 12px;
+}
+
+.recipe1{
+    margin-right: 15px;
+}
+
+.recipe2{
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 40px;
+}
+
+.sideRow{
+    text-wrap: wrap;
+    display: flex;
+    border-bottom-style: solid;
+    border-bottom-color: #EEEEEE;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+.sideTitle{
+    margin-bottom: 10px;
+}
+
+.sideButton{
+    font-size: large;
+    background-color: black;
+    color: #EEEEEE;
+    border-radius: 5px;
+    width: 75px;
+    height: 75px;
+    margin-left: 8px;
+    margin-right: 8px;
+    border-width: 0;
+}
+
+.sideButton:hover{
+    color: black;
+    background-color: #EEEEEE;
+    border: 1px solid black;
+}
+
+.sideSelect{
+    margin-left: 8px;
+    margin-right: 8px;
+    width: 100%;
+    border-radius: 5px;
+    height: 30px;
+}
+
+.three{
+    width: 33.333%;
+    
+}
+
+.last{
+    border-bottom: none;
+}
+
+.x-large-font{
+    font-size: x-large;
+}
+
+.center{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box{
+    margin-top: 10px;
+    background-color: #EEEEEE;
+    border-radius: 15px;
+    padding: 30px;
+    padding-bottom: 10px;
+}
+
+.loginpage{
+    margin-top: 30px;
+    margin-bottom: 70px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title{
+    color: #BF3131;
+    font-size: xx-large;
+}
+
+.inputfield{
+    width: 400px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+}
+.subtitle{
+    margin-bottom: 5px;
+}
+
+.button{
+    width: 100%;
+    height: 50px;
+    font-size: larger;
+    background-color: #BF3131;
+    color: #EEEEEE;
+    border: none;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.button:hover{
+    background-color: #EEEEEE;
+    color: #BF3131;
+    border: 1px solid #BF3131;
+}
+
+.link{
+    color: #BF3131;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+.sidebar-profile{
+    margin-left: auto;
+    margin-right: 0;
+    min-width: 148px;
+}
+
+.profilebox{
+    margin-left: 30px;
+    margin-top: 80px;
+    margin-right: 30px;
+}
+
+.profileInput{
+    margin: 0;
+    margin-bottom: 15px;
+    padding: 0;
+    border: none;
+}
+
+
+.dark{
+    background-color: #5C5470;
+}
+
+.wrap{
+    text-wrap: wrap;
+    display: flex;
+}
+
+.profileTitle{
+    width: 50%;
+}
+
+.preferenceButton{
+    border-radius: 50px;
+    height: 70px;
+    font-size: large;
+    border: none;
+    margin-left: 10px;
+    width: 30%;
+    margin-top: 30px;
+}
+
+.preferenceBadge{
+    border-radius: 20px;
+    height: 28px;
+    font-size: 12px;
+    border: none;
+    margin: 4px 6px 4px 0;
+    padding: 4px 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.veg{
+    background-color: green;
+    color: #EEEEEE;
+}
+
+.nut{
+    background-color:#BF3131;
+    color: #EEEEEE;
+}
+
+.lactose{
+    background-color:white;
+    color: black;
+}
+
+.gluten{
+    background-color:black;
+    color: #EEEEEE;
+}
+
+.sugar{
+    background-color:palevioletred;
+    color: #EEEEEE;
+}
+.fish{
+    background-color:lightseagreen;
+    color: #EEEEEE;
+}
+
+.soy{
+    background-color:darkgoldenrod;
+    color: #EEEEEE;
+}
+
+.egg{
+    background-color:#7D0A0A;
+    color: #EEEEEE;
+}
+
+.wheat{
+    background-color: burlywood;
+    color: #EEEEEE;
+}
+
+.preferenceRow{
+    height: 100px;
+}
+
+.invisible{
+    opacity: 0%;
+}
+
+
+.uploadMargin{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.tall{
+    height: 150px;
+}
+
+textarea {
+  resize: none;
+}
+
+.five{
+    width: 20%;
+}
+
+.deleteButton{
+    background-color: #BF3131;
+    color: #EEEEEE;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+}
+.deleteButton:hover{
+    background-color: #EEEEEE;
+    color: #BF3131;
+    border: 1px solid #BF3131;
+}
+
+.uploadInput{
+    height: 35px;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.nyami{
+    font-size: xx-large;
+    margin-top: auto;
+    margin-bottom: auto;
+}
