@@ -1,19 +1,7 @@
 {
-  "watch": ["Backend"],
-  "ext": "ts,json",
-  "ignore": ["Backend/**/*.spec.ts", "node_modules"],
-  "exec": "ts-node --transpile-only ./Backend/server.ts"
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "watch": ["Backend"],
+    "ext": "ts,js,json",
+    "ignore": ["node_modules"],
+    "exec": "ts-node Backend/app.ts"
+  }
+  

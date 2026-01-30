@@ -1,7 +1,10 @@
+version: "3.9"
+
 services:
   db:
     platform: linux/amd64
     image: mysql:8.0
+    container_name: nyaminet-db
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -9,14 +12,30 @@ services:
       MYSQL_USER: nyami
       MYSQL_PASSWORD: nyami
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./nyaminet.sql:/docker-entrypoint-initdb.d/01_init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  backend:
+    container_name: nyaminet-backend
+    build: .
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   db_data:
-
-
 
 

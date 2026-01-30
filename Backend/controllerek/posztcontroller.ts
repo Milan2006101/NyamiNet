@@ -12,7 +12,7 @@ export async function getSzurtPoszt(req: Request, res: Response) {
     await connection.query("SET NAMES utf8mb4 COLLATE utf8mb4_hungarian_ci"); //szarral csináltam
     try {
         const oldal = Number(req.query.oldal) || 1;
-        const limit = Number(req.query.limit) || 10;
+        const limit = Number(req.query.limit) || 100;
 
         const search = req.query.search ? String(req.query.search) : null;
         const ar = req.query.ar ? Number(req.query.ar) : null;
@@ -20,7 +20,7 @@ export async function getSzurtPoszt(req: Request, res: Response) {
         const fogas = req.query.fogas ? String(req.query.fogas) : null;
         const szezon = req.query.szezon ? String(req.query.szezon) : null;
 
-        const ido = req.query.elkeszitesi_ido ? Number(req.query.elkeszitesi_ido) : 1;
+        const ido = req.query.elkeszitesi_ido ? Number(req.query.elkeszitesi_ido) : null;
         //datumszűrés, amennyi eltelt napon belül legyen a ma az 0
         const nap = req.query.nap ? Number(req.query.nap) : null;
         const nehezseg = req.query.nehezseg ? Number(req.query.nehezseg) : null;
@@ -195,35 +195,39 @@ export async function ujPoszt(req: Request, res: Response) {
 
 export async function getfelhasznaloPreferenciak(req: Request, res: Response) {
     const connection = await mysql.createConnection(config.database);
-
+  
     try {
-        const felhasznaloId = Number(req.params.id);
-
-        //nemtudom Daninak kelleni fog-e a név meg az id is, egyelőre mindkettőt megkapja
-        const [eredmenysorok]: any = await connection.query(
-            `
-            SELECT 
-                p.preferencia_id,
-                p.preferencia_nev
-            FROM felhasznalo_preferenciak fp
-            JOIN preferenciak p 
-                ON fp.preferencia_id = p.preferencia_id
-            WHERE fp.felhasznalo_id = ?
-            `,
-            [felhasznaloId]
-        );
-
-        res.status(200).json(eredmenysorok);
-
+      if (!req.auth) return res.status(401).json({ uzenet: "Nincs token" });
+  
+      const felhasznaloId = req.auth.felhasznalo_id;
+  
+      const [eredmenysorok]: any = await connection.query(
+        `
+        SELECT 
+          p.preferencia_id,
+          p.preferencia_nev
+        FROM felhasznalo_preferenciak fp
+        JOIN preferenciak p 
+          ON fp.preferencia_id = p.preferencia_id
+        WHERE fp.felhasznalo_id = ?
+        `,
+        [felhasznaloId]
+      );
+  
+      return res.status(200).json(eredmenysorok);
     } finally {
-        await connection.end();
+      await connection.end();
     }
-}
+  }
 
 export async function PreferenciaKezeles(req: Request, res: Response) {
     const connection = await mysql.createConnection(config.database);
 
     try {
+        //tokencsekk
+        if (!req.auth) return res.status(401).json({ uzenet: "Nincs token" });
+
+
         const felhasznaloId = Number(req.params.id);
         const { preferencia_nev } = req.body;
 

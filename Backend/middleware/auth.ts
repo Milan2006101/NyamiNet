@@ -18,12 +18,13 @@ export function authRequired(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): void {
   //header kiolvasas
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ uzenet: "Nincs token" });
+    res.status(401).json({ uzenet: "Nincs token" });
+    return;
   }
 
   //Bearer token -> token
@@ -31,13 +32,12 @@ export function authRequired(
 
   // token csekk
   try {
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string
-    ) as TokenAdat;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as TokenAdat;
     req.auth = decoded;
     next();
-  } catch (error) {
-    return res.status(401).json({ uzenet: "Hibás token" });
+    return;
+  } catch {
+    res.status(401).json({ uzenet: "Hibás token" });
+    return;
   }
 }
