@@ -1,6 +1,9 @@
-import { Router } from "express";
-import { getSzurtPoszt, getReszletesPoszt , root, getKomment, addKomment, getFogas, getKonyha, getSzezon, likeolas,dislikeolas,ujPoszt, getfelhasznaloPreferenciak, PreferenciaKezeles, SotetMod} from "../controllerek/posztcontroller";
-import { authRequired } from "../middleware/auth";
+// ========== START: MODIFIED IMPORT FOR NAME-BASED INGREDIENT UPLOAD ==========
+import { Router, Request, Response, NextFunction } from "express";
+import { getSzurtPoszt, getReszletesPoszt , root, getKomment, hozzaadKomment, getFogas, getKonyha, getSzezon, likeolas,dislikeolas,ujPoszt, getfelhasznaloPreferenciak, PreferenciaKezeles, SotetMod, getPreferenciak, getMertekegyseg, getHozzavalok, posztTorles, ReportPoszt, getMentettPosztok, mentPoszt, mentettPosztLevetel } from "../controllerek/posztcontroller";
+import { authRequired, authOptional } from "../middleware/auth";
+import { handleMulterError } from "../middleware/kep";
+import upload from "../config/multerConfig";
 
 
 const router: Router = Router();
@@ -8,40 +11,39 @@ const router: Router = Router();
 router.get('/', root)
 
 // szűrt/etlen posztlista (GET/poszt?sorrend=2&allergia=vegetáriánus,vegán)
-router.get('/poszt', getSzurtPoszt);
-
-//reszletes posztnezet  
+router.get('/poszt', authOptional, getSzurtPoszt);
+ 
 router.get('/poszt/:id', getReszletesPoszt);
 
-//komment lekerdezes
 router.get("/komment/:posztid", getKomment);
 //komment feltoltes
-router.post("/komment", addKomment);
+router.post("/komment", hozzaadKomment);
 
-//like
 router.patch("/poszt/:id/like", likeolas);
-//dislike
+
 router.patch("/poszt/:id/dislike", dislikeolas);
 
-//poszt feltöltés
-router.post("/poszt", ujPoszt)
+//poszt feltöltés képpel
+router.post("/poszt", upload.single('kep'), handleMulterError, ujPoszt)
+
+router.delete("/poszt/:id", posztTorles);
 
 router.get("/felhasznalo/preferenciak", authRequired, getfelhasznaloPreferenciak);
 router.post("/felhasznalo/preferenciak", authRequired, PreferenciaKezeles);
 
-
 router.patch("/felhasznalo/:id/sotetmod", SotetMod)
 
+router.post("/report", authRequired, ReportPoszt);
 
-
-
+router.post("/mentett/:poszt_id", authRequired, mentPoszt);
+router.delete("/mentett/:poszt_id", authRequired, mentettPosztLevetel);
+router.get("/mentett", authRequired, getMentettPosztok);
 
 router.get("/konyha", getKonyha);
 router.get("/fogas", getFogas);
 router.get("/szezon", getSzezon);
-router.get("/preferenciak", getfelhasznaloPreferenciak)
-
-
-
+router.get("/preferenciak", getPreferenciak);
+router.get("/mertekegyseg", getMertekegyseg);
+router.get("/hozzavalok", getHozzavalok);
 
 export default router;

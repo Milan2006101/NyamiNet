@@ -11,11 +11,7 @@ const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN!;
 */
 
 export async function regisztracio(req: Request, res: Response) {
-  const usernameRegex = /^[a-zA-Z0-9._-]+$/;
-  
-  //teszteltetes miatt van itt majd kiszedem
-  
-    console.log("JWT_SECRET:", process.env.JWT_SECRET ? "jo" : "szar");
+    const usernameRegex = /^[a-zA-Z0-9._-]+$/;
     const connection = await mysql.createConnection(config.database);
   
     try {
@@ -171,6 +167,7 @@ export async function regisztracio(req: Request, res: Response) {
       if (!ok) {
         return res.status(401).json({ uzenet: "Hibás email vagy jelszó" });
       }
+
   
       const token = jwt.sign(
         { felhasznalo_id: user.felhasznalo_id, role_id: user.role_id },
@@ -188,8 +185,58 @@ export async function regisztracio(req: Request, res: Response) {
           role_id: user.role_id,
         },
       });
+    } catch (error) {
+      console.error("BEJELENTKEZES ERROR:", error);
+      return res.status(500).json({ uzenet: "Szerver hiba történt" });
     } finally {
       await connection.end();
     }
   }
+
+
+export async function jelszoValtoztatas(req: Request, res: Response) {
+  const connection = await mysql.createConnection(config.database);
+
+  try {
+    const { felhasznalo_id, regi_jelszo, uj_jelszo } = req.body;
+
+    if (!felhasznalo_id || !regi_jelszo || !uj_jelszo) {
+      return res.status(400).json({ uzenet: "Hiányzó adatok" });
+    }
+
+    // felhasznalo jelszavanak hash lekérése
+    const [eredmenysorok]: any = await connection.query(
+      "SELECT felhasznalo_jelszo_hash FROM felhasznalok WHERE felhasznalo_id = ?",
+      [felhasznalo_id]
+    );
+
+    if (eredmenysorok.length === 0) {
+      return res.status(404).json({ uzenet: "Felhasználó nem található" });
+    }
+
+    const user = eredmenysorok[0];
+
+    // régi jelszó ellenőrzése
+    const ok = await bcrypt.compare(regi_jelszo, user.felhasznalo_jelszo_hash);
+    if (!ok) {
+      return res.status(401).json({ uzenet: "Hibás régi jelszó" });
+    }
+
+    // új jelszó hash-elése
+    const uj_jelszo_hash = await bcrypt.hash(uj_jelszo, 10);
+
+    // frissítés
+    await connection.query(
+      "UPDATE felhasznalok SET felhasznalo_jelszo_hash = ? WHERE felhasznalo_id = ?",
+      [uj_jelszo_hash, felhasznalo_id]
+    );
+
+    return res.status(200).json({ uzenet: "Jelszó sikeresen megváltoztatva" });
+  } catch (error) {
+    console.error("PASSWORD CHANGE ERROR:", error);
+    return res.status(500).json({ uzenet: "Szerver hiba történt" });
+  } finally {
+    await connection.end();
+  }
+}
   

@@ -1,9 +1,12 @@
 import { Router } from "express";
-import { regisztracio , bejelentkezes} from "../controllerek/authcontroller";
+import { regisztracio , bejelentkezes, jelszoValtoztatas} from "../controllerek/authcontroller";
 
 const router = Router();
 
 router.post("/regisztracio", regisztracio);
-router.post("/bejelentkezes", bejelentkezes); //az internet a post body-t ajadnlotta
+router.post("/bejelentkezes", bejelentkezes);
+
+router.post("/jelszo-valtoztatas", jelszoValtoztatas);
+
 
 export default router;
