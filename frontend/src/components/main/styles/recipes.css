@@ -1,0 +1,205 @@
+.recipesArea {
+    flex: 1 1 auto;
+    padding: 12px;
+}
+
+.recipe {
+    background-color: #ECE0C2;
+    margin-top: 10px;
+    text-wrap: wrap;
+    display: flex;
+    margin-right: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 8px;
+    align-items: center;
+    gap: 12px;
+}
+
+.recipe1 {
+    margin-right: 0;
+    flex: 0 0 25%;
+    max-width: 25%;
+    box-sizing: border-box;
+    padding-right: 8px;
+}
+
+.recipe2 {
+    flex: 1 1 auto;
+    margin: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Recipe image in the middle */
+.recipe-image-middle {
+    flex: 0 0 250px;
+    width: 250px;
+    height: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #333;
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+
+.recipe-image-middle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Right column for preferences */
+.recipe-right-column {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+/* Preferences next to image */
+.recipe-preferences {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    max-width: 200px;
+}
+
+/* Recipe card actions (vote/save buttons) */
+.recipe-card-actions {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.recipe-card-vote-btn {
+    padding: 12px 20px;
+    background-color: transparent;
+    color: #000;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.recipe-card-vote-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.recipe-card-vote-btn.active-like {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.recipe-card-vote-btn.active-dislike {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.recipe-card-score {
+    padding: 12px 16px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    min-width: 50px;
+    justify-content: center;
+    color: #000;
+}
+
+.recipe-card-action-btn {
+    padding: 12px 24px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.recipe-card-save-btn {
+    background-color: #28a745;
+}
+
+.recipe-card-save-btn:hover {
+    background-color: #218838;
+}
+
+.recipe-card-unsave-btn {
+    background-color: #6c757d;
+}
+
+.recipe-card-unsave-btn:hover {
+    background-color: #5a6268;
+}
+
+.recipe-card-report-btn {
+    background-color: #BF3131;
+    padding: 12px 20px;
+}
+
+.recipe-card-report-btn:hover {
+    background-color: #a02828;
+}
+
+/* Dark Mode */
+.dark-mode .recipe {
+    background-color: #5C5470;
+    color: #FAF0E6;
+}
+
+.dark-mode .recipesArea {
+    color: #FAF0E6;
+}
+
+.dark-mode .recipe-image-middle {
+    background-color: #352F44;
+    border-color: #FAF0E6;
+}
+
+/* Dark mode for recipe card actions */
+.dark-mode .recipe-card-vote-btn {
+    color: #FAF0E6;
+    border-color: #5C5470;
+    background-color: #352F44;
+}
+
+.dark-mode .recipe-card-vote-btn:hover {
+    background-color: #5C5470;
+}
+
+.dark-mode .recipe-card-vote-btn.active-like {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.dark-mode .recipe-card-vote-btn.active-dislike {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.dark-mode .recipe-card-score {
+    background-color: #B9B4C7;
+    color: #000;
+}

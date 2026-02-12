@@ -1,0 +1,140 @@
+/* CSS Custom Properties for theming */
+:root {
+    --bg-page: #EAD196;
+    --bg-card: #E8C99B;
+    --bg-card-alt: #F2D1A5;
+    --bg-card-light: #EEEEEE;
+    --bg-input: white;
+    --bg-modal: #EEEEEE;
+    --bg-dropdown: white;
+    --bg-dropdown-hover: #f0e4d4;
+    --text-primary: #333;
+    --text-secondary: #555;
+    --text-muted: #888;
+    --text-faint: #999;
+    --text-accent: #7D0A0A;
+    --text-accent-red: #BF3131;
+    --border-color: #ccc;
+    --border-accent: #c9a96e;
+    --btn-admin-bg: #7D0A0A;
+}
+
+.dark-mode {
+    --bg-page: #B9B4C7;
+    --bg-card: #5C5470;
+    --bg-card-alt: #4A4560;
+    --bg-card-light: #5C5470;
+    --bg-input: #352F44;
+    --bg-modal: #5C5470;
+    --bg-dropdown: #352F44;
+    --bg-dropdown-hover: #5C5470;
+    --text-primary: #FAF0E6;
+    --text-secondary: #E0D8CF;
+    --text-muted: #B9B4C7;
+    --text-faint: #B9B4C7;
+    --text-accent: #FAF0E6;
+    --text-accent-red: #E8A0A0;
+    --border-color: #5C5470;
+    --border-accent: #5C5470;
+    --btn-admin-bg: #352F44;
+}
+
+/* Global element styles */
+body {
+    margin: 0;
+    background-color: var(--bg-page);
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    margin: 0;
+    flex: 1;
+}
+
+textarea {
+    resize: none;
+}
+
+/* Layout utility classes */
+.right {
+    margin-right: 0;
+    margin-left: auto;
+    height: 50px;
+    margin-top: 0;
+    gap: 12px;
+}
+
+.left {
+    height: 50px;
+    margin-top: 0;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrap {
+    text-wrap: wrap;
+    display: flex;
+}
+
+/* Shared utility classes */
+.box {
+    margin-top: 10px;
+    background-color: #EEEEEE;
+    border-radius: 15px;
+    padding: 30px;
+    padding-bottom: 10px;
+}
+
+.x-large-font {
+    font-size: x-large;
+}
+
+.three {
+    width: 33.333%;
+}
+
+.five {
+    width: 20%;
+}
+
+/* Global Dark Mode Overrides */
+.dark-mode body,
+.dark-mode {
+    background-color: #B9B4C7;
+}
+
+.dark-mode .box {
+    background-color: #5C5470;
+    color: #FAF0E6;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+    background-color: #352F44;
+    color: #FAF0E6;
+    border: 1px solid #5C5470;
+}
+
+.dark-mode .wrap {
+    color: #FAF0E6;
+}
+
+/* Scrollbar (Webkit) */
+.dark-mode ::-webkit-scrollbar {
+    background-color: #352F44;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+    background-color: #5C5470;
+}

@@ -1,0 +1,95 @@
+.sidebar {
+    background-color: #BF3131;
+    margin-right: 0;
+    margin-left: auto;
+    padding: 10px;
+    color: #EEEEEE;
+    min-height: 90vh;
+    width: 280px;
+}
+
+.sideRow {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom-style: solid;
+    border-bottom-color: #EEEEEE;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+.sideTitle {
+    margin-bottom: 10px;
+}
+
+.sideButton {
+    font-size: large;
+    background-color: black;
+    color: #EEEEEE;
+    border-radius: 5px;
+    min-width: 75px;
+    min-height: 75px;
+    padding: 8px 6px;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-bottom: 8px;
+    border-width: 0;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.sideButton:hover {
+    color: black;
+    background-color: #EEEEEE;
+    border: 1px solid black;
+}
+
+.sideButton.active {
+    background-color: #EEEEEE;
+    color: #BF3131;
+    border: 2px solid #BF3131;
+    font-weight: bold;
+}
+
+.sideSelect {
+    margin-left: 8px;
+    margin-right: 8px;
+    width: 100%;
+    border-radius: 5px;
+    height: 30px;
+}
+
+.last {
+    border-bottom: none;
+}
+
+/* Dark Mode */
+.dark-mode .sidebar {
+    background-color: #5C5470;
+}
+
+.dark-mode .sideButton {
+    background-color: #352F44;
+    color: #FAF0E6;
+}
+
+.dark-mode .sideButton:hover {
+    color: #352F44;
+    background-color: #FAF0E6;
+    border: 1px solid #352F44;
+}
+
+.dark-mode .sideButton.active {
+    background-color: #FAF0E6;
+    color: #5C5470;
+    border: 2px solid #5C5470;
+}
+
+.dark-mode .sideSelect {
+    background-color: #352F44;
+    color: #FAF0E6;
+    border: 1px solid #5C5470;
+}

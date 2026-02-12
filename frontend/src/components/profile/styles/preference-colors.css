@@ -1,0 +1,54 @@
+.veg {
+    background-color: green;
+    color: #EEEEEE;
+}
+
+.nut {
+    background-color: #BF3131;
+    color: #EEEEEE;
+}
+
+.lactose {
+    background-color: white;
+    color: black;
+}
+
+.gluten {
+    background-color: black;
+    color: #EEEEEE;
+}
+
+.sugar {
+    background-color: palevioletred;
+    color: #EEEEEE;
+}
+
+.fish {
+    background-color: lightseagreen;
+    color: #EEEEEE;
+}
+
+.soy {
+    background-color: darkgoldenrod;
+    color: #EEEEEE;
+}
+
+.egg {
+    background-color: #7D0A0A;
+    color: #EEEEEE;
+}
+
+.wheat {
+    background-color: burlywood;
+    color: #EEEEEE;
+}
+
+/* Dark Mode */
+.dark-mode .egg {
+    background-color: #352F44;
+}
+
+.dark-mode .lactose {
+    background-color: #B9B4C7;
+    color: #352F44;
+}

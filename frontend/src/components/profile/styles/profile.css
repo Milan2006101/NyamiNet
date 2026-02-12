@@ -1,0 +1,47 @@
+.sidebar-profile {
+    margin-left: auto;
+    margin-right: 0;
+    min-width: 148px;
+}
+
+.profilebox {
+    margin-left: 30px;
+    margin-top: 80px;
+    margin-right: 30px;
+}
+
+.profileInput {
+    margin: 0;
+    margin-bottom: 15px;
+    padding: 0;
+    border: none;
+}
+
+.profileTitle {
+    width: 50%;
+}
+
+.dark {
+    background-color: #5C5470;
+}
+
+.preferenceRow {
+    height: 100px;
+}
+
+/* Dark Mode */
+.dark-mode .profilebox {
+    color: #FAF0E6;
+}
+
+.dark-mode .profileTitle {
+    color: #FAF0E6;
+}
+
+.dark-mode .sidebar-profile {
+    color: #FAF0E6;
+}
+
+.dark-mode .dark {
+    background-color: #352F44;
+}

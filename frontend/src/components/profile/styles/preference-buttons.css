@@ -1,0 +1,34 @@
+.preferenceButton {
+    border-radius: 50px;
+    height: 70px;
+    font-size: large;
+    border: none;
+    margin-left: 10px;
+    width: 30%;
+    margin-top: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.preferenceBadge {
+    border-radius: 20px;
+    height: 28px;
+    font-size: 12px;
+    border: none;
+    margin: 4px 6px 4px 0;
+    padding: 4px 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.invisible {
+    opacity: 0%;
+}
+
+/* Dark Mode */
+.dark-mode .preferenceButton {
+    border: 1px solid #5C5470;
+}

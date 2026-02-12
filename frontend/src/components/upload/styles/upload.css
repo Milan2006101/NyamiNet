@@ -1,0 +1,47 @@
+.uploadMargin {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.tall {
+    height: 150px;
+}
+
+.deleteButton {
+    background-color: #BF3131;
+    color: #EEEEEE;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+}
+
+.deleteButton:hover {
+    background-color: #EEEEEE;
+    color: #BF3131;
+    border: 1px solid #BF3131;
+}
+
+.uploadInput {
+    height: 35px;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+/* Dark Mode */
+.dark-mode .uploadInput {
+    background-color: #352F44;
+    color: #FAF0E6;
+    border: 1px solid #5C5470;
+}
+
+.dark-mode .deleteButton {
+    background-color: #5C5470;
+    color: #FAF0E6;
+}
+
+.dark-mode .deleteButton:hover {
+    background-color: #FAF0E6;
+    color: #5C5470;
+    border: 1px solid #5C5470;
+}
