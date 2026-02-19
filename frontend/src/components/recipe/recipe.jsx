@@ -1,9 +1,11 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import './styles/recipe-detail.css';
 import '../profile/styles/preference-colors.css';
+import '../main/styles/sidebar.css';
 import CommentSection from './CommentSection';
 import ReportModal from './ReportModal';
+import Sidebar from '../main/sidebar.jsx';
 
 const API_BASE_URL = 'http://localhost:3001';
 
@@ -32,6 +34,7 @@ const getRelativeTime = (dateString) => {
 
 export default function RecipePage(){
     const location = useLocation();
+    const navigate = useNavigate();
     const recipe = location.state?.recipe;
     const [detailedRecipe, setDetailedRecipe] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -150,16 +153,26 @@ export default function RecipePage(){
         }
     };
 
+    const handleSidebarFilter = (params) => {
+        navigate(`/mainlogin?${params.toString()}`);
+    };
+
     if(!recipe) return (
-        <div className="recipe-detail-container">
-            <h2>Nincs kiválasztott recept</h2>
-        </div>
+        <main>
+            <div className="recipe-detail-container">
+                <h2>Nincs kiválasztott recept</h2>
+            </div>
+            <Sidebar onFilterChange={handleSidebarFilter} />
+        </main>
     )
 
     if(loading) return (
-        <div className="recipe-detail-container">
-            <h2>Betöltés...</h2>
-        </div>
+        <main>
+            <div className="recipe-detail-container">
+                <h2>Betöltés...</h2>
+            </div>
+            <Sidebar onFilterChange={handleSidebarFilter} />
+        </main>
     )
 
     const receptnev = recipe.poszt_cim || recipe.receptnev || '';
@@ -227,6 +240,7 @@ export default function RecipePage(){
     }
 
     return (
+        <main>
         <div className="recipe-detail-container">
             <h1 className="recipe-detail-title">{receptnev}</h1>
             
@@ -365,8 +379,9 @@ export default function RecipePage(){
                 </div>
             )}
 
-            {/* Comment Section */}
             <CommentSection posztId={recipe.poszt_id} />
         </div>
+        <Sidebar onFilterChange={handleSidebarFilter} />
+        </main>
     )
 }

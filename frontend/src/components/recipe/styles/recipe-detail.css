@@ -20,6 +20,7 @@
     background-color: #E8C99B;
     padding: 20px;
     border-radius: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
 }
 
 .recipe-detail-image {
@@ -99,6 +100,7 @@
     border-radius: 8px;
     padding: 15px 10px;
     text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .recipe-data-label {
@@ -119,6 +121,7 @@
     border-radius: 12px;
     padding: 20px 30px;
     margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .recipe-section-title {
@@ -212,6 +215,8 @@
     cursor: pointer;
     font-weight: bold;
     font-size: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .recipe-vote-btn:hover {
@@ -252,6 +257,8 @@
     font-weight: bold;
     font-size: 16px;
     white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .recipe-save-btn {

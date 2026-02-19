@@ -13,11 +13,11 @@ services:
       - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
-      - ./mysql.cnf:/etc/mysql/conf.d/mysql.cnf
-      - ./nyaminet.sql:/docker-entrypoint-initdb.d/01_init.sql:ro
-      - ./create_report_procedures.sql:/docker-entrypoint-initdb.d/02_report_procedures.sql:ro
-      - ./update_search_procedure.sql:/docker-entrypoint-initdb.d/03_search_procedure.sql:ro
-      - ./update_search_with_alcimek.sql:/docker-entrypoint-initdb.d/04_search_alcimek.sql:ro
+      - ./frontend/backend/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./frontend/backend/nyaminet.sql:/docker-entrypoint-initdb.d/01_init.sql:ro
+      - ./frontend/backend/create_report_procedures.sql:/docker-entrypoint-initdb.d/02_report_procedures.sql:ro
+      - ./frontend/backend/update_search_procedure.sql:/docker-entrypoint-initdb.d/03_search_procedure.sql:ro
+      - ./frontend/backend/update_search_with_alcimek.sql:/docker-entrypoint-initdb.d/04_search_alcimek.sql:ro
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
       interval: 5s
@@ -26,7 +26,9 @@ services:
 
   backend:
     container_name: nyaminet-backend
-    build: .
+    build:
+      context: ./frontend/backend
+      dockerfile: Dockerfile
     restart: always
     environment:
       DB_HOST: db
@@ -39,7 +41,7 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - ./uploads:/app/uploads
+      - ./frontend/backend/uploads:/app/uploads
     depends_on:
       db:
         condition: service_healthy
@@ -47,7 +49,7 @@ services:
   frontend:
     container_name: nyaminet-frontend
     build:
-      context: ..
+      context: ./frontend
       dockerfile: Dockerfile
     restart: always
     ports:
@@ -57,5 +59,3 @@ services:
 
 volumes:
   db_data:
-
-

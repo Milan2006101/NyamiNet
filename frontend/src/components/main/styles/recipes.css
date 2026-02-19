@@ -15,6 +15,11 @@
     border-radius: 8px;
     align-items: center;
     gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.recipe:nth-child(even) {
+    background-color: #E2D4B0;
 }
 
 .recipe1 {
@@ -94,6 +99,8 @@
     cursor: pointer;
     font-weight: bold;
     font-size: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .recipe-card-vote-btn:hover {
@@ -134,6 +141,8 @@
     font-weight: bold;
     font-size: 16px;
     white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .recipe-card-save-btn {
@@ -165,6 +174,10 @@
 .dark-mode .recipe {
     background-color: #5C5470;
     color: #FAF0E6;
+}
+
+.dark-mode .recipe:nth-child(even) {
+    background-color: #504966;
 }
 
 .dark-mode .recipesArea {

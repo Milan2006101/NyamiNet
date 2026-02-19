@@ -1,5 +1,5 @@
 .sidebar {
-    background-color: #BF3131;
+    background: linear-gradient(180deg, #BF3131 0%, #8B1A1A 100%);
     margin-right: 0;
     margin-left: auto;
     padding: 10px;
@@ -39,12 +39,16 @@
     justify-content: center;
     box-sizing: border-box;
     cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .sideButton:hover {
     color: black;
     background-color: #EEEEEE;
     border: 1px solid black;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
 }
 
 .sideButton.active {
@@ -68,7 +72,7 @@
 
 /* Dark Mode */
 .dark-mode .sidebar {
-    background-color: #5C5470;
+    background: linear-gradient(180deg, #5C5470 0%, #352F44 100%);
 }
 
 .dark-mode .sideButton {

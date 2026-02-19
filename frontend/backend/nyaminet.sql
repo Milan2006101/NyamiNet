@@ -107,7 +107,7 @@ CREATE TABLE `felhasznalok` (
   UNIQUE KEY `felhasznalo_email` (`felhasznalo_email`),
   KEY `fk_felhasznalo_role` (`role_id`),
   CONSTRAINT `fk_felhasznalo_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,7 +115,7 @@ CREATE TABLE `felhasznalok` (
 --
 
 /*!40000 ALTER TABLE `felhasznalok` DISABLE KEYS */;
-INSERT INTO `felhasznalok` VALUES (1,'$2b$10$9tc4wNSAAvxq.yGkH4fnnurufZOh/QYwsFVj3S24xqVRXqfeGpeMS','Kiss Anna',0,'anna@example.com',1,1),(2,'hash_bela','Nagy Béla',0,'bela@example.com',0,2),(3,'hash_csilla','Szabó Csilla',1,'csilla@example.com',1,1),(4,'hash_mate','Tóth Máté',0,'mate@example.com',0,1),(5,'$2b$10$BsLjdLziIFds.9J30NLpyOncmEncCWnZxrb8BP/13ekdS1rAVbZMO','Fazekas Milán',0,'fazekas.milan200610@gmail.com',0,2),(6,'$2b$10$kIihgTmlgMVOzEqpNmv./ujWzIIh2y6OCFU2LOk0KAHgCG1wLoh32','Fazekas Milan',0,'teszt@gmail.com',0,1),(7,'$2b$10$FWpBhCZVVxf6FLghMUP1seiHhoLSN1RojRWbJvz0GRCz7HWFpIwRq','Gombos Szabolcs',0,'teszt3@gomszab.com',0,1),(8,'$2b$10$OjvIPOjNHMRDJq1kPIMu1ure3X7gUL/cUZa75Cfg1Xa.KNlh.nvG2','FazekasMilán',0,'fazekas.milan@gmail.com',0,1),(9,'$2b$10$RKamds8Q2WURHMM7hY6RdOqTjSIgy13eTvf3HZfdXEkXN7Ii0upje','TesztElek',0,'tesztelek@gmail.com',0,1),(10,'$2b$10$8A1oQ2rJovR9G.JVatt8HeiTBMKx6TNM0aWSPu67Yb5JpZw9lPBnW','TesztElek2',0,'tesztelek2@gmail.com',0,1),(11,'$2b$10$Ch3praFi8CaF9ViJD5E.keOCYS9X7qSDr3xwOTfCObXfljXHVWoB2','TesztElek3',0,'tesztelek3@gmail.com',0,1),(12,'$2b$10$pEcl3gYrmHzOJH8PEV3PYuMopnOGPTziPBFNjEjagCH6RzfpPsfGO','TesztElek4',0,'tesztelek4@gmail.com',0,1);
+INSERT INTO `felhasznalok` VALUES (1,'$2b$10$9tc4wNSAAvxq.yGkH4fnnurufZOh/QYwsFVj3S24xqVRXqfeGpeMS','Kiss Anna',0,'anna@example.com',1,1),(2,'hash_bela','Nagy Béla',0,'bela@example.com',0,2),(3,'hash_csilla','Szabó Csilla',1,'csilla@example.com',1,1),(4,'hash_mate','Tóth Máté',0,'mate@example.com',0,1),(5,'$2b$10$BsLjdLziIFds.9J30NLpyOncmEncCWnZxrb8BP/13ekdS1rAVbZMO','Fazekas Milán',0,'fazekas.milan200610@gmail.com',0,2),(6,'$2b$10$kIihgTmlgMVOzEqpNmv./ujWzIIh2y6OCFU2LOk0KAHgCG1wLoh32','Fazekas Milan',0,'teszt@gmail.com',0,1),(7,'$2b$10$FWpBhCZVVxf6FLghMUP1seiHhoLSN1RojRWbJvz0GRCz7HWFpIwRq','Gombos Szabolcs',0,'teszt3@gomszab.com',0,1),(8,'$2b$10$OjvIPOjNHMRDJq1kPIMu1ure3X7gUL/cUZa75Cfg1Xa.KNlh.nvG2','FazekasMilán',0,'fazekas.milan@gmail.com',0,1),(9,'$2b$10$RKamds8Q2WURHMM7hY6RdOqTjSIgy13eTvf3HZfdXEkXN7Ii0upje','TesztElek',0,'tesztelek@gmail.com',0,1),(10,'$2b$10$8A1oQ2rJovR9G.JVatt8HeiTBMKx6TNM0aWSPu67Yb5JpZw9lPBnW','TesztElek2',0,'tesztelek2@gmail.com',0,1),(11,'$2b$10$Ch3praFi8CaF9ViJD5E.keOCYS9X7qSDr3xwOTfCObXfljXHVWoB2','TesztElek3',0,'tesztelek3@gmail.com',0,1),(12,'$2b$10$pEcl3gYrmHzOJH8PEV3PYuMopnOGPTziPBFNjEjagCH6RzfpPsfGO','TesztElek4',0,'tesztelek4@gmail.com',0,1),(13,'$2b$10$rbguK1YIuqDdSD8Upe0OeOV9UMPMcz/u94NwP1uvZvSz4FF0hBiim','Admin',0,'admin@gmail.com',0,2);
 /*!40000 ALTER TABLE `felhasznalok` ENABLE KEYS */;
 
 --
@@ -449,7 +449,7 @@ CREATE TABLE `preferenciak` (
   `preferencia_nev` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci DEFAULT NULL,
   PRIMARY KEY (`preferencia_id`),
   UNIQUE KEY `preferencia_nev` (`preferencia_nev`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -457,7 +457,7 @@ CREATE TABLE `preferenciak` (
 --
 
 /*!40000 ALTER TABLE `preferenciak` DISABLE KEYS */;
-INSERT INTO `preferenciak` VALUES (4,'gluténmentes'),(3,'laktózmentes'),(2,'vegán'),(1,'vegetáriánus');
+INSERT INTO `preferenciak` VALUES (1,'vegetáriánus'),(2,'vegán'),(3,'laktózmentes'),(4,'gluténmentes'),(5,'mogyorók'),(6,'cukor'),(7,'hal'),(8,'szója'),(9,'tojás'),(10,'búza');
 /*!40000 ALTER TABLE `preferenciak` ENABLE KEYS */;
 
 --
@@ -551,15 +551,24 @@ INSERT INTO `szezon` VALUES (5,'bármikor'),(2,'nyár'),(3,'ősz'),(1,'tavasz'),
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`%` PROCEDURE `engedelyezes`(IN p_poszt_id INT)
-BEGIN
-  -- ha nincs ilyen poszt, jelezzük
-  IF (SELECT COUNT(*) FROM poszt WHERE poszt_id = p_poszt_id) = 0 THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Nincs ilyen poszt';
-  END IF;
-
-  DELETE FROM report WHERE poszt_id = p_poszt_id;
-
-  SELECT ROW_COUNT() AS deleted_reports;
+BEGIN
+
+  -- ha nincs ilyen poszt, jelezzük
+
+  IF (SELECT COUNT(*) FROM poszt WHERE poszt_id = p_poszt_id) = 0 THEN
+
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Nincs ilyen poszt';
+
+  END IF;
+
+
+
+  DELETE FROM report WHERE poszt_id = p_poszt_id;
+
+
+
+  SELECT ROW_COUNT() AS deleted_reports;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -577,18 +586,30 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`%` PROCEDURE `get_reported_posztok`()
-BEGIN
-  SELECT
-    p.poszt_id,
-    p.poszt_cim,
-    p.felhasznalo_id AS posztolo_id,
-    u.felhasznalo_nev AS posztolo_nev,
-    COUNT(r.report_id) AS report_count
-  FROM report r
-  JOIN poszt p ON p.poszt_id = r.poszt_id
-  JOIN felhasznalok u ON u.felhasznalo_id = p.felhasznalo_id
-  GROUP BY p.poszt_id, p.poszt_cim, p.felhasznalo_id, u.felhasznalo_nev
-  ORDER BY report_count DESC, p.poszt_id DESC;
+BEGIN
+
+  SELECT
+
+    p.poszt_id,
+
+    p.poszt_cim,
+
+    p.felhasznalo_id AS posztolo_id,
+
+    u.felhasznalo_nev AS posztolo_nev,
+
+    COUNT(r.report_id) AS report_count
+
+  FROM report r
+
+  JOIN poszt p ON p.poszt_id = r.poszt_id
+
+  JOIN felhasznalok u ON u.felhasznalo_id = p.felhasznalo_id
+
+  GROUP BY p.poszt_id, p.poszt_cim, p.felhasznalo_id, u.felhasznalo_nev
+
+  ORDER BY report_count DESC, p.poszt_id DESC;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -605,112 +626,217 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `get_szurt_posztok`(
-    IN poszt_limit INT,
-    IN oldalszam INT,
-    IN p_search VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci,
-    IN p_ar INT,
-    IN p_konyha VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci,
-    IN p_ido INT,
-    IN p_allergia VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci,
-    IN nap INT,
-    IN p_fogas VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci,
-    IN p_nehezseg INT,
-    IN p_szezon VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci,
-    IN p_sorrend INT,
-    IN p_felhasznalo_id INT
+CREATE DEFINER=`root`@`%` PROCEDURE `get_szurt_posztok`(
+
+    IN poszt_limit INT,
+
+    IN oldalszam INT,
+
+    IN p_search VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci,
+
+    IN p_ar INT,
+
+    IN p_konyha VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci,
+
+    IN p_ido INT,
+
+    IN p_allergia VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci,
+
+    IN nap INT,
+
+    IN p_fogas VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci,
+
+    IN p_nehezseg INT,
+
+    IN p_szezon VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci,
+
+    IN p_sorrend INT,
+
+    IN p_felhasznalo_id INT
+
 )
-BEGIN
-    DECLARE csusztatas INT;
-    DECLARE allergia_count INT;
-    SET csusztatas = (oldalszam - 1) * poszt_limit;
-    SET allergia_count = 0;
-
-    IF p_allergia IS NOT NULL AND p_allergia != '' THEN
-        SET allergia_count = LENGTH(p_allergia) - LENGTH(REPLACE(p_allergia, ',', '')) + 1;
-    END IF;
-
-    SELECT 
-        poszt.poszt_id,
-        poszt.poszt_cim,
-        poszt.poszt_datum,
-        poszt.poszt_ido,
-        poszt.poszt_leiras,
-        poszt.poszt_kepurl,
-        poszt.like_db,
-        poszt.dislike_db,
-
-        felhasznalok.felhasznalo_nev,
-        ar.ar_kategoria,
-        konyha.konyha_nev,
-        nehezseg.nehezseg_kategoria,
-        fogas.fogas_nev,
-        szezon.szezon_nev,
-
-        GROUP_CONCAT(preferenciak.preferencia_nev SEPARATOR ',') AS allergiak
-
-    FROM poszt
-    INNER JOIN felhasznalok ON poszt.felhasznalo_id = felhasznalok.felhasznalo_id
-    LEFT JOIN ar ON poszt.ar_id = ar.ar_id
-    LEFT JOIN konyha ON poszt.konyha_id = konyha.konyha_id
-    LEFT JOIN nehezseg ON poszt.nehezseg_id = nehezseg.nehezseg_id
-    LEFT JOIN fogas ON poszt.fogas_id = fogas.fogas_id
-    LEFT JOIN szezon ON poszt.szezon_id = szezon.szezon_id
-    LEFT JOIN poszt_preferenciak ON poszt.poszt_id = poszt_preferenciak.poszt_id
-    LEFT JOIN preferenciak ON poszt_preferenciak.preferencia_id = preferenciak.preferencia_id
-
-    WHERE
-        (p_search IS NULL OR poszt.poszt_cim LIKE CONCAT('%', p_search, '%'))
-        AND (p_ar IS NULL OR poszt.ar_id = p_ar)
-        AND (p_konyha IS NULL OR konyha.konyha_nev LIKE CONCAT('%', p_konyha, '%'))
-        AND (p_fogas IS NULL OR fogas.fogas_nev LIKE CONCAT('%', p_fogas, '%'))
-        AND (p_szezon IS NULL OR szezon.szezon_nev LIKE CONCAT('%', p_szezon, '%'))
-        AND (p_nehezseg IS NULL OR poszt.nehezseg_id = p_nehezseg)
-
-        
-        AND (
-          p_felhasznalo_id IS NULL
-          OR NOT EXISTS (
-            SELECT 1
-            FROM report r
-            WHERE r.poszt_id = poszt.poszt_id
-              AND r.felhasznalo_id = p_felhasznalo_id
-          )
-        )
-
-        AND (
-            p_ido IS NULL
-            OR (p_ido = 1 AND poszt.poszt_ido < 30)
-            OR (p_ido = 2 AND poszt.poszt_ido >= 30 AND poszt.poszt_ido <= 60)
-            OR (p_ido = 3 AND poszt.poszt_ido > 60 AND poszt.poszt_ido <= 180)
-            OR (p_ido = 4 AND poszt.poszt_ido > 180)
-        )
-
-        AND (
-            allergia_count = 0
-            OR (
-                SELECT COUNT(*)
-                FROM poszt_preferenciak x
-                INNER JOIN preferenciak y ON y.preferencia_id = x.preferencia_id
-                WHERE x.poszt_id = poszt.poszt_id
-                AND FIND_IN_SET(y.preferencia_nev, p_allergia)
-            ) = allergia_count
-        )
-
-        AND (
-            nap IS NULL
-            OR poszt.poszt_datum >= CURDATE() - INTERVAL nap DAY
-        )
-
-    GROUP BY poszt.poszt_id
-
-    ORDER BY
-        CASE WHEN p_sorrend = 1 THEN RAND() END,
-        CASE WHEN p_sorrend = 2 THEN poszt.poszt_datum END DESC,
-        CASE WHEN p_sorrend = 3 THEN poszt.poszt_datum END ASC,
-        CASE WHEN p_sorrend = 4 THEN poszt.like_db END DESC
-
-    LIMIT csusztatas, poszt_limit;
+BEGIN
+
+    DECLARE csusztatas INT;
+
+    DECLARE allergia_count INT;
+
+    SET csusztatas = (oldalszam - 1) * poszt_limit;
+
+    SET allergia_count = 0;
+
+
+
+    IF p_allergia IS NOT NULL AND p_allergia != '' THEN
+
+        SET allergia_count = LENGTH(p_allergia) - LENGTH(REPLACE(p_allergia, ',', '')) + 1;
+
+    END IF;
+
+
+
+    SELECT 
+
+        poszt.poszt_id,
+
+        poszt.poszt_cim,
+
+        poszt.poszt_datum,
+
+        poszt.poszt_ido,
+
+        poszt.poszt_leiras,
+
+        poszt.poszt_kepurl,
+
+        poszt.like_db,
+
+        poszt.dislike_db,
+
+
+
+        felhasznalok.felhasznalo_nev,
+
+        ar.ar_kategoria,
+
+        konyha.konyha_nev,
+
+        nehezseg.nehezseg_kategoria,
+
+        fogas.fogas_nev,
+
+        szezon.szezon_nev,
+
+
+
+        GROUP_CONCAT(preferenciak.preferencia_nev SEPARATOR ',') AS allergiak
+
+
+
+    FROM poszt
+
+    INNER JOIN felhasznalok ON poszt.felhasznalo_id = felhasznalok.felhasznalo_id
+
+    LEFT JOIN ar ON poszt.ar_id = ar.ar_id
+
+    LEFT JOIN konyha ON poszt.konyha_id = konyha.konyha_id
+
+    LEFT JOIN nehezseg ON poszt.nehezseg_id = nehezseg.nehezseg_id
+
+    LEFT JOIN fogas ON poszt.fogas_id = fogas.fogas_id
+
+    LEFT JOIN szezon ON poszt.szezon_id = szezon.szezon_id
+
+    LEFT JOIN poszt_preferenciak ON poszt.poszt_id = poszt_preferenciak.poszt_id
+
+    LEFT JOIN preferenciak ON poszt_preferenciak.preferencia_id = preferenciak.preferencia_id
+
+
+
+    WHERE
+
+        (p_search IS NULL OR poszt.poszt_cim LIKE CONCAT('%', p_search, '%'))
+
+        AND (p_ar IS NULL OR poszt.ar_id = p_ar)
+
+        AND (p_konyha IS NULL OR konyha.konyha_nev LIKE CONCAT('%', p_konyha, '%'))
+
+        AND (p_fogas IS NULL OR fogas.fogas_nev LIKE CONCAT('%', p_fogas, '%'))
+
+        AND (p_szezon IS NULL OR szezon.szezon_nev LIKE CONCAT('%', p_szezon, '%'))
+
+        AND (p_nehezseg IS NULL OR poszt.nehezseg_id = p_nehezseg)
+
+
+
+        
+
+        AND (
+
+          p_felhasznalo_id IS NULL
+
+          OR NOT EXISTS (
+
+            SELECT 1
+
+            FROM report r
+
+            WHERE r.poszt_id = poszt.poszt_id
+
+              AND r.felhasznalo_id = p_felhasznalo_id
+
+          )
+
+        )
+
+
+
+        AND (
+
+            p_ido IS NULL
+
+            OR (p_ido = 1 AND poszt.poszt_ido < 30)
+
+            OR (p_ido = 2 AND poszt.poszt_ido >= 30 AND poszt.poszt_ido <= 60)
+
+            OR (p_ido = 3 AND poszt.poszt_ido > 60 AND poszt.poszt_ido <= 180)
+
+            OR (p_ido = 4 AND poszt.poszt_ido > 180)
+
+        )
+
+
+
+        AND (
+
+            allergia_count = 0
+
+            OR (
+
+                SELECT COUNT(*)
+
+                FROM poszt_preferenciak x
+
+                INNER JOIN preferenciak y ON y.preferencia_id = x.preferencia_id
+
+                WHERE x.poszt_id = poszt.poszt_id
+
+                AND FIND_IN_SET(y.preferencia_nev, p_allergia)
+
+            ) = allergia_count
+
+        )
+
+
+
+        AND (
+
+            nap IS NULL
+
+            OR poszt.poszt_datum >= CURDATE() - INTERVAL nap DAY
+
+        )
+
+
+
+    GROUP BY poszt.poszt_id
+
+
+
+    ORDER BY
+
+        CASE WHEN p_sorrend = 1 THEN RAND() END,
+
+        CASE WHEN p_sorrend = 2 THEN poszt.poszt_datum END DESC,
+
+        CASE WHEN p_sorrend = 3 THEN poszt.poszt_datum END ASC,
+
+        CASE WHEN p_sorrend = 4 THEN poszt.like_db END DESC
+
+
+
+    LIMIT csusztatas, poszt_limit;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -727,18 +853,29 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `kommentek_lekerese`(
-    IN p_poszt_id INT
+CREATE DEFINER=`root`@`%` PROCEDURE `kommentek_lekerese`(
+
+    IN p_poszt_id INT
+
 )
-BEGIN
-    SELECT 
-        k.komment_id,
-        k.komment_tartalom,
-        k.komment_datum,
-        f.felhasznalo_nev
-    FROM komment AS k
-    INNER JOIN felhasznalok AS f ON f.felhasznalo_id = k.felhasznalo_id
-    WHERE k.poszt_id = p_poszt_id
+BEGIN
+
+    SELECT 
+
+        k.komment_id,
+
+        k.komment_tartalom,
+
+        k.komment_datum,
+
+        f.felhasznalo_nev
+
+    FROM komment AS k
+
+    INNER JOIN felhasznalok AS f ON f.felhasznalo_id = k.felhasznalo_id
+
+    WHERE k.poszt_id = p_poszt_id
+
     ORDER BY k.komment_datum DESC;
 END ;;
 DELIMITER ;
@@ -756,14 +893,21 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `komment_hozzaadasa`(
-    IN p_felhasznalo_id INT,
-    IN p_poszt_id INT,
-    IN p_tartalom TEXT
+CREATE DEFINER=`root`@`%` PROCEDURE `komment_hozzaadasa`(
+
+    IN p_felhasznalo_id INT,
+
+    IN p_poszt_id INT,
+
+    IN p_tartalom TEXT
+
 )
-BEGIN
-    INSERT INTO komment (komment_tartalom, felhasznalo_id, poszt_id)
-    VALUES (p_tartalom, p_felhasznalo_id, p_poszt_id);
+BEGIN
+
+    INSERT INTO komment (komment_tartalom, felhasznalo_id, poszt_id)
+
+    VALUES (p_tartalom, p_felhasznalo_id, p_poszt_id);
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -780,59 +924,104 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `likekezeles`(
-    IN p_felhasznalo_id INT,
-    IN p_poszt_id INT,
-    IN p_szavazat INT   
+CREATE DEFINER=`root`@`%` PROCEDURE `likekezeles`(
+
+    IN p_felhasznalo_id INT,
+
+    IN p_poszt_id INT,
+
+    IN p_szavazat INT   
+
     
 )
-BEGIN
-    
-
-    DECLARE elozo INT;
+BEGIN
+
     
-    SELECT szavazat 
-    INTO elozo
-    FROM poszt_szavazas
-    WHERE felhasznalo_id = p_felhasznalo_id
-      AND poszt_id = p_poszt_id;
-
+
+
+
+    DECLARE elozo INT;
+
     
-    IF elozo IS NULL THEN
-        INSERT INTO poszt_szavazas (felhasznalo_id, poszt_id, szavazat)
-        VALUES (p_felhasznalo_id, p_poszt_id, p_szavazat);
-
+    SELECT szavazat 
+
+    INTO elozo
+
+    FROM poszt_szavazas
+
+    WHERE felhasznalo_id = p_felhasznalo_id
+
+      AND poszt_id = p_poszt_id;
+
+
+
     
-    ELSEIF elozo = p_szavazat THEN
-        DELETE FROM poszt_szavazas
-        WHERE felhasznalo_id = p_felhasznalo_id
-          AND poszt_id = p_poszt_id;
-
+    IF elozo IS NULL THEN
+
+        INSERT INTO poszt_szavazas (felhasznalo_id, poszt_id, szavazat)
+
+        VALUES (p_felhasznalo_id, p_poszt_id, p_szavazat);
+
+
+
     
-    ELSE
-        UPDATE poszt_szavazas
-        SET szavazat = szavazat * -1
-        WHERE felhasznalo_id = p_felhasznalo_id
-          AND poszt_id = p_poszt_id;
-    END IF;
-
+    ELSEIF elozo = p_szavazat THEN
+
+        DELETE FROM poszt_szavazas
+
+        WHERE felhasznalo_id = p_felhasznalo_id
+
+          AND poszt_id = p_poszt_id;
+
+
+
     
-    UPDATE poszt SET
-        like_db = (
-            SELECT COUNT(szavazat)
-            FROM poszt_szavazas
-            WHERE poszt_id = p_poszt_id
-            AND szavazat = 1
-        ),
-        dislike_db = (
-            SELECT COUNT(szavazat)
-            FROM poszt_szavazas
-            WHERE poszt_id = p_poszt_id
-            AND szavazat = -1
-        )
+    ELSE
+
+        UPDATE poszt_szavazas
+
+        SET szavazat = szavazat * -1
+
+        WHERE felhasznalo_id = p_felhasznalo_id
+
+          AND poszt_id = p_poszt_id;
+
+    END IF;
+
+
+
     
-    WHERE poszt_id = p_poszt_id;
-
+    UPDATE poszt SET
+
+        like_db = (
+
+            SELECT COUNT(szavazat)
+
+            FROM poszt_szavazas
+
+            WHERE poszt_id = p_poszt_id
+
+            AND szavazat = 1
+
+        ),
+
+        dislike_db = (
+
+            SELECT COUNT(szavazat)
+
+            FROM poszt_szavazas
+
+            WHERE poszt_id = p_poszt_id
+
+            AND szavazat = -1
+
+        )
+
+    
+    WHERE poszt_id = p_poszt_id;
+
+
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -849,48 +1038,82 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `preferencia_kezeles`(
-    IN p_felhasznalo_id INT,
-    IN p_preferencia_nev VARCHAR(50)
+CREATE DEFINER=`root`@`%` PROCEDURE `preferencia_kezeles`(
+
+    IN p_felhasznalo_id INT,
+
+    IN p_preferencia_nev VARCHAR(50)
+
 )
-BEGIN
-    DECLARE talalt_preferencia_id INT;
+BEGIN
+
+    DECLARE talalt_preferencia_id INT;
+
     
-    DECLARE letezike INT DEFAULT NULL;
-
+    DECLARE letezike INT DEFAULT NULL;
+
+
+
     
-    SELECT preferencia_id
-    INTO talalt_preferencia_id
-    FROM preferenciak
-    WHERE preferencia_nev = p_preferencia_nev;
-
+    SELECT preferencia_id
+
+    INTO talalt_preferencia_id
+
+    FROM preferenciak
+
+    WHERE preferencia_nev = p_preferencia_nev;
+
+
+
     
-    IF talalt_preferencia_id IS NOT NULL THEN
+    IF talalt_preferencia_id IS NOT NULL THEN
+
         
-        SELECT 1
-        INTO letezike
-        FROM felhasznalo_preferenciak
-        WHERE felhasznalo_id = p_felhasznalo_id
-        AND preferencia_id = talalt_preferencia_id;
-
+        SELECT 1
+
+        INTO letezike
+
+        FROM felhasznalo_preferenciak
+
+        WHERE felhasznalo_id = p_felhasznalo_id
+
+        AND preferencia_id = talalt_preferencia_id;
+
+
+
         
-        IF letezike IS NULL THEN
+        IF letezike IS NULL THEN
+
             
-            INSERT INTO felhasznalo_preferenciak (felhasznalo_id, preferencia_id)
-            VALUES (p_felhasznalo_id, talalt_preferencia_id);
-            SET letezike = 1;
-        ELSE
+            INSERT INTO felhasznalo_preferenciak (felhasznalo_id, preferencia_id)
+
+            VALUES (p_felhasznalo_id, talalt_preferencia_id);
+
+            SET letezike = 1;
+
+        ELSE
+
         
-            DELETE FROM felhasznalo_preferenciak
-            WHERE felhasznalo_id = p_felhasznalo_id
-            AND preferencia_id = talalt_preferencia_id;
-            SET letezike = 0;
-        END IF;
-
-    END IF;
-
-    SELECT letezike AS eredmeny;
-
+            DELETE FROM felhasznalo_preferenciak
+
+            WHERE felhasznalo_id = p_felhasznalo_id
+
+            AND preferencia_id = talalt_preferencia_id;
+
+            SET letezike = 0;
+
+        END IF;
+
+
+
+    END IF;
+
+
+
+    SELECT letezike AS eredmeny;
+
+
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -908,30 +1131,54 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`%` PROCEDURE `reportoltposzttorles`(IN p_poszt_id INT)
-BEGIN
-  DECLARE v_user_id INT;
-
-  START TRANSACTION;
-
-  -- posztoló lekérése (ha nincs poszt, v_user_id NULL marad)
-  SELECT felhasznalo_id
-    INTO v_user_id
-  FROM poszt
-  WHERE poszt_id = p_poszt_id
-  LIMIT 1;
-
-  IF v_user_id IS NULL THEN
-    ROLLBACK;
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Nincs ilyen poszt';
-  END IF;
-
-  DELETE FROM report WHERE poszt_id = p_poszt_id;
-  DELETE FROM poszt  WHERE poszt_id = p_poszt_id;
-
-  COMMIT;
-
-
-  SELECT v_user_id AS posztolo_id;
+BEGIN
+
+  DECLARE v_user_id INT;
+
+
+
+  START TRANSACTION;
+
+
+
+  -- posztoló lekérése (ha nincs poszt, v_user_id NULL marad)
+
+  SELECT felhasznalo_id
+
+    INTO v_user_id
+
+  FROM poszt
+
+  WHERE poszt_id = p_poszt_id
+
+  LIMIT 1;
+
+
+
+  IF v_user_id IS NULL THEN
+
+    ROLLBACK;
+
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Nincs ilyen poszt';
+
+  END IF;
+
+
+
+  DELETE FROM report WHERE poszt_id = p_poszt_id;
+
+  DELETE FROM poszt  WHERE poszt_id = p_poszt_id;
+
+
+
+  COMMIT;
+
+
+
+
+
+  SELECT v_user_id AS posztolo_id;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -949,58 +1196,108 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`%` PROCEDURE `reszletesposzt`(IN p_poszt_id INT)
-BEGIN
-    SELECT 
-        poszt.poszt_id,
-        poszt.poszt_cim,
-        poszt.poszt_datum,
-        poszt.poszt_ido,
-        poszt.poszt_kepurl,
-        poszt.poszt_leiras,
-        poszt.poszt_adag,
-        poszt.poszt_alcimek,
-
-        feltolto.felhasznalo_nev AS feltolto,
-
-        fogas.fogas_nev,
-        nehezseg.nehezseg_kategoria,
-        ar_kategoria.ar_kategoria,
-        konyha.konyha_nev,
-        szezon.szezon_nev,
-
-        GROUP_CONCAT(DISTINCT allergia.preferencia_nev SEPARATOR ', ') AS allergiak
-
-    FROM poszt AS poszt
-    JOIN felhasznalok AS feltolto ON poszt.felhasznalo_id = feltolto.felhasznalo_id
-    LEFT JOIN fogas AS fogas ON poszt.fogas_id = fogas.fogas_id
-    LEFT JOIN nehezseg AS nehezseg ON poszt.nehezseg_id = nehezseg.nehezseg_id
-    LEFT JOIN ar AS ar_kategoria ON poszt.ar_id = ar_kategoria.ar_id
-    LEFT JOIN konyha AS konyha ON poszt.konyha_id = konyha.konyha_id
-    LEFT JOIN szezon AS szezon ON poszt.szezon_id = szezon.szezon_id
-    LEFT JOIN poszt_preferenciak AS poszt_pref ON poszt.poszt_id = poszt_pref.poszt_id
-    LEFT JOIN preferenciak AS allergia ON poszt_pref.preferencia_id = allergia.preferencia_id
-
-
-    WHERE poszt.poszt_id = p_poszt_id
-    GROUP BY poszt.poszt_id;
+BEGIN
+
+    SELECT 
+
+        poszt.poszt_id,
+
+        poszt.poszt_cim,
+
+        poszt.poszt_datum,
+
+        poszt.poszt_ido,
+
+        poszt.poszt_kepurl,
+
+        poszt.poszt_leiras,
+
+        poszt.poszt_adag,
+
+        poszt.poszt_alcimek,
+
+
+
+        feltolto.felhasznalo_nev AS feltolto,
+
+
+
+        fogas.fogas_nev,
+
+        nehezseg.nehezseg_kategoria,
+
+        ar_kategoria.ar_kategoria,
+
+        konyha.konyha_nev,
+
+        szezon.szezon_nev,
+
+
+
+        GROUP_CONCAT(DISTINCT allergia.preferencia_nev SEPARATOR ', ') AS allergiak
+
+
+
+    FROM poszt AS poszt
+
+    JOIN felhasznalok AS feltolto ON poszt.felhasznalo_id = feltolto.felhasznalo_id
+
+    LEFT JOIN fogas AS fogas ON poszt.fogas_id = fogas.fogas_id
+
+    LEFT JOIN nehezseg AS nehezseg ON poszt.nehezseg_id = nehezseg.nehezseg_id
+
+    LEFT JOIN ar AS ar_kategoria ON poszt.ar_id = ar_kategoria.ar_id
+
+    LEFT JOIN konyha AS konyha ON poszt.konyha_id = konyha.konyha_id
+
+    LEFT JOIN szezon AS szezon ON poszt.szezon_id = szezon.szezon_id
+
+    LEFT JOIN poszt_preferenciak AS poszt_pref ON poszt.poszt_id = poszt_pref.poszt_id
+
+    LEFT JOIN preferenciak AS allergia ON poszt_pref.preferencia_id = allergia.preferencia_id
+
+
+
+
+
+    WHERE poszt.poszt_id = p_poszt_id
+
+    GROUP BY poszt.poszt_id;
+
    
-    SELECT
-    hozzavalo.hozzavalo_nev,
-    ph.mennyiseg,
-    mertekegyseg.mertekegyseg_nev
-    FROM poszt_hozzavalok ph
-    INNER JOIN hozzavalok hozzavalo ON ph.hozzavalo_id = hozzavalo.hozzavalo_id
-    INNER JOIN mertekegyseg ON ph.mertekegyseg_id = mertekegyseg.mertekegyseg_id
-    WHERE ph.poszt_id = p_poszt_id;
-    
+    SELECT
+
+    hozzavalo.hozzavalo_nev,
+
+    ph.mennyiseg,
+
+    mertekegyseg.mertekegyseg_nev
+
+    FROM poszt_hozzavalok ph
+
+    INNER JOIN hozzavalok hozzavalo ON ph.hozzavalo_id = hozzavalo.hozzavalo_id
+
+    INNER JOIN mertekegyseg ON ph.mertekegyseg_id = mertekegyseg.mertekegyseg_id
+
+    WHERE ph.poszt_id = p_poszt_id;
+
     
-    SELECT lepesek_szoveg
-    FROM lepesek
-    WHERE lepesek_id = (
-        SELECT lepesek_id
-        FROM poszt
-        WHERE poszt_id = p_poszt_id
-    );
+
+    
+    SELECT lepesek_szoveg
+
+    FROM lepesek
+
+    WHERE lepesek_id = (
+
+        SELECT lepesek_id
+
+        FROM poszt
+
+        WHERE poszt_id = p_poszt_id
+
+    );
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1018,20 +1315,34 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`%` PROCEDURE `reszletesreportoltposzt`(IN p_poszt_id INT)
-BEGIN
-  SELECT
-    r.report_id,
-    r.report_szoveg,
-    r.indoklas_id,
-    i.indoklas_szoveg,
-    r.felhasznalo_id AS reportolo_id,
-    fu.felhasznalo_nev AS reportolo_nev,
-    r.poszt_id
-  FROM report r
-  LEFT JOIN indoklas i ON i.indoklas_id = r.indoklas_id
-  LEFT JOIN felhasznalok fu ON fu.felhasznalo_id = r.felhasznalo_id
-  WHERE r.poszt_id = p_poszt_id
-  ORDER BY r.report_id DESC;
+BEGIN
+
+  SELECT
+
+    r.report_id,
+
+    r.report_szoveg,
+
+    r.indoklas_id,
+
+    i.indoklas_szoveg,
+
+    r.felhasznalo_id AS reportolo_id,
+
+    fu.felhasznalo_nev AS reportolo_nev,
+
+    r.poszt_id
+
+  FROM report r
+
+  LEFT JOIN indoklas i ON i.indoklas_id = r.indoklas_id
+
+  LEFT JOIN felhasznalok fu ON fu.felhasznalo_id = r.felhasznalo_id
+
+  WHERE r.poszt_id = p_poszt_id
+
+  ORDER BY r.report_id DESC;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1048,90 +1359,173 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `uj_poszt_felvetele`(
-    IN p_poszt_cim VARCHAR(255),
-    IN p_poszt_leiras TEXT,
-    IN p_poszt_ido INT,
-    IN p_poszt_adag INT,
-    IN p_ar_id INT,
-    IN p_konyha_id INT,
-    IN p_fogas_id INT,
-    IN p_nehezseg_id INT,
-    IN p_szezon_id INT,
-    IN p_poszt_kepurl VARCHAR(500),
-    IN p_felhasznalo_id INT,
-
-    IN p_lepesek_szoveg TEXT,
-
-    
-    IN p_hozzavalo_ids VARCHAR(500),
-    IN p_mennyisegek VARCHAR(500),
-    IN p_mertekegyseg_ids VARCHAR(500)
+CREATE DEFINER=`root`@`%` PROCEDURE `uj_poszt_felvetele`(
+
+    IN p_poszt_cim VARCHAR(255),
+
+    IN p_poszt_leiras TEXT,
+
+    IN p_poszt_ido INT,
+
+    IN p_poszt_adag INT,
+
+    IN p_ar_id INT,
+
+    IN p_konyha_id INT,
+
+    IN p_fogas_id INT,
+
+    IN p_nehezseg_id INT,
+
+    IN p_szezon_id INT,
+
+    IN p_poszt_kepurl VARCHAR(500),
+
+    IN p_felhasznalo_id INT,
+
+
+
+    IN p_lepesek_szoveg TEXT,
+
+
+
+    
+
+    IN p_hozzavalo_ids VARCHAR(500),
+
+    IN p_mennyisegek VARCHAR(500),
+
+    IN p_mertekegyseg_ids VARCHAR(500)
+
 )
-BEGIN
-    DECLARE uj_poszt_id INT;
-    DECLARE uj_lepes_id INT;
-
-    DECLARE h_index INT DEFAULT 1;
-    DECLARE hozzavaloszam INT;
-
-    DECLARE h_hozzavalo_id INT;
-    DECLARE h_mennyiseg DECIMAL(10,2);
-    DECLARE h_mertekegyseg_id INT;
-
-
-    INSERT INTO poszt
-    
-        (poszt_cim, poszt_leiras, poszt_ido, poszt_adag, ar_id, konyha_id, fogas_id, nehezseg_id, szezon_id, poszt_kepurl, felhasznalo_id)
-    VALUES 
-        (p_poszt_cim, p_poszt_leiras, p_poszt_ido, p_poszt_adag, p_ar_id, p_konyha_id, p_fogas_id, p_nehezseg_id, p_szezon_id, p_poszt_kepurl, p_felhasznalo_id);
-    
-    SET uj_poszt_id = LAST_INSERT_ID();
-    
-    INSERT INTO lepesek (lepesek_szoveg)
-    VALUES (p_lepesek_szoveg);
-    SET uj_lepes_id = LAST_INSERT_ID();
-    
-    UPDATE poszt
-    SET lepesek_id = uj_lepes_id
-    WHERE poszt_id = uj_poszt_id;
-
-    
-    
-    IF p_hozzavalo_ids IS NULL OR p_hozzavalo_ids = '' THEN
-  SET hozzavaloszam = 0;
-    ELSE
-  SET hozzavaloszam = LENGTH(p_hozzavalo_ids) - LENGTH(REPLACE(p_hozzavalo_ids, ',', '')) + 1;
-    END IF;
-    
-    WHILE h_index <= hozzavaloszam DO
-
-        
-        
-
-        
-        SET h_hozzavalo_id =
-            CAST((SUBSTRING_INDEX(SUBSTRING_INDEX(p_hozzavalo_ids, ',', h_index), ',', -1)) AS SIGNED);
-        SET h_mennyiseg =
-            CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(p_mennyisegek, ',', h_index), ',', -1) AS DECIMAL(10,2));
-        SET h_mertekegyseg_id =
-            CAST((SUBSTRING_INDEX(SUBSTRING_INDEX(p_mertekegyseg_ids, ',', h_index), ',', -1)) AS SIGNED);
-
-
-        
-        INSERT INTO poszt_hozzavalok (
-            poszt_id, hozzavalo_id, mennyiseg, mertekegyseg_id
-        )
-        VALUES (
-            uj_poszt_id, h_hozzavalo_id, h_mennyiseg, h_mertekegyseg_id
-        );
-
-        SET h_index = h_index + 1;
-    END WHILE;
-
-
-    
-    SELECT uj_poszt_id AS poszt_id;
+BEGIN
+
+    DECLARE uj_poszt_id INT;
+
+    DECLARE uj_lepes_id INT;
+
+
+
+    DECLARE h_index INT DEFAULT 1;
+
+    DECLARE hozzavaloszam INT;
+
+
+
+    DECLARE h_hozzavalo_id INT;
+
+    DECLARE h_mennyiseg DECIMAL(10,2);
+
+    DECLARE h_mertekegyseg_id INT;
+
+
+
+
+
+    INSERT INTO poszt
+
+    
+
+        (poszt_cim, poszt_leiras, poszt_ido, poszt_adag, ar_id, konyha_id, fogas_id, nehezseg_id, szezon_id, poszt_kepurl, felhasznalo_id)
+
+    VALUES 
+
+        (p_poszt_cim, p_poszt_leiras, p_poszt_ido, p_poszt_adag, p_ar_id, p_konyha_id, p_fogas_id, p_nehezseg_id, p_szezon_id, p_poszt_kepurl, p_felhasznalo_id);
+
+    
+
+    SET uj_poszt_id = LAST_INSERT_ID();
+
+    
+
+    INSERT INTO lepesek (lepesek_szoveg)
+
+    VALUES (p_lepesek_szoveg);
+
+    SET uj_lepes_id = LAST_INSERT_ID();
+
+    
+
+    UPDATE poszt
+
+    SET lepesek_id = uj_lepes_id
+
+    WHERE poszt_id = uj_poszt_id;
+
+
+
+    
+
+    
+
+    IF p_hozzavalo_ids IS NULL OR p_hozzavalo_ids = '' THEN
+
+  SET hozzavaloszam = 0;
+
+    ELSE
+
+  SET hozzavaloszam = LENGTH(p_hozzavalo_ids) - LENGTH(REPLACE(p_hozzavalo_ids, ',', '')) + 1;
+
+    END IF;
+
+    
+
+    WHILE h_index <= hozzavaloszam DO
+
+
+
+        
+
+        
+
+
+
+        
+
+        SET h_hozzavalo_id =
+
+            CAST((SUBSTRING_INDEX(SUBSTRING_INDEX(p_hozzavalo_ids, ',', h_index), ',', -1)) AS SIGNED);
+
+        SET h_mennyiseg =
+
+            CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(p_mennyisegek, ',', h_index), ',', -1) AS DECIMAL(10,2));
+
+        SET h_mertekegyseg_id =
+
+            CAST((SUBSTRING_INDEX(SUBSTRING_INDEX(p_mertekegyseg_ids, ',', h_index), ',', -1)) AS SIGNED);
+
+
+
+
+
+        
+
+        INSERT INTO poszt_hozzavalok (
+
+            poszt_id, hozzavalo_id, mennyiseg, mertekegyseg_id
+
+        )
+
+        VALUES (
+
+            uj_poszt_id, h_hozzavalo_id, h_mennyiseg, h_mertekegyseg_id
+
+        );
+
+
+
+        SET h_index = h_index + 1;
+
+    END WHILE;
+
+
+
+
+
+    
+
+    SELECT uj_poszt_id AS poszt_id;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;

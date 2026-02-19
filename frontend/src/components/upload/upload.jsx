@@ -6,9 +6,16 @@ import '../main/styles/sidebar.css';
 
 const API_BASE_URL = 'http://localhost:3001';
 
+const ALL_PREFERENCES = [
+    'vegetáriánus', 'vegán', 'laktózmentes', 'gluténmentes',
+    'mogyorók', 'cukor', 'hal', 'szója', 'tojás', 'búza'
+];
+
 export default function Upload(){
     const navigate = useNavigate();
     const user = getUser();
+    const [currentStep, setCurrentStep] = useState(0);
+    const totalSteps = 4;
 
     const [formData, setFormData] = useState({
         poszt_cim: '',
@@ -73,10 +80,18 @@ export default function Upload(){
             setSzezonOptions(szezonData);
             setMertekegysegOptions(mertekData);
             setHozzavaloOptions(hozzaData);
-            setPreferenciaOptions(prefData);
+
+            const dbNames = prefData.map(p => p.preferencia_nev);
+            const merged = [...prefData];
+            ALL_PREFERENCES.forEach(name => {
+                if (!dbNames.includes(name)) {
+                    merged.push({ preferencia_id: name, preferencia_nev: name });
+                }
+            });
+            setPreferenciaOptions(merged);
         } catch (error) {
             console.error('Error fetching options:', error);
-            alert('Hiba történt az adatok betöltése során. Ellenőrizd, hogy a backend fut-e!');
+            setPreferenciaOptions(ALL_PREFERENCES.map(name => ({ preferencia_id: name, preferencia_nev: name })));
         }
     };
 
@@ -135,43 +150,48 @@ export default function Upload(){
         }
     };
 
+    const validateStep = (step) => {
+        if (step === 0) {
+            if (!formData.poszt_cim.trim()) { alert('Add meg a recept nevét!'); return false; }
+            if (!imageFile) { alert('Kérlek válassz egy képet a recepthez!'); return false; }
+        }
+        if (step === 1) {
+            for (const h of hozzavalok) {
+                if (!h.hozzavalo_nev?.trim() || !h.mertekegyseg_nev?.trim() || !h.mennyiseg?.trim()) {
+                    alert('Kérlek töltsd ki az összes hozzávaló mezőt!');
+                    return false;
+                }
+            }
+        }
+        if (step === 3) {
+            if (!formData.ar_id || !formData.nehezseg_id) {
+                alert('Válaszd ki az árat és a nehézséget!');
+                return false;
+            }
+        }
+        return true;
+    };
+
+    const nextStep = () => {
+        if (!validateStep(currentStep)) return;
+        if (currentStep < totalSteps - 1) setCurrentStep(currentStep + 1);
+    };
+
+    const prevStep = () => {
+        if (currentStep > 0) setCurrentStep(currentStep - 1);
+    };
+
     const handleSubmit = async () => {
         if (!isAuthenticated() || !user) {
             alert('Jelentkezz be a recept feltöltéséhez!');
             return;
         }
 
-        // Validation
-        if (!formData.poszt_cim.trim()) {
-            alert('Add meg a recept nevét!');
-            return;
-        }
-
-        if (!formData.ar_id || !formData.nehezseg_id) {
-            alert('Válaszd ki az árat és a nehézséget!');
-            return;
-        }
-
-        if (!imageFile) {
-            alert('Kérlek válassz egy képet a recepthez!');
-            return;
-        }
+        if (!validateStep(0) || !validateStep(1) || !validateStep(3)) return;
 
         setLoading(true);
 
         try {
-            for (const h of hozzavalok) {
-                const trimmedHozzavalo = h.hozzavalo_nev?.trim();
-                const trimmedMertekegyseg = h.mertekegyseg_nev?.trim();
-                const trimmedMennyiseg = h.mennyiseg?.trim();
-
-                if (!trimmedHozzavalo || !trimmedMertekegyseg || !trimmedMennyiseg) {
-                    alert('Kérlek töltsd ki az összes hozzávaló mezőt!');
-                    setLoading(false);
-                    return;
-                }
-            }
-
             const lepesek_szoveg = lepesek
                 .filter(lep => lep.trim())
                 .join('|||');
@@ -220,258 +240,277 @@ export default function Upload(){
 
     return(
         <main>
-            <div className="three uploadMargin">
-                <div className="box">
-                    <h1 className="title">Recept neve:</h1>
-                    <input 
-                        className="sideSelect" 
-                        type="text" 
-                        name="poszt_cim"
-                        value={formData.poszt_cim}
-                        onChange={handleInputChange}
-                        placeholder="Recept neve" 
-                    />
-                </div>
-                <div className="box">
-                    <h1 className="title">Egyéb elnevezések:</h1>
-                    <input 
-                        className="sideSelect" 
-                        type="text" 
-                        name="alcimek"
-                        value={formData.alcimek}
-                        onChange={handleInputChange}
-                        placeholder="pl. pityóka, burgonya (vesszővel elválasztva)" 
-                    />
-                </div>
-                <div className="box">
-                    <h1 className="title">Recept leírása:</h1>
-                    <textarea 
-                        className="sideSelect tall" 
-                        name="poszt_leiras"
-                        value={formData.poszt_leiras}
-                        onChange={handleInputChange}
-                        placeholder="Rövid leírás a recepthez"
-                    ></textarea>
-                </div>
-                <div className="box">
-                    <h1 className="title">Kép feltöltése:</h1>
-                    <input 
-                        className="sideSelect" 
-                        type="file" 
-                        accept="image/jpeg,image/png,image/gif,image/webp"
-                        onChange={handleImageChange}
-                        style={{padding: '8px'}}
-                        required
-                    />
-                    {imageFile && (
-                        <p style={{marginTop: '8px', color: '#4CAF50', fontSize: '14px'}}>
-                            Kiválasztva: {imageFile.name}
-                        </p>
-                    )}
-                    <p style={{marginTop: '8px', fontSize: '12px', color: '#999'}}>
-                        Támogatott formátumok: JPEG, PNG, GIF, WebP (max 5MB)
-                    </p>
-                </div>
-            </div>
-
-            <div className="three uploadMargin">
-                <div className="box">
-                    <h1 className="title">Hozzávalók:</h1>
-                    {hozzavalok.map((hozzavalo, index) => (
-                        <div key={index} style={{display:'flex',gap:8,alignItems:'center',flexWrap:'wrap',marginBottom:8}}>
-                            <input 
-                                className="uploadInput" 
-                                style={{flex:'1 1 120px',minWidth:0}} 
-                                type="number" 
-                                value={hozzavalo.mennyiseg}
-                                onChange={(e) => handleHozzavaloChange(index, 'mennyiseg', e.target.value)}
-                                placeholder="Mennyiség (pl. 200)" 
-                            />
-                            <input 
-                                className="uploadInput" 
-                                style={{flex:'1 1 120px',minWidth:0}} 
-                                type="text" 
-                                list={`mertekegyseg-list-${index}`}
-                                value={hozzavalo.mertekegyseg_nev}
-                                onChange={(e) => handleHozzavaloChange(index, 'mertekegyseg_nev', e.target.value)}
-                                placeholder="Mértékegység" 
-                            />
-                            <datalist id={`mertekegyseg-list-${index}`}>
-                                {mertekegysegOptions.map(m => (
-                                    <option key={m.mertekegyseg_id} value={m.mertekegyseg_nev} />
-                                ))}
-                            </datalist>
-                            <input 
-                                className="uploadInput" 
-                                style={{flex:'2 1 160px',minWidth:0}} 
-                                type="text" 
-                                value={hozzavalo.hozzavalo_nev}
-                                onChange={(e) => handleHozzavaloChange(index, 'hozzavalo_nev', e.target.value)}
-                                placeholder="Hozzávaló" 
-                            />
-                            <button 
-                                className="deleteButton" 
-                                style={{flex:'0 0 auto'}}
-                                onClick={() => removeHozzavalo(index)}
-                            >
-                                Törlés
-                            </button>
-                        </div>
+            <div className="upload-wizard">
+                <div className="upload-steps-indicator">
+                    {[...Array(totalSteps)].map((_, i) => (
+                        <span key={i} className={`upload-step-dot ${i < currentStep ? 'done' : ''} ${i === currentStep ? 'active' : ''}`}></span>
                     ))}
-                    <div className="wrap">
-                        <h2 className="subtitle">Hozzávaló hozzáadása: </h2>
-                        <button className="button" onClick={addHozzavalo}>+</button>
-                    </div>
                 </div>
-                <div className="box">
-                    <h1 className="title">Lépések:</h1>
-                    {lepesek.map((lepes, index) => (
-                        <div key={index} style={{marginBottom:8}}>
-                            <input 
-                                className="uploadInput three" 
-                                type="text" 
-                                value={lepes}
-                                onChange={(e) => handleLepesChange(index, e.target.value)}
-                                placeholder={`${index + 1}. lépés`} 
-                            />
-                            <button 
-                                className="deleteButton five"
-                                onClick={() => removeLepes(index)}
-                            >
-                                Törlés
-                            </button>
-                        </div>
-                    ))}
-                    <div className="wrap">
-                        <h2 className="subtitle">További lépés hozzáadása: </h2>
-                        <button className="button" onClick={addLepes}>+</button>
-                    </div>
-                </div>
-                <div className="box">
-                    <h1 className="title">Preferenciák:</h1>
-                    <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px'}}>
-                        {preferenciaOptions.map(pref => (
-                            <button
-                                key={pref.preferencia_id}
-                                type="button"
-                                className={`sideButton ${selectedPreferences.includes(pref.preferencia_id) ? 'active' : ''}`}
-                                onClick={() => {
-                                    setSelectedPreferences(prev => 
-                                        prev.includes(pref.preferencia_id)
-                                            ? prev.filter(id => id !== pref.preferencia_id)
-                                            : [...prev, pref.preferencia_id]
-                                    );
-                                }}
-                                style={{flex: '0 0 auto'}}
-                            >
-                                {pref.preferencia_nev}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-                <button 
-                    className="button" 
-                    onClick={handleSubmit}
-                    disabled={loading}
-                >
-                    {loading ? 'Feltöltés...' : 'Feltöltés'}
-                </button>
-            </div>
-            <div className="three uploadMargin">
-                <div className="box">
-                    <h1 className="title">Jellemzők:</h1>
 
-                    <h2 className="subtitle">Konyha:</h2>
-                    <select 
-                        className="sideSelect"
-                        name="konyha_id"
-                        value={formData.konyha_id || ''}
-                        onChange={(e) => setFormData(prev => ({ ...prev, konyha_id: parseInt(e.target.value) }))}
-                    >
-                        <option value="">Válassz...</option>
-                        {konyhaOptions.map(k => (
-                            <option key={k.konyha_id} value={k.konyha_id}>{k.konyha_nev}</option>
-                        ))}
-                    </select>
-
-                    <h2 className="subtitle">Ár:</h2>
-                    <div>
-                        <button 
-                            className={`sideButton five ${formData.ar_id === 1 ? 'active' : ''}`}
-                            onClick={() => setFormData(prev => ({ ...prev, ar_id: 1 }))}
-                        >$</button>
-                        <button 
-                            className={`sideButton five ${formData.ar_id === 2 ? 'active' : ''}`}
-                            onClick={() => setFormData(prev => ({ ...prev, ar_id: 2 }))}
-                        >$$</button>
-                        <button 
-                            className={`sideButton five ${formData.ar_id === 3 ? 'active' : ''}`}
-                            onClick={() => setFormData(prev => ({ ...prev, ar_id: 3 }))}
-                        >$$$</button>
-                    </div>
-
-                    <h2 className="subtitle">Adag: </h2>
-                    <div>
+                <div className="upload-tab" style={{display: currentStep === 0 ? 'block' : 'none'}}>
+                    <h1 className="upload-tab-title">Alap információk</h1>
+                    <div className="box">
+                        <h2 className="subtitle">Recept neve:</h2>
                         <input 
-                            type="number" 
                             className="sideSelect" 
-                            name="poszt_adag"
-                            value={formData.poszt_adag}
+                            type="text" 
+                            name="poszt_cim"
+                            value={formData.poszt_cim}
                             onChange={handleInputChange}
-                            placeholder="Adag" 
+                            placeholder="Recept neve" 
                         />
                     </div>
-
-                    <h2 className="subtitle">Nehézség:</h2>
-                    <div>
-                        <button 
-                            className={`sideButton five ${formData.nehezseg_id === 1 ? 'active' : ''}`}
-                            onClick={() => setFormData(prev => ({ ...prev, nehezseg_id: 1 }))}
-                        >*</button>
-                        <button 
-                            className={`sideButton five ${formData.nehezseg_id === 2 ? 'active' : ''}`}
-                            onClick={() => setFormData(prev => ({ ...prev, nehezseg_id: 2 }))}
-                        >**</button>
-                        <button 
-                            className={`sideButton five ${formData.nehezseg_id === 3 ? 'active' : ''}`}
-                            onClick={() => setFormData(prev => ({ ...prev, nehezseg_id: 3 }))}
-                        >***</button>
+                    <div className="box">
+                        <h2 className="subtitle">Egyéb elnevezések:</h2>
+                        <input 
+                            className="sideSelect" 
+                            type="text" 
+                            name="alcimek"
+                            value={formData.alcimek}
+                            onChange={handleInputChange}
+                            placeholder="pl. pityóka, burgonya (vesszővel elválasztva)" 
+                        />
                     </div>
+                    <div className="box">
+                        <h2 className="subtitle">Recept leírása:</h2>
+                        <textarea 
+                            className="sideSelect tall" 
+                            name="poszt_leiras"
+                            value={formData.poszt_leiras}
+                            onChange={handleInputChange}
+                            placeholder="Rövid leírás a recepthez"
+                        ></textarea>
+                    </div>
+                    <div className="box">
+                        <h2 className="subtitle">Kép feltöltése:</h2>
+                        <input 
+                            className="sideSelect" 
+                            type="file" 
+                            accept="image/jpeg,image/png,image/gif,image/webp"
+                            onChange={handleImageChange}
+                            style={{padding: '8px'}}
+                        />
+                        {imageFile && (
+                            <p className="upload-file-selected">Kiválasztva: {imageFile.name}</p>
+                        )}
+                        <p className="upload-file-hint">Formátumok: JPEG, PNG, GIF, WebP (max 5MB)</p>
+                    </div>
+                </div>
 
-                    <h2 className="subtitle">Elkészítési idő (perc):</h2>
-                    <input 
-                        type="number" 
-                        name="poszt_ido"
-                        value={formData.poszt_ido}
-                        onChange={handleInputChange}
-                        placeholder="Perc" 
-                    />
-
-                    <h2 className="subtitle">Fogás:</h2>
-                    <select 
-                        className="sideSelect"
-                        name="fogas_id"
-                        value={formData.fogas_id || ''}
-                        onChange={(e) => setFormData(prev => ({ ...prev, fogas_id: parseInt(e.target.value) }))}
-                    >
-                        <option value="">Válassz...</option>
-                        {fogasOptions.map(f => (
-                            <option key={f.fogas_id} value={f.fogas_id}>{f.fogas_nev}</option>
+                <div className="upload-tab" style={{display: currentStep === 1 ? 'block' : 'none'}}>
+                    <h1 className="upload-tab-title">Hozzávalók</h1>
+                    <div className="box">
+                        {hozzavalok.map((hozzavalo, index) => (
+                            <div key={index} className="upload-ingredient-row">
+                                <input 
+                                    className="uploadInput" 
+                                    style={{flex:'1 1 120px',minWidth:0}} 
+                                    type="number" 
+                                    value={hozzavalo.mennyiseg}
+                                    onChange={(e) => handleHozzavaloChange(index, 'mennyiseg', e.target.value)}
+                                    placeholder="Mennyiség" 
+                                />
+                                <input 
+                                    className="uploadInput" 
+                                    style={{flex:'1 1 120px',minWidth:0}} 
+                                    type="text" 
+                                    list={`mertekegyseg-list-${index}`}
+                                    value={hozzavalo.mertekegyseg_nev}
+                                    onChange={(e) => handleHozzavaloChange(index, 'mertekegyseg_nev', e.target.value)}
+                                    placeholder="Mértékegység" 
+                                />
+                                <datalist id={`mertekegyseg-list-${index}`}>
+                                    {mertekegysegOptions.map(m => (
+                                        <option key={m.mertekegyseg_id} value={m.mertekegyseg_nev} />
+                                    ))}
+                                </datalist>
+                                <input 
+                                    className="uploadInput" 
+                                    style={{flex:'2 1 160px',minWidth:0}} 
+                                    type="text" 
+                                    value={hozzavalo.hozzavalo_nev}
+                                    onChange={(e) => handleHozzavaloChange(index, 'hozzavalo_nev', e.target.value)}
+                                    placeholder="Hozzávaló" 
+                                />
+                                <button 
+                                    className="deleteButton" 
+                                    style={{flex:'0 0 auto'}}
+                                    onClick={() => removeHozzavalo(index)}
+                                >
+                                    Törlés
+                                </button>
+                            </div>
                         ))}
-                    </select>
+                        <div className="wrap">
+                            <h2 className="subtitle">Hozzávaló hozzáadása: </h2>
+                            <button className="button" onClick={addHozzavalo}>+</button>
+                        </div>
+                    </div>
+                </div>
 
-                    <h2 className="subtitle">Szezon:</h2>
-                    <select 
-                        className="sideSelect"
-                        name="szezon_id"
-                        value={formData.szezon_id || ''}
-                        onChange={(e) => setFormData(prev => ({ ...prev, szezon_id: parseInt(e.target.value) }))}
-                    >
-                        <option value="">Válassz...</option>
-                        {szezonOptions.map(s => (
-                            <option key={s.szezon_id} value={s.szezon_id}>{s.szezon_nev}</option>
+                <div className="upload-tab" style={{display: currentStep === 2 ? 'block' : 'none'}}>
+                    <h1 className="upload-tab-title">Lépések & Preferenciák</h1>
+                    <div className="box">
+                        <h2 className="subtitle">Elkészítési lépések:</h2>
+                        {lepesek.map((lepes, index) => (
+                            <div key={index} style={{marginBottom:8}}>
+                                <input 
+                                    className="uploadInput three" 
+                                    type="text" 
+                                    value={lepes}
+                                    onChange={(e) => handleLepesChange(index, e.target.value)}
+                                    placeholder={`${index + 1}. lépés`} 
+                                />
+                                <button 
+                                    className="deleteButton five"
+                                    onClick={() => removeLepes(index)}
+                                >
+                                    Törlés
+                                </button>
+                            </div>
                         ))}
-                    </select>
+                        <div className="wrap">
+                            <h2 className="subtitle">További lépés: </h2>
+                            <button className="button" onClick={addLepes}>+</button>
+                        </div>
+                    </div>
+                    <div className="box">
+                        <h2 className="subtitle">Preferenciák:</h2>
+                        <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px'}}>
+                            {preferenciaOptions.map(pref => (
+                                <button
+                                    key={pref.preferencia_id}
+                                    type="button"
+                                    className={`sideButton ${selectedPreferences.includes(pref.preferencia_id) ? 'active' : ''}`}
+                                    onClick={() => {
+                                        setSelectedPreferences(prev => 
+                                            prev.includes(pref.preferencia_id)
+                                                ? prev.filter(id => id !== pref.preferencia_id)
+                                                : [...prev, pref.preferencia_id]
+                                        );
+                                    }}
+                                    style={{flex: '0 0 auto'}}
+                                >
+                                    {pref.preferencia_nev}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="upload-tab" style={{display: currentStep === 3 ? 'block' : 'none'}}>
+                    <h1 className="upload-tab-title">Jellemzők</h1>
+                    <div className="box">
+                        <h2 className="subtitle">Konyha:</h2>
+                        <select 
+                            className="sideSelect"
+                            name="konyha_id"
+                            value={formData.konyha_id || ''}
+                            onChange={(e) => setFormData(prev => ({ ...prev, konyha_id: parseInt(e.target.value) }))}
+                        >
+                            <option value="">Válassz...</option>
+                            {konyhaOptions.map(k => (
+                                <option key={k.konyha_id} value={k.konyha_id}>{k.konyha_nev}</option>
+                            ))}
+                        </select>
+
+                        <h2 className="subtitle">Ár:</h2>
+                        <div>
+                            <button 
+                                className={`sideButton five ${formData.ar_id === 1 ? 'active' : ''}`}
+                                onClick={() => setFormData(prev => ({ ...prev, ar_id: 1 }))}
+                            >$</button>
+                            <button 
+                                className={`sideButton five ${formData.ar_id === 2 ? 'active' : ''}`}
+                                onClick={() => setFormData(prev => ({ ...prev, ar_id: 2 }))}
+                            >$$</button>
+                            <button 
+                                className={`sideButton five ${formData.ar_id === 3 ? 'active' : ''}`}
+                                onClick={() => setFormData(prev => ({ ...prev, ar_id: 3 }))}
+                            >$$$</button>
+                        </div>
+
+                        <h2 className="subtitle">Adag:</h2>
+                        <div>
+                            <input 
+                                type="number" 
+                                className="sideSelect" 
+                                name="poszt_adag"
+                                value={formData.poszt_adag}
+                                onChange={handleInputChange}
+                                placeholder="Adag" 
+                            />
+                        </div>
+
+                        <h2 className="subtitle">Nehézség:</h2>
+                        <div>
+                            <button 
+                                className={`sideButton five ${formData.nehezseg_id === 1 ? 'active' : ''}`}
+                                onClick={() => setFormData(prev => ({ ...prev, nehezseg_id: 1 }))}
+                            >*</button>
+                            <button 
+                                className={`sideButton five ${formData.nehezseg_id === 2 ? 'active' : ''}`}
+                                onClick={() => setFormData(prev => ({ ...prev, nehezseg_id: 2 }))}
+                            >**</button>
+                            <button 
+                                className={`sideButton five ${formData.nehezseg_id === 3 ? 'active' : ''}`}
+                                onClick={() => setFormData(prev => ({ ...prev, nehezseg_id: 3 }))}
+                            >***</button>
+                        </div>
+
+                        <h2 className="subtitle">Elkészítési idő (perc):</h2>
+                        <input 
+                            type="number" 
+                            name="poszt_ido"
+                            value={formData.poszt_ido}
+                            onChange={handleInputChange}
+                            placeholder="Perc" 
+                        />
+
+                        <h2 className="subtitle">Fogás:</h2>
+                        <select 
+                            className="sideSelect"
+                            name="fogas_id"
+                            value={formData.fogas_id || ''}
+                            onChange={(e) => setFormData(prev => ({ ...prev, fogas_id: parseInt(e.target.value) }))}
+                        >
+                            <option value="">Válassz...</option>
+                            {fogasOptions.map(f => (
+                                <option key={f.fogas_id} value={f.fogas_id}>{f.fogas_nev}</option>
+                            ))}
+                        </select>
+
+                        <h2 className="subtitle">Szezon:</h2>
+                        <select 
+                            className="sideSelect"
+                            name="szezon_id"
+                            value={formData.szezon_id || ''}
+                            onChange={(e) => setFormData(prev => ({ ...prev, szezon_id: parseInt(e.target.value) }))}
+                        >
+                            <option value="">Válassz...</option>
+                            {szezonOptions.map(s => (
+                                <option key={s.szezon_id} value={s.szezon_id}>{s.szezon_nev}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                <div className="upload-nav-buttons">
+                    {currentStep > 0 && (
+                        <button type="button" className="button upload-prev-btn" onClick={prevStep}>Előző</button>
+                    )}
+                    {currentStep < totalSteps - 1 && (
+                        <button type="button" className="button upload-next-btn" onClick={nextStep}>Következő</button>
+                    )}
+                    {currentStep === totalSteps - 1 && (
+                        <button 
+                            className="button upload-submit-btn" 
+                            onClick={handleSubmit}
+                            disabled={loading}
+                        >
+                            {loading ? 'Feltöltés...' : 'Feltöltés'}
+                        </button>
+                    )}
                 </div>
             </div>
         </main>

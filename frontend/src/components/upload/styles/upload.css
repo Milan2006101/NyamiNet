@@ -13,6 +13,7 @@
     height: 35px;
     border: none;
     border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .deleteButton:hover {
@@ -28,7 +29,130 @@
     margin-bottom: 10px;
 }
 
-/* Dark Mode */
+.upload-wizard {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #ECE0C2;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.upload-steps-indicator {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.upload-step-dot {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: 0 6px;
+    border-radius: 50%;
+    background-color: #ccc;
+    transition: background-color 0.3s;
+}
+
+.upload-step-dot.active {
+    background-color: #BF3131;
+    box-shadow: 0 0 6px rgba(191,49,49,0.5);
+}
+
+.upload-step-dot.done {
+    background-color: #4CAF50;
+}
+
+.upload-tab-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #BF3131;
+}
+
+.upload-nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.upload-prev-btn,
+.upload-next-btn,
+.upload-submit-btn {
+    padding: 12px 32px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.upload-prev-btn:hover,
+.upload-next-btn:hover,
+.upload-submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.upload-prev-btn {
+    background-color: #888;
+    color: #fff;
+}
+
+.upload-next-btn {
+    background-color: #BF3131;
+    color: #fff;
+    margin-left: auto;
+}
+
+.upload-submit-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    margin-left: auto;
+}
+
+.upload-file-selected {
+    margin-top: 8px;
+    color: #4CAF50;
+    font-size: 14px;
+}
+
+.upload-file-hint {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #999;
+}
+
+.upload-ingredient-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.dark-mode .upload-wizard {
+    background-color: #352F44;
+    color: #FAF0E6;
+}
+
+.dark-mode .upload-tab-title {
+    color: #FAF0E6;
+    border-bottom-color: #5C5470;
+}
+
+.dark-mode .upload-step-dot {
+    background-color: #5C5470;
+}
+
+.dark-mode .upload-step-dot.active {
+    background-color: #B9B4C7;
+    box-shadow: 0 0 6px rgba(185,180,199,0.5);
+}
+
 .dark-mode .uploadInput {
     background-color: #352F44;
     color: #FAF0E6;
