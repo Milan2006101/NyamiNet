@@ -33,7 +33,7 @@ export default function AppRouter() {
 
       <Route path="/saved" element={<MainSaved />} />
       
-      <Route path="/recipe" element={<RecipePage />} />
+      <Route path="/recipe/:poszt_id" element={<RecipePage />} />
 
       <Route path="/admin/reports" element={<AdminReportList />} />
       <Route path="/admin/report/:poszt_id" element={<AdminReportDetail />} />

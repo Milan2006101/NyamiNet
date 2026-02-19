@@ -139,7 +139,7 @@ export default function Recipe({poszt_id, poszt_cim, poszt_datum, poszt_leiras, 
     
     const navigate = useNavigate();
     const handleOpen = () => {
-        navigate('/recipe', { state: { recipe: { poszt_id, poszt_cim, poszt_datum, poszt_leiras, poszt_kepurl, poszt_ido, ar_kategoria, konyha_nev, fogas_nev, nehezseg_kategoria, szezon_nev, preferenciak, allergiak, felhasznalo_nev } } });
+        navigate(`/recipe/${poszt_id}`);
     }
 
     const handleDelete = (e) => {

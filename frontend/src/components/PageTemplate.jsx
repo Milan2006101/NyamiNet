@@ -41,7 +41,7 @@ export default function PageTemplate({ children }) {
             return <NavbarLogin selected="fiok" />;
         }
         
-        if (path === '/recipe') {
+        if (path.startsWith('/recipe/')) {
             try {
                 const user = JSON.parse(localStorage.getItem('user'));
                 if (user) {

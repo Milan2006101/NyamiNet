@@ -1,11 +1,9 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import './styles/recipe-detail.css';
 import '../profile/styles/preference-colors.css';
-import '../main/styles/sidebar.css';
 import CommentSection from './CommentSection';
 import ReportModal from './ReportModal';
-import Sidebar from '../main/sidebar.jsx';
 
 const API_BASE_URL = 'http://localhost:3001';
 
@@ -33,64 +31,54 @@ const getRelativeTime = (dateString) => {
 };
 
 export default function RecipePage(){
-    const location = useLocation();
-    const navigate = useNavigate();
-    const recipe = location.state?.recipe;
-    const [detailedRecipe, setDetailedRecipe] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const { poszt_id } = useParams();
+    const [recipeData, setRecipeData] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [currentRating, setCurrentRating] = useState(null);
     const [likeScore, setLikeScore] = useState(0);
     const [isSaved, setIsSaved] = useState(false);
     const [showReportModal, setShowReportModal] = useState(false);
 
     useEffect(() => {
-        if (recipe?.poszt_id) {
-            setLoading(true);
-            
-            fetch(`${API_BASE_URL}/poszt/${recipe.poszt_id}`)
-                .then(res => res.json())
-                .then(data => {
-                    setDetailedRecipe(data);
-                    setLoading(false);
-                })
-                .catch(err => {
-                    console.error('Failed to fetch recipe details:', err);
-                    setLoading(false);
-                });
-            
-            fetch(`${API_BASE_URL}/poszt/${recipe.poszt_id}/likescore`)
-                .then(res => res.json())
-                .then(data => setLikeScore(Number(data.like_score) || 0))
-                .catch(err => console.error('Error fetching like score:', err));
-            
-            const token = localStorage.getItem('token');
-            if (token) {
-                fetch(`${API_BASE_URL}/poszt/${recipe.poszt_id}/szavazat`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                .then(res => res.json())
-                .then(data => setCurrentRating(data.szavazat))
-                .catch(err => console.error('Error fetching rating:', err));
-                
-                fetch(`${API_BASE_URL}/mentett`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                .then(res => {
-                    if (res.ok) return res.json();
-                    throw new Error('Failed to fetch saved recipes');
-                })
-                .then(data => {
-                    const savedIds = Array.isArray(data) ? data.map(r => r.poszt_id) : [];
-                    setIsSaved(savedIds.includes(recipe.poszt_id));
-                })
-                .catch(err => console.error('Error fetching saved status:', err));
-            }
+        if (!poszt_id) return;
+        setLoading(true);
+
+        fetch(`${API_BASE_URL}/poszt/${poszt_id}`)
+            .then(res => res.json())
+            .then(data => {
+                setRecipeData(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error('Failed to fetch recipe details:', err);
+                setLoading(false);
+            });
+
+        fetch(`${API_BASE_URL}/poszt/${poszt_id}/likescore`)
+            .then(res => res.json())
+            .then(data => setLikeScore(Number(data.like_score) || 0))
+            .catch(err => console.error('Error fetching like score:', err));
+
+        const token = localStorage.getItem('token');
+        if (token) {
+            fetch(`${API_BASE_URL}/poszt/${poszt_id}/szavazat`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(res => res.json())
+            .then(data => setCurrentRating(data.szavazat))
+            .catch(err => console.error('Error fetching rating:', err));
+
+            fetch(`${API_BASE_URL}/mentett`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(res => { if (res.ok) return res.json(); throw new Error(); })
+            .then(data => {
+                const savedIds = Array.isArray(data) ? data.map(r => r.poszt_id) : [];
+                setIsSaved(savedIds.includes(Number(poszt_id)));
+            })
+            .catch(err => console.error('Error fetching saved status:', err));
         }
-    }, [recipe?.poszt_id]);
+    }, [poszt_id]);
 
     const handleRating = async (type) => {
         const token = localStorage.getItem('token');
@@ -98,18 +86,13 @@ export default function RecipePage(){
             alert('Bejelentkezés szükséges az értékeléshez');
             return;
         }
-
         const ratingValue = type === 'like' ? 1 : -1;
         const endpoint = type === 'like' ? 'like' : 'dislike';
-
         try {
-            const response = await fetch(`${API_BASE_URL}/poszt/${recipe.poszt_id}/${endpoint}`, {
+            const response = await fetch(`${API_BASE_URL}/poszt/${poszt_id}/${endpoint}`, {
                 method: 'PATCH',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                headers: { 'Authorization': `Bearer ${token}` }
             });
-            
             if (response.ok) {
                 if (currentRating === ratingValue) {
                     setLikeScore(prev => prev - ratingValue);
@@ -133,59 +116,53 @@ export default function RecipePage(){
             alert('Jelentkezz be a mentéshez!');
             return;
         }
-
         try {
             const method = isSaved ? 'DELETE' : 'POST';
-            const response = await fetch(`${API_BASE_URL}/mentett/${recipe.poszt_id}`, {
+            const response = await fetch(`${API_BASE_URL}/mentett/${poszt_id}`, {
                 method,
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                headers: { 'Authorization': `Bearer ${token}` }
             });
-
             if (response.ok || response.status === 409) {
                 setIsSaved(!isSaved);
-            } else {
-                console.error('Failed to toggle save status');
             }
         } catch (err) {
             console.error('Error toggling save:', err);
         }
     };
 
-    const handleSidebarFilter = (params) => {
-        navigate(`/mainlogin?${params.toString()}`);
-    };
-
-    if(!recipe) return (
-        <main>
-            <div className="recipe-detail-container">
-                <h2>Nincs kiválasztott recept</h2>
-            </div>
-            <Sidebar onFilterChange={handleSidebarFilter} />
-        </main>
-    )
-
-    if(loading) return (
+    if (loading) return (
         <main>
             <div className="recipe-detail-container">
                 <h2>Betöltés...</h2>
             </div>
-            <Sidebar onFilterChange={handleSidebarFilter} />
         </main>
-    )
+    );
 
-    const receptnev = recipe.poszt_cim || recipe.receptnev || '';
-    const datum = recipe.poszt_datum || recipe.datum || '';
-    const posztolo = recipe.felhasznalo_nev || recipe.posztolo || '';
-    const leiras = recipe.poszt_leiras || recipe.leiras || '';
-    const ar_val = recipe.ar_kategoria || recipe.ar || recipe.ar_id || null;
-    const konyha = recipe.konyha_nev || recipe.konyha || '';
-    const ido = recipe.poszt_ido || recipe.ido || '';
-    const fogas = recipe.fogas_nev || recipe.fogas || '';
-    const nehezseg = recipe.nehezseg_kategoria || recipe.nehezseg || null;
-    const preferenciak = recipe.preferenciak || recipe.preferenciak || recipe.allergiak || [];
-    const kepUrl = recipe.poszt_kepurl || recipe.kep || '';
+    if (!recipeData || !recipeData.poszt) return (
+        <main>
+            <div className="recipe-detail-container">
+                <h2>A recept nem található</h2>
+            </div>
+        </main>
+    );
+
+    const poszt = recipeData.poszt;
+    const hozzavalok = recipeData.hozzavalok || [];
+    const lepesekSzoveg = recipeData.lepesSzoveg || '';
+
+    const receptnev = poszt.poszt_cim || '';
+    const datum = poszt.poszt_datum || '';
+    const posztolo = poszt.feltolto || poszt.felhasznalo_nev || '';
+    const leiras = poszt.poszt_leiras || '';
+    const ar_val = poszt.ar_kategoria || null;
+    const konyha = poszt.konyha_nev || '';
+    const ido = poszt.poszt_ido || '';
+    const fogas = poszt.fogas_nev || '';
+    const nehezseg = poszt.nehezseg_kategoria || null;
+    const kepUrl = poszt.poszt_kepurl || '';
+    const preferenciak = poszt.allergiak
+        ? poszt.allergiak.split(',').map(p => p.trim()).filter(p => p)
+        : [];
 
     const getSeasonFromMonth = (m) => {
         if ([11,0,1].includes(m)) return 'tél';
@@ -222,9 +199,6 @@ export default function RecipePage(){
         return '*'.repeat(Math.min(3, n));
     })();
 
-    const hozzavalok = detailedRecipe?.hozzavalok || [];
-    const lepesekSzoveg = detailedRecipe?.lepesSzoveg || '';
-    
     let lepesekArray = [];
     if (lepesekSzoveg) {
         if (lepesekSzoveg.includes('|||')) {
@@ -326,7 +300,7 @@ export default function RecipePage(){
             </div>
 
             {showReportModal && (
-                <ReportModal posztId={recipe.poszt_id} onClose={() => setShowReportModal(false)} />
+                <ReportModal posztId={poszt_id} onClose={() => setShowReportModal(false)} />
             )}
 
             {/* Data cards */}
@@ -379,9 +353,8 @@ export default function RecipePage(){
                 </div>
             )}
 
-            <CommentSection posztId={recipe.poszt_id} />
+            <CommentSection posztId={poszt_id} />
         </div>
-        <Sidebar onFilterChange={handleSidebarFilter} />
         </main>
     )
 }
