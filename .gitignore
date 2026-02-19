@@ -1,5 +1,5 @@
 # Dependencies
-**/package-lock.json
+**/node_modules/
 
 # Build outputs
 **/dist/
