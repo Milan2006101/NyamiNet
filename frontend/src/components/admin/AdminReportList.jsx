@@ -176,7 +176,6 @@ export default function AdminReportList() {
                 </table>
             </div>
 
-            {/* Admin user creation form */}
             <div style={{
                 flex: 1,
                 minWidth: '280px',
@@ -222,7 +221,6 @@ export default function AdminReportList() {
                     style={inputStyle}
                 />
 
-                {/* Preferences dropdown */}
                 <div style={{ position: 'relative', marginTop: '8px', marginBottom: '16px' }}>
                     <div
                         onClick={() => setPrefDropdownOpen(!prefDropdownOpen)}

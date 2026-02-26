@@ -21,7 +21,6 @@ export default function MainMyRecipes(){
             navigate('/login');
             return;
         }
-        // Fetch recipes after confirming authentication
         fetchMyRecipes();
     }, [navigate]);
 
@@ -35,7 +34,6 @@ export default function MainMyRecipes(){
         fetch(`${API_BASE_URL}/poszt?${filterParams.toString()}`)
             .then((res) => res.json())
             .then((data) => {
-                // Filter to show only current user's recipes (by username since backend doesn't return felhasznalo_id)
                 const myRecipes = data.filter(recipe => recipe.felhasznalo_nev === user.felhasznalo_nev);
                 setAllReceptek(data);
                 setReceptek(myRecipes);
@@ -63,7 +61,6 @@ export default function MainMyRecipes(){
 
             if (response.ok) {
                 alert('Recept sikeresen törölve!');
-                // Refresh the recipe list
                 fetchMyRecipes();
             } else {
                 const error = await response.json();

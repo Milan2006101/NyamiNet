@@ -177,7 +177,6 @@ export default function AdminReportDetail() {
             <div style={{ flex: 1, padding: '20px' }}>
                 <h1 style={{ color: 'var(--text-accent)', marginBottom: '5px' }}>Reportolt poszt megtekintése</h1>
 
-                {/* Indoklás header */}
                 <h2 style={{
                     color: 'var(--text-accent-red)',
                     marginBottom: '20px',
@@ -186,7 +185,6 @@ export default function AdminReportDetail() {
                     Indoklás: {mainIndoklas || 'Nincs megadva'}
                 </h2>
 
-                {/* Main recipe card */}
                 <div style={{
                     backgroundColor: 'var(--bg-card)',
                     borderRadius: '15px',
@@ -194,7 +192,6 @@ export default function AdminReportDetail() {
                     marginBottom: '20px'
                 }}>
                     <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                        {/* Left column - recipe info */}
                         <div style={{ flex: '1 1 300px' }}>
                             <h2 style={{ color: 'var(--text-accent-red)', margin: '0 0 5px 0' }}>{receptnev}</h2>
                             <p style={{ color: 'var(--text-muted)', fontSize: '12px', margin: '0 0 2px 0' }}>
@@ -214,7 +211,6 @@ export default function AdminReportDetail() {
                             <p style={{ marginBottom: '4px' }}><b>Fogás:</b> {fogas || '-'}</p>
                             <p style={{ marginBottom: '15px' }}><b>Nehézség:</b> {diffMap[nehezseg] || nehezseg || '-'}</p>
 
-                            {/* Action buttons */}
                             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                                 <button
                                     onClick={handleApprove}
@@ -251,14 +247,12 @@ export default function AdminReportDetail() {
                             </div>
                         </div>
 
-                        {/* Right column - image + badges + report count */}
                         <div style={{ flex: '0 0 300px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', marginBottom: '8px' }}>
                                 <span style={{ fontWeight: 'bold' }}>Reportok száma</span>
                                 <span style={{ marginLeft: '10px', fontWeight: 'bold', fontSize: '18px' }}>{reports.length}</span>
                             </div>
 
-                            {/* Image */}
                             <div style={{
                                 width: '250px',
                                 height: '200px',
@@ -283,7 +277,6 @@ export default function AdminReportDetail() {
                                 )}
                             </div>
 
-                            {/* Preference badges */}
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', justifyContent: 'center' }}>
                                 {Array.isArray(preferenciak) && preferenciak.map((p, i) => {
                                     const l = (p || '').toLowerCase();
@@ -304,7 +297,6 @@ export default function AdminReportDetail() {
                     </div>
                 </div>
 
-                {/* Ingredients and Steps */}
                 <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '20px' }}>
                     {hozzavalok.length > 0 && (
                         <div style={{
@@ -340,7 +332,6 @@ export default function AdminReportDetail() {
                     )}
                 </div>
 
-                {/* Delete and Ban button */}
                 <div style={{ textAlign: 'center', marginBottom: '30px' }}>
                     <button
                         onClick={handleDeleteAndBan}

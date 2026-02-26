@@ -24,7 +24,6 @@ export default function Sidebar({ onFilterChange, className = '' }){
     const [seasonOptions, setSeasonOptions] = useState([]);
     const [authToken, setAuthToken] = useState(getToken());
 
-    // Fetch filter options from backend
     useEffect(() => {
         fetch(`${API_BASE_URL}/konyha`)
             .then(res => res.json())
@@ -41,7 +40,6 @@ export default function Sidebar({ onFilterChange, className = '' }){
             .then(data => setSeasonOptions(data.map(item => item.szezon_nev)))
             .catch(err => console.error('Failed to fetch szezon options', err));
 
-        // Set all preference options (including those not in database)
         const allPreferences = [
             'vegán',
             'vegetáriánus',
@@ -57,18 +55,15 @@ export default function Sidebar({ onFilterChange, className = '' }){
         setPreferenceOptions(allPreferences);
     }, []);
 
-    // Track authentication changes and fetch/clear preferences accordingly
     useEffect(() => {
         const currentToken = getToken();
         setAuthToken(currentToken);
 
-        // Clear preferences if user logged out
         if (!currentToken) {
             setSelectedPreferences([]);
             return;
         }
 
-        // Fetch user's saved preferences if logged in
         if (isAuthenticated()) {
             fetch(`${API_BASE_URL}/felhasznalo/preferenciak`, {
                 headers: getAuthHeaders()
@@ -94,7 +89,6 @@ export default function Sidebar({ onFilterChange, className = '' }){
         }
     }, [authToken]);
 
-    // Listen for logout events
     useEffect(() => {
         const handleLogout = () => {
             setSelectedPreferences([]);
@@ -107,16 +101,13 @@ export default function Sidebar({ onFilterChange, className = '' }){
 
     useEffect(() => {
         applyFilters();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [price, konyha, timeRange, selectedPreferences, dateFilter, fogas, difficulty, season]);
 
     function applyFilters(){
         if (!onFilterChange) return;
         
-        // Build query parameters for backend API
         const params = new URLSearchParams();
         
-        // Map price string to ar_id
         if (price) {
             const priceMap = { 'olcsó': 1, 'közepes': 2, 'drága': 3 };
             params.append('ar', priceMap[price]);
@@ -126,31 +117,26 @@ export default function Sidebar({ onFilterChange, className = '' }){
         if (fogas) params.append('fogas', fogas);
         if (season) params.append('szezon', season);
         
-        // Map difficulty string to nehezseg_id
         if (difficulty) {
             const difficultyMap = { 'könnyű': 1, 'közepes': 2, 'nehéz': 3 };
             params.append('nehezseg', difficultyMap[difficulty]);
         }
         
-        // Map time range to elkeszitesi_ido category (1-4)
         if (timeRange) {
             const timeMap = { '<30': 1, '30-60': 2, '60-180': 3, '>180': 4 };
             params.append('elkeszitesi_ido', timeMap[timeRange]);
         }
         
-        // Map date filter to days (nap parameter)
         if (dateFilter) {
             if (dateFilter === 'week') params.append('nap', '7');
             else if (dateFilter === 'month') params.append('nap', '30');
             else if (dateFilter === 'year') params.append('nap', '365');
         }
         
-        // Join selected preferences with comma
         if (selectedPreferences && selectedPreferences.length) {
             params.append('preferencia', selectedPreferences.join(','));
         }
         
-        // Set sort order: 2 = newest first
         params.append('sorrend', '2');
         
         onFilterChange(params);

@@ -49,7 +49,6 @@ export default function FoodPreferences() {
             });
 
             if (response.ok) {
-                // Refresh preferences after toggle
                 await fetchPreferences();
             } else {
                 console.error('Failed to toggle preference');

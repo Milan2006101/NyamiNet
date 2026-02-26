@@ -219,7 +219,6 @@ export default function RecipePage(){
             <h1 className="recipe-detail-title">{receptnev}</h1>
             
             <div className="recipe-detail-main">
-                {/* Recipe image */}
                 <div className="recipe-detail-image">
                     {kepUrl ? (
                         <img 
@@ -235,14 +234,12 @@ export default function RecipePage(){
                     )}
                 </div>
 
-                {/* Info section */}
                 <div className="recipe-detail-info">
                     <div className="recipe-detail-meta">
                         <div>Posztolva: {getRelativeTime(datum)}</div>
                         <div>Posztoló: {posztolo}</div>
                     </div>
                     
-                    {/* Preference badges */}
                     <div className="recipe-detail-badges">
                         {Array.isArray(preferenciak) && preferenciak.map((p, i) => {
                             const l = (p || '').toLowerCase();
@@ -260,7 +257,6 @@ export default function RecipePage(){
                         })}
                     </div>
 
-                    {/* Description */}
                     <div className="recipe-detail-description">
                         <div className="recipe-detail-description-title">Rövid leírása a receptnek:</div>
                         <div className="recipe-detail-description-text">{leiras}</div>
@@ -268,7 +264,6 @@ export default function RecipePage(){
                 </div>
             </div>
 
-            {/* Action buttons */}
             <div className="recipe-actions">
                 <button 
                     onClick={() => handleRating('like')}
@@ -303,7 +298,6 @@ export default function RecipePage(){
                 <ReportModal posztId={poszt_id} onClose={() => setShowReportModal(false)} />
             )}
 
-            {/* Data cards */}
             <div className="recipe-detail-data">
                 <div className="recipe-data-card">
                     <div className="recipe-data-label">Ár</div>
@@ -327,7 +321,6 @@ export default function RecipePage(){
                 </div>
             </div>
 
-            {/* Ingredients section */}
             {hozzavalok.length > 0 && (
                 <div className="recipe-section">
                     <div className="recipe-section-title">Hozzávalók:</div>
@@ -340,8 +333,6 @@ export default function RecipePage(){
                     </ul>
                 </div>
             )}
-
-            {/* Steps section */}
             {lepesekArray.length > 0 && (
                 <div className="recipe-section">
                     <div className="recipe-section-title">Lépések:</div>

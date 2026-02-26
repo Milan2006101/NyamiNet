@@ -1,4 +1,4 @@
-/* CSS Custom Properties for theming */
+
 :root {
     --bg-page: #EAD196;
     --bg-card: #E8C99B;
@@ -39,7 +39,6 @@
     --btn-admin-bg: #352F44;
 }
 
-/* Global element styles */
 body {
     margin: 0;
     background-color: var(--bg-page);
@@ -61,7 +60,6 @@ textarea {
     resize: none;
 }
 
-/* Layout utility classes */
 .right {
     margin-right: 0;
     margin-left: auto;
@@ -86,7 +84,6 @@ textarea {
     display: flex;
 }
 
-/* Shared utility classes */
 .box {
     margin-top: 10px;
     background-color: #EEEEEE;
@@ -107,7 +104,6 @@ textarea {
     width: 20%;
 }
 
-/* Global Dark Mode Overrides */
 .dark-mode body,
 .dark-mode {
     background-color: #B9B4C7;
@@ -130,7 +126,6 @@ textarea {
     color: #FAF0E6;
 }
 
-/* Scrollbar (Webkit) */
 .dark-mode ::-webkit-scrollbar {
     background-color: #352F44;
 }
@@ -139,7 +134,6 @@ textarea {
     background-color: #5C5470;
 }
 
-/* ===== Intermediate widths ===== */
 @media (max-width: 1024px) {
     .right {
         gap: 6px;
@@ -150,7 +144,6 @@ textarea {
     }
 }
 
-/* ===== Mobile Responsive ===== */
 @media (max-width: 768px) {
     main {
         flex-direction: column;

@@ -13,37 +13,30 @@ const getRelativeTime = (dateString) => {
     const date = new Date(dateString);
     const now = new Date();
     
-    // Reset time to midnight for accurate day comparison
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const postDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     
     const diffTime = today - postDate;
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     
-    // Ma (today)
     if (diffDays === 0) return 'ma';
     
-    // A héten (last 7 days)
     if (diffDays < 7) return 'a héten';
     
-    // A hónapban (last 30 days)
     if (diffDays < 30) return 'a hónapban';
     
-    // Idén (last 365 days)
     if (diffDays < 365) return 'idén';
     
-    // Több mint egy éve (more than a year ago)
     return 'több mint egy éve';
 };
 
 export default function Recipe({poszt_id, poszt_cim, poszt_datum, poszt_leiras, poszt_kepurl, poszt_ido, ar_kategoria, konyha_nev, fogas_nev, nehezseg_kategoria, szezon_nev, allergiak, felhasznalo_nev, showDelete, onDelete, showSaveButton, isSaved, onSaveToggle}){
 
-    const [currentRating, setCurrentRating] = useState(null); // 1 for like, -1 for dislike, null for none
+    const [currentRating, setCurrentRating] = useState(null);
     const [likeScore, setLikeScore] = useState(0);
     const [showReportModal, setShowReportModal] = useState(false);
 
     useEffect(() => {
-        // Fetch like score
         const fetchLikeScore = async () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/poszt/${poszt_id}/likescore`);
@@ -56,7 +49,6 @@ export default function Recipe({poszt_id, poszt_cim, poszt_datum, poszt_leiras, 
             }
         };
 
-        // Fetch user's current vote for this recipe
         const fetchRating = async () => {
             const token = localStorage.getItem('token');
             if (!token) return;
@@ -69,7 +61,7 @@ export default function Recipe({poszt_id, poszt_cim, poszt_datum, poszt_leiras, 
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    setCurrentRating(data.szavazat); // Will be 1, -1, or null
+                    setCurrentRating(data.szavazat);
                 }
             } catch (error) {
                 console.error('Error fetching rating:', error);
@@ -77,7 +69,7 @@ export default function Recipe({poszt_id, poszt_cim, poszt_datum, poszt_leiras, 
         };
 
         fetchLikeScore();
-        if (showSaveButton) { // Only fetch if user is logged in
+        if (showSaveButton) {
             fetchRating();
         }
     }, [poszt_id, showSaveButton]);
@@ -94,8 +86,6 @@ export default function Recipe({poszt_id, poszt_cim, poszt_datum, poszt_leiras, 
         const endpoint = type === 'like' ? 'like' : 'dislike';
 
         try {
-            // If clicking the same button, the backend will toggle it off
-            // If clicking different button, the backend will switch to new value
             const response = await fetch(`${API_BASE_URL}/poszt/${poszt_id}/${endpoint}`, {
                 method: 'PATCH',
                 headers: {
@@ -104,17 +94,13 @@ export default function Recipe({poszt_id, poszt_cim, poszt_datum, poszt_leiras, 
             });
             
             if (response.ok) {
-                // Update local score
                 if (currentRating === ratingValue) {
-                    // Removing the rating
                     setLikeScore(prev => prev - ratingValue);
                     setCurrentRating(null);
                 } else if (currentRating === null) {
-                    // Adding new rating
                     setLikeScore(prev => prev + ratingValue);
                     setCurrentRating(ratingValue);
                 } else {
-                    // Switching from opposite rating
                     setLikeScore(prev => prev - currentRating + ratingValue);
                     setCurrentRating(ratingValue);
                 }
@@ -132,7 +118,6 @@ export default function Recipe({poszt_id, poszt_cim, poszt_datum, poszt_leiras, 
         const difficultyMap = { 'könnyű': '*', 'közepes': '**', 'nehéz': '***' };
         const nehezsegLabel = nehezseg_kategoria ? (difficultyMap[nehezseg_kategoria] || nehezseg_kategoria) : '-';
     
-    // Transform allergiak string to array for display
     const preferenciak = allergiak 
         ? allergiak.split(',').map(p => p.trim()).filter(p => p)
         : [];

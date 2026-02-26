@@ -65,7 +65,7 @@ export default function CommentSection({ posztId }) {
 
             if (response.ok) {
                 setNewComment('');
-                fetchComments(); // Refresh comments
+                fetchComments();
             } else {
                 const error = await response.json();
                 alert(error.uzenet || 'Hiba történt a komment küldésekor');
@@ -93,7 +93,6 @@ export default function CommentSection({ posztId }) {
         <div className="comment-section">
             <h2 className="comment-section-title">Hozzászólások ({comments.length})</h2>
             
-            {/* Comment form */}
             {isAuthenticated() ? (
                 <form className="comment-form" onSubmit={handleSubmit}>
                     <textarea
@@ -123,7 +122,6 @@ export default function CommentSection({ posztId }) {
                 </div>
             )}
 
-            {/* Comments list */}
             {loading ? (
                 <div className="comments-loading">Hozzászólások betöltése...</div>
             ) : comments.length === 0 ? (
