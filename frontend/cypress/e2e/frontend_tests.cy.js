@@ -2,10 +2,6 @@
 const ALAP_URL = 'http://localhost:5173';
 const API_URL  = 'http://localhost:3001';
 
-/* ============================================================
- *  Responsive breakpoint – hamburger menu & slide-out sidebar
- *  activate at this width and below.
- * ============================================================ */
 const MOBILE_BREAKPOINT = 1024;
 
 const TESZT_FELHASZNALO = {
@@ -14,15 +10,8 @@ const TESZT_FELHASZNALO = {
   jelszo: 'Teszt1234!'
 };
 
-/* ---------- helpers ---------- */
-
-/** True when the current Cypress viewport is at or below the mobile breakpoint. */
 const isMobile = () => Cypress.config('viewportWidth') <= MOBILE_BREAKPOINT;
 
-/**
- * On mobile the navbar buttons are hidden behind a hamburger dropdown.
- * Call this before any interaction with navbar buttons or the search input.
- */
 const openHamburgerIfMobile = () => {
   if (isMobile()) {
     cy.get('.hamburger-btn').should('be.visible').click();
@@ -30,10 +19,6 @@ const openHamburgerIfMobile = () => {
   }
 };
 
-/**
- * On mobile the filter/profile sidebar is off-screen.
- * Call this to reveal it via the toggle button.
- */
 const openSidebarIfMobile = () => {
   if (isMobile()) {
     cy.get('.sidebar-toggle-btn').should('be.visible').click();
@@ -65,9 +50,6 @@ before(() => {
   });
 });
 
-/* ==================================================================
- *  Bejelentkezés nélküli főoldal
- * ================================================================== */
 describe('Bejelentkezés nélküli főoldal', () => {
 
   beforeEach(() => {
@@ -145,9 +127,6 @@ describe('Bejelentkezés nélküli főoldal', () => {
 
 });
 
-/* ==================================================================
- *  Bejelentkezési oldal
- * ================================================================== */
 describe('Bejelentkezési oldal', () => {
 
   beforeEach(() => {
@@ -218,9 +197,6 @@ describe('Bejelentkezési oldal', () => {
 
 });
 
-/* ==================================================================
- *  Regisztrációs oldal
- * ================================================================== */
 describe('Regisztrációs oldal', () => {
 
   beforeEach(() => {
@@ -301,9 +277,6 @@ describe('Regisztrációs oldal', () => {
 
 });
 
-/* ==================================================================
- *  Bejelentkezett főoldal
- * ================================================================== */
 describe('Bejelentkezett főoldal', () => {
 
   beforeEach(() => {
@@ -398,9 +371,6 @@ describe('Bejelentkezett főoldal', () => {
 
 });
 
-/* ==================================================================
- *  Saját receptek oldal
- * ================================================================== */
 describe('Saját receptek oldal', () => {
 
   it('Bejelentkezés nélkül a /my-recipes oldal /login-ra irányít át', () => {
@@ -443,9 +413,6 @@ describe('Saját receptek oldal', () => {
 
 });
 
-/* ==================================================================
- *  Mentett receptek oldal
- * ================================================================== */
 describe('Mentett receptek oldal', () => {
 
   it('Bejelentkezve a /saved oldal betölt', () => {
@@ -473,9 +440,6 @@ describe('Mentett receptek oldal', () => {
 
 });
 
-/* ==================================================================
- *  Receptfeltöltő oldal
- * ================================================================== */
 describe('Receptfeltöltő oldal', () => {
 
   it('Bejelentkezés nélkül a /upload oldal /login-ra irányít át', () => {
@@ -523,7 +487,6 @@ describe('Receptfeltöltő oldal', () => {
     cy.wait(1000);
     cy.get('input[name="poszt_cim"]').type('Teszt Recept Cím');
     cy.get('textarea[name="poszt_leiras"]').type('Ez egy teszt leírás.');
-    // Attach a dummy image file to satisfy step 0 validation
     cy.get('input[type="file"]').selectFile({
       contents: Cypress.Buffer.from('fake-image-data'),
       fileName: 'test.png',
@@ -544,9 +507,6 @@ describe('Receptfeltöltő oldal', () => {
 
 });
 
-/* ==================================================================
- *  Profil oldal
- * ================================================================== */
 describe('Profil oldal', () => {
 
   beforeEach(() => {
@@ -622,7 +582,6 @@ describe('Profil oldal', () => {
     cy.get('.preferenceButton').first().invoke('css', 'opacity').then((elotte) => {
       const eredeti = parseFloat(elotte);
       cy.get('.preferenceButton').first().click();
-      // Wait for API round-trip and re-render, then verify opacity changed
       cy.get('.preferenceButton').first().should(($btn) => {
         expect(parseFloat($btn.css('opacity'))).to.not.eq(eredeti);
       });
@@ -645,9 +604,6 @@ describe('Profil oldal', () => {
 
 });
 
-/* ==================================================================
- *  Recept részletező oldal
- * ================================================================== */
 describe('Recept részletező oldal', () => {
 
   let elsoPosztId;
@@ -887,9 +843,6 @@ describe('Recept részletező oldal', () => {
 
 });
 
-/* ==================================================================
- *  Kijelentkezés
- * ================================================================== */
 describe('Kijelentkezés', () => {
 
   it('Kijelentkezés törli a token-t localStorage-ból', () => {
@@ -929,10 +882,8 @@ describe('Kijelentkezés', () => {
     cy.visit(`${ALAP_URL}/mainlogin`);
     openHamburgerIfMobile();
     cy.contains('button', 'Kijelentkezés').click();
-    // Wait for navigation to complete before touching the new navbar
     cy.url().should('eq', `${ALAP_URL}/`);
     if (isMobile()) {
-      // Re-query after navigation so Cypress gets the freshly rendered element
       cy.get('.hamburger-btn').should('be.visible');
       cy.get('.hamburger-btn').click();
       cy.get('.navbar-links.open').should('exist');
