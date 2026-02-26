@@ -138,3 +138,46 @@ textarea {
 .dark-mode ::-webkit-scrollbar-thumb {
     background-color: #5C5470;
 }
+
+/* ===== Intermediate widths ===== */
+@media (max-width: 1024px) {
+    .right {
+        gap: 6px;
+    }
+
+    .search {
+        width: 180px;
+    }
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    .wrap {
+        flex-direction: column;
+    }
+
+    .right {
+        margin-left: 0;
+        height: auto;
+    }
+
+    .left {
+        height: auto;
+    }
+
+    .three {
+        width: 100%;
+    }
+
+    .five {
+        width: 100%;
+    }
+
+    .box {
+        padding: 15px;
+    }
+}

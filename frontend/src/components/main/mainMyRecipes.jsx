@@ -14,6 +14,7 @@ export default function MainMyRecipes(){
     const PAGE_SIZE = 4;
     const { setFooterProps } = useFooter();
     const navigate = useNavigate();
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
         if (!isAuthenticated()) {
@@ -97,7 +98,9 @@ export default function MainMyRecipes(){
                 showDelete={true}
                 onDelete={handleDelete}
             />
-            <Sidebar onFilterChange={(params) => { 
+            <button className="sidebar-toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>&raquo;</button>
+            <div className={`sidebar-overlay ${sidebarOpen ? 'sidebar-overlay-visible' : ''}`} onClick={() => setSidebarOpen(false)} />
+            <Sidebar className={sidebarOpen ? 'sidebar-open' : ''} onFilterChange={(params) => { 
                 fetchMyRecipes(params);
                 setCurrentPage(1); 
             }} />

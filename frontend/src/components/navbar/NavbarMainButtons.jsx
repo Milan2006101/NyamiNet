@@ -1,27 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import './styles/navbar.css';
 
-export default function NavbarMainButtons({ selected }) {
+export default function NavbarMainButtons({ selected, onNavigate }) {
     const navigate = useNavigate();
+
+    const handleNav = (path) => {
+        navigate(path);
+        if (onNavigate) onNavigate();
+    };
     
     return (
         <div className='left'>
             <button 
-                onClick={() => navigate("/mainlogin")} 
+                onClick={() => handleNav("/mainlogin")} 
                 className={`btn ${selected === "fooldal" ? "selected" : ""}`} 
                 type="submit"
             >
                 Főoldal
             </button>
             <button 
-                onClick={() => navigate("/saved")} 
+                onClick={() => handleNav("/saved")} 
                 className={`btn ${selected === "mentett" ? "selected" : ""}`} 
                 type="submit"
             >
                 Mentett Receptek
             </button>
             <button 
-                onClick={() => navigate("/upload")} 
+                onClick={() => handleNav("/upload")} 
                 className={`btn ${selected === "feltoltes" ? "selected" : ""}`} 
                 type="submit"
             >

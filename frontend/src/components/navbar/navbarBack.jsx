@@ -7,8 +7,8 @@ export default function NavbarBack(){
     return(
         <div className="navbar">
             <NavbarLogo />
-            <div className="right">
-                <button onClick={() => navigate("/")} className="btn btn-large" type="submit">Vissza</button>
+            <div className="right" style={{display: 'flex', alignItems: 'center'}}>
+                <button onClick={() => navigate("/")} className="btn btn-large" type="submit">Főoldal</button>
             </div>
         </div>
     )

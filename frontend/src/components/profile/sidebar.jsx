@@ -3,7 +3,7 @@ import { getUser } from '../../utils/auth';
 import './styles/profile.css';
 import '../main/styles/sidebar.css';
 
-export default function SidebarProfile(){
+export default function SidebarProfile({ className = '' }){
     const navigate = useNavigate();
     const user = getUser();
 
@@ -14,7 +14,7 @@ export default function SidebarProfile(){
     };
 
     return(
-        <div className="sidebar sidebar-profile">
+        <div className={`sidebar ${className}`}>
             <div>
                 <h2 className="sideTitle">Általános</h2>
                 <div className="sideRow">

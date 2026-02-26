@@ -1,9 +1,10 @@
 .navbar {
     background-color: #7D0A0A;
-    text-wrap: wrap;
     display: flex;
     height: 50px;
     margin: 0;
+    position: relative;
+    overflow: hidden;
 }
 
 .feher {
@@ -53,6 +54,29 @@
     margin-bottom: auto;
 }
 
+/* Hamburger button - hidden on desktop */
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    padding: 0 16px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.hamburger-icon {
+    color: #EEEEEE;
+    font-size: 28px;
+}
+
+/* navbar-links wrapper - flex row on desktop */
+.navbar-links {
+    display: contents;
+}
+
 /* Dark Mode */
 .dark-mode .navbar {
     background-color: #352F44;
@@ -83,4 +107,71 @@
 
 .dark-mode .search::placeholder {
     color: #B9B4C7;
+}
+
+.dark-mode .hamburger-icon {
+    color: #FAF0E6;
+}
+
+/* ===== Responsive: hamburger activates at 1024px ===== */
+@media (max-width: 1024px) {
+    .navbar {
+        overflow: visible;
+    }
+
+    .hamburger-btn {
+        display: flex;
+    }
+
+    .navbar-links {
+        display: none;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        right: 0;
+        background-color: #7D0A0A;
+        flex-direction: column;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .navbar-links.open {
+        display: flex;
+    }
+
+    .dark-mode .navbar-links {
+        background-color: #352F44;
+    }
+
+    .navbar-links .left,
+    .navbar-links .right {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        margin: 0;
+        width: 100%;
+    }
+
+    .navbar-links .btn {
+        width: 100%;
+        text-align: left;
+        margin-left: 0;
+        padding: 14px 20px;
+        height: auto;
+        font-size: 18px;
+        box-sizing: border-box;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .navbar-links .search {
+        width: calc(100% - 40px);
+        margin: 10px 20px;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 768px) {
+    .nyami {
+        font-size: x-large;
+    }
 }

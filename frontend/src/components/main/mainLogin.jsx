@@ -13,6 +13,7 @@ export default function MainLogin(){
     const { setFooterProps } = useFooter();
     const location = useLocation();
     const [activeFilters, setActiveFilters] = useState(new URLSearchParams());
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const fetchReceptek = (sidebarFilters = new URLSearchParams()) => {
         const params = new URLSearchParams(sidebarFilters);
@@ -49,7 +50,9 @@ export default function MainLogin(){
     return(
         <main>
             <Recipes receptek={receptek} setReceptek={setReceptek} currentPage={currentPage} pageSize={PAGE_SIZE} showSaveButton={true} />
-            <Sidebar onFilterChange={(params) => { setActiveFilters(params); fetchReceptek(params); setCurrentPage(1); }} />
+            <button className="sidebar-toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>&raquo;</button>
+            <div className={`sidebar-overlay ${sidebarOpen ? 'sidebar-overlay-visible' : ''}`} onClick={() => setSidebarOpen(false)} />
+            <Sidebar className={sidebarOpen ? 'sidebar-open' : ''} onFilterChange={(params) => { setActiveFilters(params); fetchReceptek(params); setCurrentPage(1); }} />
         </main>
     )
 }

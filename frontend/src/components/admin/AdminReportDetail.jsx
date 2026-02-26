@@ -4,6 +4,7 @@ import { getUser } from '../../utils/auth';
 import SidebarAdmin from '../profile/sidebar_admin';
 import '../profile/styles/preference-colors.css';
 import '../profile/styles/preference-buttons.css';
+import '../main/styles/sidebar.css';
 
 const API_BASE_URL = 'http://localhost:3001';
 
@@ -15,6 +16,7 @@ export default function AdminReportDetail() {
     const [reports, setReports] = useState([]);
     const [loading, setLoading] = useState(true);
     const [actionLoading, setActionLoading] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
         if (!user || user.role_id !== 2) {
@@ -119,7 +121,9 @@ export default function AdminReportDetail() {
                 <div style={{ flex: 1, padding: '20px' }}>
                     <h2>Betöltés...</h2>
                 </div>
-                <SidebarAdmin />
+                <button className="sidebar-toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>&raquo;</button>
+                <div className={`sidebar-overlay ${sidebarOpen ? 'sidebar-overlay-visible' : ''}`} onClick={() => setSidebarOpen(false)} />
+                <SidebarAdmin className={sidebarOpen ? 'sidebar-open' : ''} />
             </main>
         );
     }
@@ -358,7 +362,9 @@ export default function AdminReportDetail() {
                     </button>
                 </div>
             </div>
-            <SidebarAdmin />
+            <button className="sidebar-toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>&raquo;</button>
+            <div className={`sidebar-overlay ${sidebarOpen ? 'sidebar-overlay-visible' : ''}`} onClick={() => setSidebarOpen(false)} />
+            <SidebarAdmin className={sidebarOpen ? 'sidebar-open' : ''} />
         </main>
     );
 }

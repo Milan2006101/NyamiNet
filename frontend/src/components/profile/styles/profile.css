@@ -1,9 +1,3 @@
-.sidebar-profile {
-    margin-left: auto;
-    margin-right: 0;
-    min-width: 148px;
-}
-
 .profilebox {
     margin-left: 30px;
     margin-top: 80px;
@@ -38,10 +32,22 @@
     color: #FAF0E6;
 }
 
-.dark-mode .sidebar-profile {
-    color: #FAF0E6;
-}
-
 .dark-mode .dark {
     background-color: #352F44;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+    .profilebox {
+        margin: 20px 10px;
+    }
+
+    .profileTitle {
+        width: 100%;
+    }
+
+    .profileInput {
+        width: 100%;
+        box-sizing: border-box;
+    }
 }

@@ -6,6 +6,7 @@ const API_BASE_URL = 'http://localhost:3001';
 
 export default function MainSaved(){
     const [receptek, setReceptek] = useState([]);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const fetchReceptek = () => {
         const token = localStorage.getItem('token');
@@ -38,7 +39,9 @@ export default function MainSaved(){
     return(
         <main>
             <Recipes receptek={receptek} setReceptek={setReceptek} showSaveButton={true} isSavedPage={true} onRecipeUnsaved={fetchReceptek} />
-            <Sidebar onFilterChange={() => {}} />
+            <button className="sidebar-toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>&raquo;</button>
+            <div className={`sidebar-overlay ${sidebarOpen ? 'sidebar-overlay-visible' : ''}`} onClick={() => setSidebarOpen(false)} />
+            <Sidebar className={sidebarOpen ? 'sidebar-open' : ''} onFilterChange={() => {}} />
         </main>
     )
 }

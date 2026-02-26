@@ -69,3 +69,25 @@
     color: #352F44;
     border: 1px solid #352F44;
 }
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+    .loginpage {
+        margin: 20px 10px;
+        width: calc(100% - 20px);
+        box-sizing: border-box;
+    }
+
+    .inputfield {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .box {
+        padding: 20px 15px;
+    }
+
+    .title h1 {
+        font-size: 28px;
+    }
+}

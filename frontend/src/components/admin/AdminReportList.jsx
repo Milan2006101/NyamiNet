@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../utils/auth';
 import SidebarAdmin from '../profile/sidebar_admin';
+import '../main/styles/sidebar.css';
 
 const API_BASE_URL = 'http://localhost:3001';
 
@@ -21,6 +22,7 @@ export default function AdminReportList() {
     const [regError, setRegError] = useState('');
     const [regSuccess, setRegSuccess] = useState('');
     const [regLoading, setRegLoading] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
         if (!user || user.role_id !== 2) {
@@ -298,7 +300,9 @@ export default function AdminReportList() {
                 </button>
             </div>
 
-            <SidebarAdmin />
+            <button className="sidebar-toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>&raquo;</button>
+            <div className={`sidebar-overlay ${sidebarOpen ? 'sidebar-overlay-visible' : ''}`} onClick={() => setSidebarOpen(false)} />
+            <SidebarAdmin className={sidebarOpen ? 'sidebar-open' : ''} />
         </main>
     );
 }

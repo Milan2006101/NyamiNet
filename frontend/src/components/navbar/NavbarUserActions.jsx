@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { removeToken } from "../../utils/auth";
 import './styles/navbar.css';
 
-export default function NavbarUserActions({ selected }) {
+export default function NavbarUserActions({ selected, onNavigate }) {
     const navigate = useNavigate();
     const [searchText, setSearchText] = useState('');
     
@@ -15,11 +15,13 @@ export default function NavbarUserActions({ selected }) {
         } catch(e) { 
             navigate('/profile'); 
         }
+        if (onNavigate) onNavigate();
     };
 
     const handleLogout = () => {
         removeToken();
         navigate('/');
+        if (onNavigate) onNavigate();
     };
 
     const handleSearchChange = (e) => {

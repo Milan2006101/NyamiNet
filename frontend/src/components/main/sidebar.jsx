@@ -8,7 +8,7 @@ import './styles/sidebar.css';
 
 const API_BASE_URL = 'http://localhost:3001';
 
-export default function Sidebar({ onFilterChange }){
+export default function Sidebar({ onFilterChange, className = '' }){
     const [price, setPrice] = useState(null);
     const [konyha, setKonyha] = useState("");
     const [timeRange, setTimeRange] = useState("");
@@ -169,7 +169,7 @@ export default function Sidebar({ onFilterChange }){
     }
 
     return (
-        <div className="sidebar">
+        <div className={`sidebar ${className}`}>
             <div className="sideRow">
                 <button className="sideButton" style={{flex: '1 1 auto'}} onClick={clearFilters}>Szűrők törlése</button>
             </div>

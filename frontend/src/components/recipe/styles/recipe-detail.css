@@ -173,14 +173,24 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
+    .recipe-detail-container {
+        padding: 15px 10px;
+    }
+
+    .recipe-detail-title {
+        font-size: 24px;
+    }
+
     .recipe-detail-main {
         flex-direction: column;
+        padding: 12px;
+        gap: 15px;
     }
     
     .recipe-detail-image {
         flex: 1;
         width: 100%;
-        max-height: 300px;
+        max-height: 250px;
     }
     
     .recipe-detail-data {
@@ -193,6 +203,29 @@
     
     .recipe-ingredients-list {
         grid-template-columns: 1fr;
+    }
+
+    .recipe-section {
+        padding: 15px;
+    }
+
+    .recipe-actions {
+        gap: 6px;
+    }
+
+    .recipe-vote-btn,
+    .recipe-action-btn {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+
+    .recipe-score {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .recipe-detail-meta {
+        text-align: left;
     }
 }
 

@@ -3,7 +3,7 @@ import { getUser } from '../../utils/auth';
 import './styles/profile.css';
 import '../main/styles/sidebar.css';
 
-export default function SidebarAdmin(){
+export default function SidebarAdmin({ className = '' }){
     const navigate = useNavigate();
     const user = getUser();
 
@@ -14,7 +14,7 @@ export default function SidebarAdmin(){
     };
 
     return(
-        <div className="sidebar sidebar-profile">
+        <div className={`sidebar ${className}`}>
             <div style={{cursor: 'pointer'}} onClick={() => navigate('/profile')}>
                 <h2 className="sideTitle">Általános</h2>
                 <div className="sideRow">

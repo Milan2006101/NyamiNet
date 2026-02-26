@@ -1,13 +1,14 @@
 .recipesArea {
     flex: 1 1 auto;
     padding: 12px;
+    min-width: 0;
 }
 
 .recipe {
     background-color: #ECE0C2;
     margin-top: 10px;
-    text-wrap: wrap;
     display: flex;
+    flex-wrap: wrap;
     margin-right: 0;
     width: 100%;
     box-sizing: border-box;
@@ -43,9 +44,9 @@
 
 /* Recipe image in the middle */
 .recipe-image-middle {
-    flex: 0 0 250px;
-    width: 250px;
-    height: 250px;
+    flex: 0 0 200px;
+    width: 200px;
+    height: 200px;
     border-radius: 8px;
     overflow: hidden;
     background-color: #f0f0f0;
@@ -215,4 +216,99 @@
 .dark-mode .recipe-card-score {
     background-color: #B9B4C7;
     color: #000;
+}
+
+/* ===== Intermediate widths ===== */
+@media (max-width: 1024px) {
+    .recipe1 {
+        flex: 0 0 30%;
+        max-width: 30%;
+    }
+
+    .recipe-image-middle {
+        flex: 0 0 160px;
+        width: 160px;
+        height: 160px;
+    }
+
+    .recipe-card-actions {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .recipe-card-vote-btn,
+    .recipe-card-action-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .recipe-card-score {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+    .recipe {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px;
+    }
+
+    .recipe1 {
+        flex: 1 1 auto;
+        max-width: 100%;
+        padding-right: 0;
+    }
+
+    .recipe2 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .recipe-image-middle {
+        flex: 0 0 auto;
+        width: 100%;
+        height: 200px;
+        margin-left: 0;
+        margin-top: 8px;
+    }
+
+    .recipe-right-column {
+        width: 100%;
+    }
+
+    .recipe-preferences {
+        max-width: 100%;
+    }
+
+    .recipe-card-actions {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .recipe-card-vote-btn,
+    .recipe-card-action-btn {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+
+    .recipe-card-score {
+        padding: 8px 12px;
+        font-size: 14px;
+        min-width: 40px;
+    }
+
+    .recipesArea {
+        padding: 8px;
+    }
 }

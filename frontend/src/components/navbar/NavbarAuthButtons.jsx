@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './styles/navbar.css';
 
-export default function NavbarAuthButtons() {
+export default function NavbarAuthButtons({ onNavigate }) {
     const navigate = useNavigate();
     const [searchText, setSearchText] = useState('');
 
@@ -14,6 +14,11 @@ export default function NavbarAuthButtons() {
         } else {
             navigate('/');
         }
+    };
+
+    const handleNav = (path) => {
+        navigate(path);
+        if (onNavigate) onNavigate();
     };
     
     return (
@@ -27,10 +32,10 @@ export default function NavbarAuthButtons() {
                 value={searchText}
                 onChange={handleSearchChange}
             />
-            <button onClick={() => navigate("/login")} className="btn" type="submit">
+            <button onClick={() => handleNav("/login")} className="btn" type="submit">
                 Bejelentkezés
             </button>
-            <button onClick={() => navigate("/register")} className="btn" type="submit">
+            <button onClick={() => handleNav("/register")} className="btn" type="submit">
                 Regisztráció
             </button>
         </div>

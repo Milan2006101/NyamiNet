@@ -3,7 +3,28 @@
     margin-top: auto;
 }
 
+/* Footer navbar needs to allow wrapping unlike the header navbar */
+.footer .navbar {
+    overflow: visible;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 50px;
+}
+
 /* Dark Mode */
 .dark-mode .footer {
     background-color: #352F44;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+    .footer .navbar {
+        justify-content: center;
+    }
+
+    .footer .btn {
+        padding: 8px 10px;
+        font-size: 14px;
+        margin-left: 2px;
+    }
 }
