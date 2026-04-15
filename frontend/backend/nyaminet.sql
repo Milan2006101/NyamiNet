@@ -60,7 +60,7 @@ CREATE TABLE `elmentett_receptek` (
 --
 
 /*!40000 ALTER TABLE `elmentett_receptek` DISABLE KEYS */;
-INSERT INTO `elmentett_receptek` VALUES (3,1),(4,1);
+INSERT INTO `elmentett_receptek` VALUES (1,2),(1,5),(2,1),(2,8),(4,3),(4,7),(5,4),(5,9);
 /*!40000 ALTER TABLE `elmentett_receptek` ENABLE KEYS */;
 
 --
@@ -153,7 +153,7 @@ CREATE TABLE `hozzavalok` (
   `hozzavalo_nev` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci NOT NULL,
   PRIMARY KEY (`hozzavalo_id`),
   UNIQUE KEY `hozzavalo_nev` (`hozzavalo_nev`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,7 +161,7 @@ CREATE TABLE `hozzavalok` (
 --
 
 /*!40000 ALTER TABLE `hozzavalok` DISABLE KEYS */;
-INSERT INTO `hozzavalok` VALUES (11,'csirke'),(1,'csirkemell'),(8,'cukor'),(2,'fokhagyma'),(7,'liszt'),(3,'olívaolaj'),(13,'paprika'),(4,'paradicsom'),(12,'tejföl'),(5,'tészta'),(9,'tojás'),(6,'trappista sajt'),(10,'vaj');
+INSERT INTO `hozzavalok` VALUES (1,'csirkemell'),(2,'fokhagyma'),(3,'olívaolaj'),(4,'paradicsom'),(5,'tészta'),(6,'trappista sajt'),(7,'liszt'),(8,'cukor'),(9,'tojás'),(10,'vaj'),(11,'csirke'),(12,'tejföl'),(13,'paprika'),(14,'rizs'),(15,'hagyma'),(16,'sárgarépa'),(17,'burgonya'),(18,'tejszín'),(19,'citrom'),(20,'brokkoli'),(21,'csicseriborsó'),(22,'kókusztej'),(23,'curry fűszer'),(24,'avokádó'),(25,'tortilla lap'),(26,'darált marhahús'),(27,'bab konzerv'),(28,'kukorica konzerv'),(29,'chili'),(30,'lime'),(31,'lazacfilé'),(32,'spárga'),(33,'kapor'),(34,'méz'),(35,'szójaszósz'),(36,'gyömbér'),(37,'csirkecomb'),(38,'bazsalikom'),(39,'mozzarella'),(40,'spenót'),(41,'fetasajt'),(42,'uborka'),(43,'oliva'),(44,'oregánó'),(45,'mascarpone'),(46,'babapiskóta'),(47,'kávé'),(48,'kakaópor'),(49,'csokoládé'),(50,'kókuszreszelék'),(51,'banán'),(52,'zabpehely'),(53,'mandulatej'),(54,'chia mag'),(55,'tofu'),(56,'szezámmag'),(57,'padlizsán'),(58,'tahini'),(59,'petrezselyem'),(60,'chilipehely');
 /*!40000 ALTER TABLE `hozzavalok` ENABLE KEYS */;
 
 --
@@ -204,7 +204,7 @@ CREATE TABLE `komment` (
   KEY `fk_komment_poszt` (`poszt_id`),
   CONSTRAINT `fk_komment_felhasznalo` FOREIGN KEY (`felhasznalo_id`) REFERENCES `felhasznalok` (`felhasznalo_id`) ON DELETE CASCADE,
   CONSTRAINT `fk_komment_poszt` FOREIGN KEY (`poszt_id`) REFERENCES `poszt` (`poszt_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +212,7 @@ CREATE TABLE `komment` (
 --
 
 /*!40000 ALTER TABLE `komment` DISABLE KEYS */;
-INSERT INTO `komment` VALUES (1,'2025-12-01 17:51:56','Nagyon finom lett, köszi a receptet!',3,1),(6,'2026-01-15 16:26:47','Nagyon jól eltalált ízek, gyorsan elkészült!',2,1),(9,'2026-01-15 16:26:47','Tökéletes hétköznapi vacsora, imádom a vegán verziót.',1,14),(10,'2026-01-15 16:26:47','Igazi klasszikus, a család minden tagjának ízlett.',3,15),(11,'2026-01-15 16:26:47','Nem is hiányzott belőle a liszt, szuper recept!',4,18),(12,'2026-01-15 16:26:47','Könnyű, egészséges és laktató leves.',2,19),(13,'2026-01-15 16:26:47','Nagyon jó fűszerezés, különleges ízvilág.',1,20);
+INSERT INTO `komment` VALUES (1,'2026-03-11 14:30:00','Nagyon finom lett, a család imádta! Legközelebb dupla adagot csinálok.',4,1),(2,'2026-03-13 09:15:00','Nem is gondoltam volna, hogy a csicseriborsó ilyen jó tud lenni curryvel!',1,2),(3,'2026-03-16 18:45:00','Igazi mexikói hangulat, a gyerekek is szerették.',2,3),(4,'2026-03-19 12:00:00','A lazac tökéletesen omlós lett, a kapros szósz zseniális.',4,4),(5,'2026-03-21 20:30:00','Ez a butter chicken jobb mint az étteremben! Megérte a 2 óra.',1,5),(6,'2026-03-23 16:00:00','Gyors és finom, nyáron ez lesz a kedvencem.',5,6),(7,'2026-03-26 11:20:00','Egyszerű de tökéletes, igazi görög ízek!',2,7),(8,'2026-03-29 19:45:00','A tiramisu elképesztően krémes lett, vendégváró recept!',4,8),(9,'2026-04-02 08:00:00','Minden reggel ezt csinálom, szuper energikus kezdés!',1,9),(10,'2026-04-06 17:30:00','A tofu végre ropogós lett, köszi a tippet a pácoláshoz!',5,10);
 /*!40000 ALTER TABLE `komment` ENABLE KEYS */;
 
 --
@@ -227,7 +227,7 @@ CREATE TABLE `konyha` (
   `konyha_nev` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci NOT NULL,
   PRIMARY KEY (`konyha_id`),
   UNIQUE KEY `konyha_nev` (`konyha_nev`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,7 +235,7 @@ CREATE TABLE `konyha` (
 --
 
 /*!40000 ALTER TABLE `konyha` DISABLE KEYS */;
-INSERT INTO `konyha` VALUES (3,'ázsiai'),(1,'magyar'),(2,'olasz');
+INSERT INTO `konyha` VALUES (3,'ázsiai'),(4,'francia'),(5,'görög'),(1,'magyar'),(6,'mexikói'),(2,'olasz'),(7,'amerikai'),(8,'indiai'),(9,'közel keleti'),(10,'spanyol'),(11,'afrikai'),(12,'óceániai'),(13,'európai');
 /*!40000 ALTER TABLE `konyha` ENABLE KEYS */;
 
 --
@@ -249,7 +249,7 @@ CREATE TABLE `lepesek` (
   `lepesek_id` int NOT NULL AUTO_INCREMENT,
   `lepesek_szoveg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci NOT NULL,
   PRIMARY KEY (`lepesek_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +257,7 @@ CREATE TABLE `lepesek` (
 --
 
 /*!40000 ALTER TABLE `lepesek` DISABLE KEYS */;
-INSERT INTO `lepesek` VALUES (1,'Kapcsold be a sütőt ||| Tedd be a tésztát ||| Süsd 20 percig'),(2,'Keverd össze a száraz alapanyagokat, majd add hozzá a nedveseket és süsd meg.'),(3,'Főzd meg a tésztát, készíts paradicsomszószt, majd forgasd össze.'),(8,'Forrald fel a vizet ||| Főzd meg a pennét ||| Keverd össze a paradicsomszósszal és a bazsalikommall'),(9,'Forrald fel a vizet ||| Főzd meg a pennét ||| Keverd össze a paradicsomszósszal és a bazsalikommall'),(10,'Forrald fel a vizet ||| Főzd meg a pennét ||| Keverd össze a paradicsomszósszal és a bazsalikommall'),(11,'Forrald fel a vizet ||| Főzd meg a pennét ||| Keverd össze a paradicsomszósszal és a bazsalikommall'),(13,'Melegítsd fel a vajat, add hozzá a fokhagymát, majd a garnélát és végül a citromot.'),(14,'Főzd meg a tésztát, pirítsd a zöldségeket, keverd össze.'),(15,'Krumplit főzöd, rétegezed, sütöd.'),(18,'Összekevered, megsütöd.'),(19,'Zöldségek főzése fűszerekkel.'),(20,'Pirítás, fűszerezés, lassú főzés.'),(21,'Pirítás, fűszerezés, lassú főzés.'),(22,'Hús pirítás, lassú főzés, fűszerezés.');
+INSERT INTO `lepesek` VALUES (1,'A csirkemellet felkockázzuk és fűszerezzük. ||| Serpenyőben olívaolajjal aranybarnára sütjük. ||| A hagymát és fokhagymát megdinszteljük, hozzáadjuk a paradicsomot és tejszínt. ||| A tésztát al dente főzzük, összekeverjük a szósszal és csirkével. ||| Sajtot reszlünk a tetejére és tálaljuk.'),(2,'A csicseriborsót és hagymát olívaolajban pirítjuk 5 percig. ||| Hozzáadjuk a curry fűszert és gyömbért, 1 percig keverjük. ||| Felöntjük a kókusztejjel és 20 percig főzzük. ||| A rizst külön megfőzzük sós vízben. ||| A curryt a rizsre kanalazzuk és friss korianderrel díszítjük.'),(3,'A darált húst fűszerezzük és serpenyőben megpirítjuk. ||| Hozzáadjuk a babot, kukoricát, paradicsomot és chilit. ||| 15 percig pároljuk fedő alatt. ||| A tortilla lapokat megpakoljuk a húsos keverékkel. ||| Reszelt sajttal, tejföllel és lime-mal tálaljuk.'),(4,'A lazacfilét bőrös oldalával lefelé serpenyőbe tesszük. ||| 4 percig sütjük, megfordítjuk és még 3 percig sütjük. ||| A spárgát olívaolajjal és fokhagymával grillezzük. ||| Citromlevet és kaprot szórunk a lazacra. ||| Párolt rizzsel és grillezett spárgával tálaljuk.'),(5,'A csirkecombot joghurtban, fűszerekkel pácoljuk 2 órán át. ||| 200 fokra előmelegített sütőben 45 percig sütjük. ||| A hagymát és fokhagymát megdinszteljük. ||| Paradicsomszószt és tejszínt adunk hozzá, 15 percig főzzük. ||| A sült csirkét a szószba tesszük, rizzsel tálaljuk.'),(6,'A bazsalikomot, fokhagymát és olívaolajat turmixoljuk. ||| A tésztát sós vízben al dente főzzük. ||| A koktélparadicsomokat félbevágjuk. ||| A mozzarellát felszeleteljük. ||| Összekeverjük a tésztát a pestóval, paradicsommal és mozzarellával.'),(7,'Az uborkát, paradicsomot és hagymát felkockázzuk. ||| Az olívákat félbevágjuk. ||| Összekeverjük egy nagy tálban. ||| Fetasajtot morzsoljuk a tetejére. ||| Olívaolajjal, oregánóval és citromlével meglocsoljuk.'),(8,'A babapiskótát a kávéba mártogatjuk. ||| A mascarpone-t tojássárgájával és cukorral habosra keverjük. ||| Rétegezzük a formába: piskóta, krém, piskóta, krém. ||| Legalább 4 órára hűtőbe tesszük. ||| Kakaóporral megszórjuk tálalás előtt.'),(9,'A zabpelyhet, banánt és mandulatejjel turmixoljuk. ||| Tálba öntjük a smoothie-t. ||| Chia magot, kókuszreszeléket és szeletelt banánt teszünk rá. ||| Mézzel meglocsoljuk. ||| Azonnal tálaljuk.'),(10,'A tofut felkockázzuk és szójaszószban pácolunk 20 percig. ||| Serpenyőben ropogósra sütjük a tofut. ||| A brokkolit, sárgarépát és paprikát wokban pirítjuk. ||| Hozzáadjuk a tofut, szójaszószt, gyömbért és szezámmagot. ||| A főtt rizsre kanalazzuk és szezámmaggal díszítjük.');
 /*!40000 ALTER TABLE `lepesek` ENABLE KEYS */;
 
 --
@@ -346,7 +346,7 @@ CREATE TABLE `poszt` (
   CONSTRAINT `fk_poszt_lepesek` FOREIGN KEY (`lepesek_id`) REFERENCES `lepesek` (`lepesek_id`) ON DELETE SET NULL,
   CONSTRAINT `fk_poszt_nehezseg` FOREIGN KEY (`nehezseg_id`) REFERENCES `nehezseg` (`nehezseg_id`) ON DELETE SET NULL,
   CONSTRAINT `fk_poszt_szezon` FOREIGN KEY (`szezon_id`) REFERENCES `szezon` (`szezon_id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,7 +354,7 @@ CREATE TABLE `poszt` (
 --
 
 /*!40000 ALTER TABLE `poszt` DISABLE KEYS */;
-INSERT INTO `poszt` VALUES (1,'Gyors hétköznapi vacsora',2,'Tejszínes csirke tésztával','2025-01-15',30,'Krémes csirkés tészta, amit fél óra alatt elkészíthetsz.','https://example.com/csirke_teszta.jpg',1,1,2,1,2,2,1,1,3,1),(14,'gyors, vegán',2,'Vegán zöldséges tészta','2026-01-15',25,'Egyszerű, gyors vegán vacsora sok zöldséggel.','https://example.com/vegan_teszta.jpg',1,5,1,2,1,2,14,NULL,0,0),(15,'magyar, klasszikus',4,'Sajtos-tejfölös rakott krumpli','2026-01-15',50,'Klasszikus magyar vegetáriánus étel.','https://example.com/rakott.jpg',2,4,2,1,2,2,15,NULL,0,0),(18,'desszert, gluténmentes',8,'Gluténmentes csokis brownie','2026-01-15',40,'Puha, csokis sütemény liszt nélkül.','https://example.com/gm_brownie.jpg',1,5,2,2,2,3,18,NULL,0,0),(19,'könnyű, leves',4,'Laktózmentes zöldségleves','2026-01-15',35,'Könnyű, egészséges leves.','https://example.com/zoldsegleves.jpg',4,1,1,1,1,4,19,NULL,0,0),(20,'ázsiai, vegán',3,'Vegán gluténmentes curry','2026-01-15',90,'Komplex fűszerezésű ázsiai curry.','https://example.com/vegan_curry.jpg',2,2,3,3,2,2,20,NULL,0,0),(21,'ázsiai, vegán',3,'Sajtos moha','2026-01-16',90,'Komplex fűszerezésű ázsiai curry.','https://example.com/vegan_curry.jpg',2,2,3,3,2,2,21,NULL,0,0),(22,NULL,2,'Tejszínes csirke tésztával','2026-02-09',30,'Krémes csirkés tészta receptje','/uploads/43370946_3310192_1001d0a35403b5a2a22d5ff98b74f5a6_wm-1770665287825-917474623.jpg',1,1,2,1,1,2,22,NULL,0,0);
+INSERT INTO `poszt` VALUES (1,'Gyors hétköznapi vacsora',4,'Tejszínes csirkés penne','2026-03-10',30,'Krémes, fűszeres csirkés tészta, amit fél óra alatt az asztalra varázsolhatsz. A család kedvence!','/uploads/tejszines-csirkes-penne.jpg',1,5,1,13,1,2,1,1,4,0),(2,'Vegán, fűszeres',4,'Indiai csicseriborsó curry','2026-03-12',45,'Krémes kókusztejes curry csicseriborsóval, igazi indiai fűszerekkel. Laktató és teljesen növényi.','/uploads/csicseriborso-curry.jpg',2,5,2,8,2,2,2,1,3,0),(3,'Mexikói ízek',4,'Mexikói burritos','2026-03-15',35,'Fűszeres darált húsos burritos babbal, kukoricával és friss lime-mal. Igazi mexikói fieszta!','/uploads/mexikoi-burritos.jpg',4,5,1,6,1,2,3,1,1,1),(4,'Egészséges, elegáns',2,'Grillezett lazac spárgával','2026-03-18',25,'Omlós lazacfilé friss kapros-citromos szósszal és grillezett zöld spárgával.','/uploads/grillezett-lazac.jpg',1,1,2,4,3,2,4,1,4,0),(5,'Indiai klasszikus',4,'Butter chicken','2026-03-20',120,'Lassan főtt, vajasan krémes indiai csirke gazdag paradicsomszószban. Basmati rizzsel tökéletes.','/uploads/butter-chicken.jpg',5,4,3,8,3,2,5,1,3,1),(6,'Olasz nyári tészta',3,'Penne pesto alla genovese','2026-03-22',20,'Friss bazsalikomos pesto koktélparadicsommal és mozzarellával. Olaszország ízei 20 perc alatt.','/uploads/penne-pesto.jpg',2,2,1,2,2,2,6,1,1,0),(7,'Könnyű mediterrán',2,'Görög saláta','2026-03-25',10,'Ropogós zöldségek, fetasajt és olíva klasszikus görög öntettel. Tökéletes könnyű ebéd.','/uploads/gorog-salata.jpg',4,2,1,5,1,1,7,1,0,0),(8,'Olasz klasszikus desszert',8,'Tiramisu','2026-03-28',40,'Krémes mascarpone, erős kávé és kakaópor - az olasz desszert csúcsa. Éjszakára hűtőbe!','/uploads/tiramisu.jpg',1,5,3,2,3,3,8,1,2,0),(9,'Egészséges reggeli',1,'Smoothie bowl','2026-04-01',10,'Színes, vitamindús reggeli zabpehellyel, chia maggal és friss gyümölcsökkel. Energikus indítás!','/uploads/smoothie-bowl.jpg',5,5,1,7,1,3,9,1,0,0),(10,'Ázsiai ízek, növényi',3,'Szezámos tofu wokban','2026-04-05',30,'Ropogós tofu friss zöldségekkel, szójaszósszal és szezámmaggal. Gyors és tápláló ázsiai vacsora.','/uploads/szezamos-tofu.jpg',2,5,2,3,2,2,10,1,1,1);
 /*!40000 ALTER TABLE `poszt` ENABLE KEYS */;
 
 --
@@ -383,7 +383,7 @@ CREATE TABLE `poszt_hozzavalok` (
 --
 
 /*!40000 ALTER TABLE `poszt_hozzavalok` DISABLE KEYS */;
-INSERT INTO `poszt_hozzavalok` VALUES (1,1,300.00,1),(1,2,2.00,8),(1,3,2.00,10),(1,5,200.00,1),(1,6,100.00,1),(14,3,2.00,2),(14,4,150.00,1),(14,5,200.00,1),(15,6,200.00,1),(15,9,4.00,3),(18,8,120.00,1),(18,9,3.00,3),(19,4,200.00,1),(20,3,3.00,2),(21,3,3.00,2),(22,11,600.00,1),(22,12,200.00,15),(22,13,2.00,9);
+INSERT INTO `poszt_hozzavalok` VALUES (1,1,400.00,1),(1,2,3.00,8),(1,3,2.00,10),(1,4,200.00,1),(1,5,300.00,1),(1,18,150.00,4),(1,6,80.00,1),(2,21,400.00,1),(2,15,1.00,8),(2,2,3.00,8),(2,22,400.00,4),(2,23,2.00,10),(2,36,1.00,9),(2,14,300.00,1),(3,26,400.00,1),(3,27,200.00,1),(3,28,150.00,1),(3,25,4.00,8),(3,4,150.00,1),(3,29,1.00,8),(3,6,80.00,1),(3,12,60.00,1),(3,30,1.00,8),(4,31,2.00,8),(4,32,200.00,1),(4,3,2.00,10),(4,2,2.00,8),(4,19,1.00,8),(4,33,1.00,9),(4,14,200.00,1),(5,37,800.00,1),(5,15,2.00,8),(5,2,4.00,8),(5,4,300.00,1),(5,18,200.00,4),(5,23,2.00,10),(5,10,40.00,1),(5,14,300.00,1),(6,5,300.00,1),(6,38,1.00,14),(6,2,2.00,8),(6,3,4.00,10),(6,4,150.00,1),(6,39,150.00,1),(7,42,1.00,8),(7,4,2.00,8),(7,15,1.00,8),(7,43,60.00,1),(7,41,150.00,1),(7,3,3.00,10),(7,19,1.00,8),(7,44,1.00,9),(8,45,500.00,1),(8,46,300.00,1),(8,47,200.00,4),(8,9,4.00,8),(8,8,80.00,1),(8,48,2.00,10),(9,52,60.00,1),(9,51,2.00,8),(9,53,200.00,4),(9,54,1.00,10),(9,50,1.00,10),(9,34,1.00,10),(10,55,300.00,1),(10,20,150.00,1),(10,16,100.00,1),(10,13,1.00,8),(10,35,3.00,10),(10,36,1.00,9),(10,56,2.00,10),(10,14,300.00,1),(10,3,2.00,10);
 /*!40000 ALTER TABLE `poszt_hozzavalok` ENABLE KEYS */;
 
 --
@@ -408,7 +408,7 @@ CREATE TABLE `poszt_preferenciak` (
 --
 
 /*!40000 ALTER TABLE `poszt_preferenciak` DISABLE KEYS */;
-INSERT INTO `poszt_preferenciak` VALUES (15,1),(22,1),(14,2),(20,2),(21,2),(22,2),(19,3),(14,4),(18,4),(20,4),(21,4);
+INSERT INTO `poszt_preferenciak` VALUES (2,2),(2,3),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(4,4),(4,5),(4,6),(4,8),(4,9),(4,10),(5,5),(5,7),(5,8),(5,10),(6,1),(7,1),(7,4),(7,5),(7,6),(7,7),(7,8),(7,9),(7,10),(8,1),(8,5),(8,7),(8,8),(9,1),(9,2),(9,3),(9,4),(9,5),(9,6),(9,7),(9,8),(9,9),(9,10),(10,2),(10,3),(10,5),(10,6),(10,7),(10,9);
 /*!40000 ALTER TABLE `poszt_preferenciak` ENABLE KEYS */;
 
 --
@@ -434,7 +434,7 @@ CREATE TABLE `poszt_szavazas` (
 --
 
 /*!40000 ALTER TABLE `poszt_szavazas` DISABLE KEYS */;
-INSERT INTO `poszt_szavazas` VALUES (1,1,1),(2,1,-1),(3,1,1),(4,1,1);
+INSERT INTO `poszt_szavazas` VALUES (1,1,1),(2,1,1),(4,1,1),(5,1,1),(1,2,1),(4,2,1),(2,2,1),(1,3,1),(2,3,-1),(4,4,1),(5,4,1),(1,4,1),(2,4,1),(1,5,1),(2,5,1),(4,5,1),(5,5,-1),(2,6,1),(1,8,1),(4,8,1),(2,10,1),(5,10,-1);
 /*!40000 ALTER TABLE `poszt_szavazas` ENABLE KEYS */;
 
 --

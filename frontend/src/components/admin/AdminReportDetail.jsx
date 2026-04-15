@@ -8,6 +8,19 @@ import '../main/styles/sidebar.css';
 
 const API_BASE_URL = 'http://localhost:3001';
 
+const PREFERENCE_DISPLAY = {
+    'vegetáriánus': 'Vegetáriánus',
+    'vegán': 'Vegán',
+    'laktózmentes': 'Laktózmentes',
+    'gluténmentes': 'Gluténmentes',
+    'mogyorók': 'Mogyorómentes',
+    'cukor': 'Cukormentes',
+    'hal': 'Hal',
+    'szója': 'Szójamentes',
+    'tojás': 'Tojásmentes',
+    'búza': 'Búzamentes'
+};
+
 export default function AdminReportDetail() {
     const { poszt_id } = useParams();
     const navigate = useNavigate();
@@ -290,7 +303,7 @@ export default function AdminReportDetail() {
                                     else if (l.includes('szója') || l.includes('szoja')) cls = 'soy';
                                     else if (l.includes('tojás') || l.includes('tojas')) cls = 'egg';
                                     else if (l.includes('búza') || l.includes('buza')) cls = 'wheat';
-                                    return <span key={i} className={`preferenceBadge ${cls}`.trim()}>{p}</span>;
+                                    return <span key={i} className={`preferenceBadge ${cls}`.trim()}>{PREFERENCE_DISPLAY[p] || p}</span>;
                                 })}
                             </div>
                         </div>
@@ -331,6 +344,29 @@ export default function AdminReportDetail() {
                         </div>
                     )}
                 </div>
+
+                {reports.some(r => r.report_szoveg) && (
+                    <div style={{
+                        backgroundColor: 'var(--bg-card)',
+                        borderRadius: '12px',
+                        padding: '15px 20px',
+                        marginBottom: '20px'
+                    }}>
+                        <h3 style={{ marginTop: 0, marginBottom: '10px' }}>Report megjegyzések:</h3>
+                        {reports.filter(r => r.report_szoveg).map((r, i) => (
+                            <div key={r.report_id || i} style={{
+                                padding: '8px 12px',
+                                marginBottom: '6px',
+                                backgroundColor: 'var(--bg-input)',
+                                borderRadius: '8px',
+                                borderLeft: '3px solid var(--text-accent-red)'
+                            }}>
+                                <span style={{ fontWeight: 'bold', fontSize: '13px' }}>{r.reportolo_nev || 'Ismeretlen'}:</span>{' '}
+                                <span style={{ fontSize: '14px' }}>{r.report_szoveg}</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
 
                 <div style={{ textAlign: 'center', marginBottom: '30px' }}>
                     <button

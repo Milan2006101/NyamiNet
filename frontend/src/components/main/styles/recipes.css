@@ -13,10 +13,12 @@
     width: 100%;
     box-sizing: border-box;
     padding: 12px;
+    padding-bottom: 70px;
     border-radius: 8px;
     align-items: center;
     gap: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: relative;
 }
 
 .recipe:nth-child(even) {
@@ -220,6 +222,10 @@
 
 /* ===== Intermediate widths ===== */
 @media (max-width: 1024px) {
+    .recipe {
+        padding-bottom: 12px;
+    }
+
     .recipe1 {
         flex: 0 0 30%;
         max-width: 30%;

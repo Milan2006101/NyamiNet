@@ -1,7 +1,7 @@
 import { useState } from "react";
 import './styles/sidebar.css';
 
-export default function PreferenceDropdown({ labels = [], selected = [], onChange }){
+export default function PreferenceDropdown({ labels = [], selected = [], onChange, displayLabel }){
     const [open, setOpen] = useState(false);
 
     function toggleLabel(label){
@@ -76,7 +76,7 @@ export default function PreferenceDropdown({ labels = [], selected = [], onChang
                                 }}>
                                     {isSelected ? '✓' : ''}
                                 </span>
-                                {label}
+                                {displayLabel ? displayLabel(label) : label}
                             </button>
                         );
                     })}

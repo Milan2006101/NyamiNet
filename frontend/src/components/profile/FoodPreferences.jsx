@@ -87,7 +87,7 @@ export default function FoodPreferences() {
                     onClick={() => handlePreferenceClick('mogyorók')}
                     style={{ cursor: 'pointer', opacity: isActive('mogyorók') ? 1 : 0.3 }}
                 >
-                    Mogyorók
+                    Mogyorómentes
                 </button>
             </div>
 
@@ -98,7 +98,7 @@ export default function FoodPreferences() {
                     onClick={() => handlePreferenceClick('laktózmentes')}
                     style={{ cursor: 'pointer', opacity: isActive('laktózmentes') ? 1 : 0.3 }}
                 >
-                    Laktóz
+                    Laktózmentes
                 </button>
                 <button 
                     type="button"
@@ -106,7 +106,7 @@ export default function FoodPreferences() {
                     onClick={() => handlePreferenceClick('gluténmentes')}
                     style={{ cursor: 'pointer', opacity: isActive('gluténmentes') ? 1 : 0.3 }}
                 >
-                    Glutén
+                    Gluténmentes
                 </button>
                 <button 
                     type="button"
@@ -114,7 +114,7 @@ export default function FoodPreferences() {
                     onClick={() => handlePreferenceClick('cukor')}
                     style={{ cursor: 'pointer', opacity: isActive('cukor') ? 1 : 0.3 }}
                 >
-                    Cukor
+                    Cukormentes
                 </button>
             </div>
 
@@ -133,7 +133,7 @@ export default function FoodPreferences() {
                     onClick={() => handlePreferenceClick('szója')}
                     style={{ cursor: 'pointer', opacity: isActive('szója') ? 1 : 0.3 }}
                 >
-                    Szója
+                    Szójamentes
                 </button>
                 <button 
                     type="button" 
@@ -141,7 +141,7 @@ export default function FoodPreferences() {
                     onClick={() => handlePreferenceClick('tojás')}
                     style={{ cursor: 'pointer', opacity: isActive('tojás') ? 1 : 0.3 }}
                 >
-                    Tojás
+                    Tojásmentes
                 </button>
             </div>
 
@@ -153,9 +153,9 @@ export default function FoodPreferences() {
                     onClick={() => handlePreferenceClick('búza')}
                     style={{ cursor: 'pointer', opacity: isActive('búza') ? 1 : 0.3 }}
                 >
-                    Búza
+                    Búzamentes
                 </button>
-                <button type="button" className="preferenceButton egg invisible">Tojás</button>
+                <button type="button" className="preferenceButton egg invisible">Tojásmentes</button>
             </div>
         </div>
     );

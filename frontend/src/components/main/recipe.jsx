@@ -7,6 +7,19 @@ import '../profile/styles/preference-colors.css';
 
 const API_BASE_URL = 'http://localhost:3001';
 
+const PREFERENCE_DISPLAY = {
+    'vegetáriánus': 'Vegetáriánus',
+    'vegán': 'Vegán',
+    'laktózmentes': 'Laktózmentes',
+    'gluténmentes': 'Gluténmentes',
+    'mogyorók': 'Mogyorómentes',
+    'cukor': 'Cukormentes',
+    'hal': 'Hal',
+    'szója': 'Szójamentes',
+    'tojás': 'Tojásmentes',
+    'búza': 'Búzamentes'
+};
+
 const getRelativeTime = (dateString) => {
     if (!dateString) return '';
     
@@ -262,7 +275,7 @@ export default function Recipe({poszt_id, poszt_cim, poszt_datum, poszt_leiras, 
                             else if (l.includes('szója') || l.includes('szoja')) cls = 'soy';
                             else if (l.includes('tojás') || l.includes('tojas')) cls = 'egg';
                             else if (l.includes('búza') || l.includes('buza')) cls = 'wheat';
-                            return <span key={i} className={`preferenceBadge ${cls}`.trim()}>{p}</span>
+                            return <span key={i} className={`preferenceBadge ${cls}`.trim()}>{PREFERENCE_DISPLAY[p] || p}</span>
                         })}
                     </div>
                 ) : null}

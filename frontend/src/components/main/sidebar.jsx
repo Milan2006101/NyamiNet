@@ -8,6 +8,19 @@ import './styles/sidebar.css';
 
 const API_BASE_URL = 'http://localhost:3001';
 
+const PREFERENCE_DISPLAY = {
+    'vegetáriánus': 'Vegetáriánus',
+    'vegán': 'Vegán',
+    'laktózmentes': 'Laktózmentes',
+    'gluténmentes': 'Gluténmentes',
+    'mogyorók': 'Mogyorómentes',
+    'cukor': 'Cukormentes',
+    'hal': 'Hal',
+    'szója': 'Szójamentes',
+    'tojás': 'Tojásmentes',
+    'búza': 'Búzamentes'
+};
+
 export default function Sidebar({ onFilterChange, className = '' }){
     const [price, setPrice] = useState(null);
     const [konyha, setKonyha] = useState("");
@@ -181,6 +194,7 @@ export default function Sidebar({ onFilterChange, className = '' }){
                         labels={preferenceOptions}
                         selected={selectedPreferences}
                         onChange={(next)=>setSelectedPreferences(next)}
+                        displayLabel={(l) => PREFERENCE_DISPLAY[l] || l}
                     />
                 </div>
             </div>

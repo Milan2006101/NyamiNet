@@ -11,6 +11,19 @@ const ALL_PREFERENCES = [
     'mogyorók', 'cukor', 'hal', 'szója', 'tojás', 'búza'
 ];
 
+const PREFERENCE_DISPLAY = {
+    'vegetáriánus': 'Vegetáriánus',
+    'vegán': 'Vegán',
+    'laktózmentes': 'Laktózmentes',
+    'gluténmentes': 'Gluténmentes',
+    'mogyorók': 'Mogyorómentes',
+    'cukor': 'Cukormentes',
+    'hal': 'Hal',
+    'szója': 'Szójamentes',
+    'tojás': 'Tojásmentes',
+    'búza': 'Búzamentes'
+};
+
 export default function Upload(){
     const navigate = useNavigate();
     const user = getUser();
@@ -47,6 +60,7 @@ export default function Upload(){
     const [imageFile, setImageFile] = useState(null);
 
     const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (!isAuthenticated()) {
@@ -105,16 +119,17 @@ export default function Upload(){
         if (file) {
             const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
             if (!validTypes.includes(file.type)) {
-                alert('Csak JPEG, PNG, GIF vagy WebP képek engedélyezettek!');
+                setErrors(prev => ({ ...prev, imageFile: 'Csak JPEG, PNG, GIF vagy WebP képek engedélyezettek!' }));
                 e.target.value = '';
                 return;
             }
             if (file.size > 5 * 1024 * 1024) {
-                alert('A kép mérete maximum 5MB lehet!');
+                setErrors(prev => ({ ...prev, imageFile: 'A kép mérete maximum 5MB lehet!' }));
                 e.target.value = '';
                 return;
             }
             setImageFile(file);
+            setErrors(prev => { const n = {...prev}; delete n.imageFile; return n; });
         }
     };
 
@@ -151,29 +166,31 @@ export default function Upload(){
     };
 
     const validateStep = (step) => {
+        const newErrors = {};
         if (step === 0) {
-            if (!formData.poszt_cim.trim()) { alert('Add meg a recept nevét!'); return false; }
-            if (!imageFile) { alert('Kérlek válassz egy képet a recepthez!'); return false; }
+            if (!formData.poszt_cim.trim()) newErrors.poszt_cim = 'Add meg a recept nevét!';
+            if (!imageFile) newErrors.imageFile = 'Kérlek válassz egy képet a recepthez!';
         }
         if (step === 1) {
-            for (const h of hozzavalok) {
+            for (let i = 0; i < hozzavalok.length; i++) {
+                const h = hozzavalok[i];
                 if (!h.hozzavalo_nev?.trim() || !h.mertekegyseg_nev?.trim() || !h.mennyiseg?.trim()) {
-                    alert('Kérlek töltsd ki az összes hozzávaló mezőt!');
-                    return false;
+                    newErrors.hozzavalok = 'Kérlek töltsd ki az összes hozzávaló mezőt!';
+                    break;
                 }
             }
         }
         if (step === 3) {
-            if (!formData.ar_id || !formData.nehezseg_id) {
-                alert('Válaszd ki az árat és a nehézséget!');
-                return false;
-            }
+            if (!formData.ar_id) newErrors.ar_id = 'Válaszd ki az árat!';
+            if (!formData.nehezseg_id) newErrors.nehezseg_id = 'Válaszd ki a nehézséget!';
         }
-        return true;
+        setErrors(prev => ({ ...prev, ...newErrors }));
+        return Object.keys(newErrors).length === 0;
     };
 
     const nextStep = () => {
         if (!validateStep(currentStep)) return;
+        setErrors({});
         if (currentStep < totalSteps - 1) setCurrentStep(currentStep + 1);
     };
 
@@ -183,12 +200,13 @@ export default function Upload(){
 
     const handleSubmit = async () => {
         if (!isAuthenticated() || !user) {
-            alert('Jelentkezz be a recept feltöltéséhez!');
+            setErrors({ submit: 'Jelentkezz be a recept feltöltéséhez!' });
             return;
         }
 
         if (!validateStep(0) || !validateStep(1) || !validateStep(3)) return;
 
+        setErrors({});
         setLoading(true);
 
         try {
@@ -228,11 +246,11 @@ export default function Upload(){
                 navigate('/mainlogin');
             } else {
                 const error = await response.json();
-                alert('Hiba történt: ' + (error.uzenet || 'Ismeretlen hiba'));
+                setErrors({ submit: error.uzenet || 'Ismeretlen hiba' });
             }
         } catch (error) {
             console.error('Error uploading recipe:', error);
-            alert('Hiba történt a feltöltés során');
+            setErrors({ submit: 'Hiba történt a feltöltés során' });
         } finally {
             setLoading(false);
         }
@@ -250,13 +268,14 @@ export default function Upload(){
                 <div className="upload-tab" style={{display: currentStep === 0 ? 'block' : 'none'}}>
                     <h1 className="upload-tab-title">Alap információk</h1>
                     <div className="box">
+                        {errors.poszt_cim && <p className="upload-error">{errors.poszt_cim}</p>}
                         <h2 className="subtitle">Recept neve:</h2>
                         <input 
                             className="sideSelect" 
                             type="text" 
                             name="poszt_cim"
                             value={formData.poszt_cim}
-                            onChange={handleInputChange}
+                            onChange={(e) => { handleInputChange(e); setErrors(prev => { const n = {...prev}; delete n.poszt_cim; return n; }); }}
                             placeholder="Recept neve" 
                         />
                     </div>
@@ -282,12 +301,13 @@ export default function Upload(){
                         ></textarea>
                     </div>
                     <div className="box">
+                        {errors.imageFile && <p className="upload-error">{errors.imageFile}</p>}
                         <h2 className="subtitle">Kép feltöltése:</h2>
                         <input 
                             className="sideSelect" 
                             type="file" 
                             accept="image/jpeg,image/png,image/gif,image/webp"
-                            onChange={handleImageChange}
+                            onChange={(e) => { handleImageChange(e); setErrors(prev => { const n = {...prev}; delete n.imageFile; return n; }); }}
                             style={{padding: '8px'}}
                         />
                         {imageFile && (
@@ -300,6 +320,7 @@ export default function Upload(){
                 <div className="upload-tab" style={{display: currentStep === 1 ? 'block' : 'none'}}>
                     <h1 className="upload-tab-title">Hozzávalók</h1>
                     <div className="box">
+                        {errors.hozzavalok && <p className="upload-error">{errors.hozzavalok}</p>}
                         {hozzavalok.map((hozzavalo, index) => (
                             <div key={index} className="upload-ingredient-row">
                                 <input 
@@ -391,7 +412,7 @@ export default function Upload(){
                                     }}
                                     style={{flex: '0 0 auto'}}
                                 >
-                                    {pref.preferencia_nev}
+                                    {PREFERENCE_DISPLAY[pref.preferencia_nev] || pref.preferencia_nev}
                                 </button>
                             ))}
                         </div>
@@ -414,19 +435,20 @@ export default function Upload(){
                             ))}
                         </select>
 
+                        {errors.ar_id && <p className="upload-error">{errors.ar_id}</p>}
                         <h2 className="subtitle">Ár:</h2>
                         <div>
                             <button 
                                 className={`sideButton five ${formData.ar_id === 1 ? 'active' : ''}`}
-                                onClick={() => setFormData(prev => ({ ...prev, ar_id: 1 }))}
+                                onClick={() => { setFormData(prev => ({ ...prev, ar_id: 1 })); setErrors(prev => { const n = {...prev}; delete n.ar_id; return n; }); }}
                             >$</button>
                             <button 
                                 className={`sideButton five ${formData.ar_id === 2 ? 'active' : ''}`}
-                                onClick={() => setFormData(prev => ({ ...prev, ar_id: 2 }))}
+                                onClick={() => { setFormData(prev => ({ ...prev, ar_id: 2 })); setErrors(prev => { const n = {...prev}; delete n.ar_id; return n; }); }}
                             >$$</button>
                             <button 
                                 className={`sideButton five ${formData.ar_id === 3 ? 'active' : ''}`}
-                                onClick={() => setFormData(prev => ({ ...prev, ar_id: 3 }))}
+                                onClick={() => { setFormData(prev => ({ ...prev, ar_id: 3 })); setErrors(prev => { const n = {...prev}; delete n.ar_id; return n; }); }}
                             >$$$</button>
                         </div>
 
@@ -442,19 +464,20 @@ export default function Upload(){
                             />
                         </div>
 
+                        {errors.nehezseg_id && <p className="upload-error">{errors.nehezseg_id}</p>}
                         <h2 className="subtitle">Nehézség:</h2>
                         <div>
                             <button 
                                 className={`sideButton five ${formData.nehezseg_id === 1 ? 'active' : ''}`}
-                                onClick={() => setFormData(prev => ({ ...prev, nehezseg_id: 1 }))}
+                                onClick={() => { setFormData(prev => ({ ...prev, nehezseg_id: 1 })); setErrors(prev => { const n = {...prev}; delete n.nehezseg_id; return n; }); }}
                             >*</button>
                             <button 
                                 className={`sideButton five ${formData.nehezseg_id === 2 ? 'active' : ''}`}
-                                onClick={() => setFormData(prev => ({ ...prev, nehezseg_id: 2 }))}
+                                onClick={() => { setFormData(prev => ({ ...prev, nehezseg_id: 2 })); setErrors(prev => { const n = {...prev}; delete n.nehezseg_id; return n; }); }}
                             >**</button>
                             <button 
                                 className={`sideButton five ${formData.nehezseg_id === 3 ? 'active' : ''}`}
-                                onClick={() => setFormData(prev => ({ ...prev, nehezseg_id: 3 }))}
+                                onClick={() => { setFormData(prev => ({ ...prev, nehezseg_id: 3 })); setErrors(prev => { const n = {...prev}; delete n.nehezseg_id; return n; }); }}
                             >***</button>
                         </div>
 
@@ -494,6 +517,8 @@ export default function Upload(){
                         </select>
                     </div>
                 </div>
+
+                {errors.submit && <p className="upload-error" style={{textAlign: 'center', marginTop: '10px'}}>{errors.submit}</p>}
 
                 <div className="upload-nav-buttons">
                     {currentStep > 0 && (

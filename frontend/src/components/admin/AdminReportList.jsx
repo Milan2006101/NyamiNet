@@ -6,6 +6,19 @@ import '../main/styles/sidebar.css';
 
 const API_BASE_URL = 'http://localhost:3001';
 
+const PREFERENCE_DISPLAY = {
+    'vegetáriánus': 'Vegetáriánus',
+    'vegán': 'Vegán',
+    'laktózmentes': 'Laktózmentes',
+    'gluténmentes': 'Gluténmentes',
+    'mogyorók': 'Mogyorómentes',
+    'cukor': 'Cukormentes',
+    'hal': 'Hal',
+    'szója': 'Szójamentes',
+    'tojás': 'Tojásmentes',
+    'búza': 'Búzamentes'
+};
+
 export default function AdminReportList() {
     const navigate = useNavigate();
     const user = getUser();
@@ -235,7 +248,7 @@ export default function AdminReportList() {
                     >
                         <span style={{ color: regPrefs.length > 0 ? 'var(--text-primary)' : 'var(--text-muted)' }}>
                             {regPrefs.length > 0
-                                ? prefOptions.filter(p => regPrefs.includes(p.preferencia_id)).map(p => p.preferencia_nev).join(', ')
+                                ? prefOptions.filter(p => regPrefs.includes(p.preferencia_id)).map(p => PREFERENCE_DISPLAY[p.preferencia_nev] || p.preferencia_nev).join(', ')
                                 : 'Étel preferenciák'}
                         </span>
                         <span style={{ fontSize: '10px' }}>{prefDropdownOpen ? '▲' : '▼'}</span>
@@ -272,7 +285,7 @@ export default function AdminReportList() {
                                         readOnly
                                         style={{ accentColor: '#7D0A0A' }}
                                     />
-                                    <span style={{ fontSize: '13px' }}>{p.preferencia_nev}</span>
+                                    <span style={{ fontSize: '13px' }}>{PREFERENCE_DISPLAY[p.preferencia_nev] || p.preferencia_nev}</span>
                                 </div>
                             ))}
                         </div>
