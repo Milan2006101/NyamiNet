@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cy:open": "cross-env ELECTRON_EXTRA_LAUNCH_ARGS=\"--disable-gpu --no-sandbox\" cypress open",
+    "cy:run": "cross-env ELECTRON_EXTRA_LAUNCH_ARGS=\"--disable-gpu --no-sandbox\" cypress run"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
@@ -17,6 +19,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "cross-env": "^7.0.3",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
